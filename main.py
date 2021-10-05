@@ -27,7 +27,7 @@ def main():
 
     # subparts = transform.split_sheet(img_file)
 
-    background.blit(tools.transform.scale_factor(graphics.get("platform_slash"), 5))
+    background.blit(tools.transform.scale_factor(graphics.get("platform_slash").get(), 5), (0, 0))
 
     # font = pygame.font.Font(None, 36)
     # text = font.render("Hello world", 1, (10, 10, 10))

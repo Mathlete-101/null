@@ -2,7 +2,7 @@ import random
 
 
 def choose(list_):
-    return list_[random.randint(0, list_.length - 1)]
+    return list_[random.randint(0, len(list_) - 1)]
 
 
 def flatten2d(list_):

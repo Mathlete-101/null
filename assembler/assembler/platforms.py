@@ -7,7 +7,7 @@ import tools
 from graphics import graphics
 
 from graphics.graphic_class.shuffle_graphic import ShuffleGraphic
-from tools.apply import blit_all, blit_all_to, blit_to_all
+from tools.apply import blit_all_to, blit_to_all
 
 
 def assemble():
@@ -37,12 +37,11 @@ def assemble():
     edge_names = ["_one_edge", "_corner", "_three_edge", "_four_edge", "_wall"]
 
     # generate a shuffle graphic for every possible foreground and background combination
-    for i in range(0, 4):
-        name = "platform" + foreground_names[i]
+    for i in range(0, len(foreground_names)):
+        name = "platform_" + foreground_names[i]
         base = blit_to_all(backgrounds, foregrounds[i])
 
         graphics.add(ShuffleGraphic(base.copy()), name)
 
-        for j in range(0, 4):
-            added = blit_to_all(base, edges[i])
+        for j in range(0, len(edge_names)):
             graphics.add(blit_to_all(base, edges[i]), name + edge_names[j])
