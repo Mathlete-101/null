@@ -5,3 +5,6 @@ class Graphic:
 
     def get(self):
         return self.img
+
+    def get_with_edge(self):
+        return self.get()
