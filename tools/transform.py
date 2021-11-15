@@ -20,5 +20,18 @@ def split_sheet(surface, colorkey=(255, 255, 255)):
     return imgs
 
 
-def scale_factor(surface, factor):
-    return pygame.transform.scale(surface, (surface.get_size()[0] * factor, surface.get_size()[1] * factor))
+def scale_factor(surface: pygame.Surface, factor):
+    new_surface = pygame.transform.scale(surface, (surface.get_size()[0] * factor, surface.get_size()[1] * factor))
+    new_surface.set_colorkey(surface.get_colorkey())
+    return new_surface
+
+
+def get_clear_surface(dim):
+    surface = pygame.Surface(dim)
+    surface.fill(pygame.Color(255, 255, 255))
+    surface.set_colorkey((255, 255, 255))
+    return surface
+
+
+def blit_rect(surface: pygame.Surface, rect, color):
+    surface.fill(color, rect)

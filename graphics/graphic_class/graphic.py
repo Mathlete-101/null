@@ -8,3 +8,6 @@ class Graphic:
 
     def get_with_edge(self):
         return self.get()
+
+    def __len__(self):
+        return 1

@@ -9,5 +9,4 @@ def flatten2d(list_):
     end_list = []
     for row in list_:
         end_list.extend(row)
-
     return end_list

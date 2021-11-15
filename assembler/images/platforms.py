@@ -3,11 +3,8 @@ import os.path
 import pygame
 
 import tools
-
 from graphics import graphics
 from graphics.graphic_class.shuffle_edge_graphic import ShuffleEdgeGraphic
-
-from graphics.graphic_class.shuffle_graphic import ShuffleGraphic
 from tools.apply import blit_all_to, blit_to_all
 
 
