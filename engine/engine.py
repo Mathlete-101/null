@@ -13,11 +13,11 @@ def start():
 
     current_level: Level = levels["1"]
 
+    fps = 30
     while True:
         pygame.display.flip()
-
         screen.blit(current_level.render(), (min(0, 0 - (current_level.player.render_location[0] - screen.get_width()//2)), 0))
-        clock.tick(30)
+        clock.tick(fps)
         font = pygame.font.SysFont('Courier New', 12, True)
         screen.blit(font.render(str(round(clock.get_fps(), 2)), False, (255, 255, 0)), (10, 10))
 
@@ -44,6 +44,8 @@ def start():
                     keys.a = True
                 elif event.key == pygame.K_b:
                     keys.b = True
+                elif event.key == pygame.K_e:
+                    fps = 3
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_UP:
                     keys.up = False
@@ -57,5 +59,7 @@ def start():
                     keys.a = False
                 elif event.key == pygame.K_b:
                     keys.b = False
+                elif event.key == pygame.K_e:
+                    fps = 30
 
         current_level.update()

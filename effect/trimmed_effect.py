@@ -13,7 +13,6 @@ class TrimmedEffect(Effect):
 
     def get_frame(self):
         frame = super().get_frame()
-        print(frame.get_size())
         sub_frame = frame.subsurface(self.rect)
         final_frame = tools.transform.get_clear_surface(frame.get_size())
         final_frame.blit(sub_frame, self.rect.topleft)

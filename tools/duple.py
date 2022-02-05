@@ -5,6 +5,10 @@ def add(a, b):
     return a[0] + b[0], a[1] + b[1]
 
 
+def subtract(a, b):
+    return a[0] - b[0], a[1] - b[1]
+
+
 def scale(a, b):
     return a[0] * b, a[1] * b
 
@@ -18,4 +22,8 @@ def near(a, b):
 
 
 def adjacent(a, b):
-    return abs(a[0] - b[0]) <= 1 and a[1] == b[1] or abs(a[1] - b[1]) <= 1 and a[0] == b[0]
+    return abs(a[0] - b[0]) == 1 and a[1] == b[1] or abs(a[1] - b[1]) == 1 and a[0] == b[0]
+
+
+def insert(a, b):
+    return a[0], b

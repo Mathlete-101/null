@@ -35,7 +35,7 @@ class Level:
         self.player = Player(self)
         self.scale_factor = 2
         self.effects = []
-        self.network_manager = NetworkManager()
+        self.network_manager = NetworkManager(self)
 
     def set(self, location: (int, int), block):
         self.main[location[0]][location[1]] = block
@@ -48,6 +48,7 @@ class Level:
 
     def update(self):
         self.player.update()
+        self.network_manager.update()
 
     def set_player_location(self, location):
         self.player.location = location

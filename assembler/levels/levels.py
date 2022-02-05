@@ -23,6 +23,7 @@ def assemble_levels():
             else:
                 grids[sub_path] = [[]]
         levels[directory] = assign(LevelText(grids["background"], grids["main"], grids["foreground"]))
+        levels[directory].network_manager.initialize()
 
 
 def get_level(level):

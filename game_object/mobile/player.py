@@ -4,12 +4,11 @@ import pygame
 
 from animation.animation import Animation
 from animation.groups.directional_animation_group import DirectionalAnimationGroup
-from animation.loop_animation import LoopAnimation
 from animation.loop_directional_animation import LoopDirectionalAnimation
 from effect.effect import Effect
 from effect.trimmed_effect import TrimmedEffect
-from engine import keys
 from game_object.static.block import Block
+from engine import keys
 from graphics import graphics
 from tools import duple
 
@@ -197,7 +196,7 @@ class Player(object):
         self.vy = self.vy if self.vy > -0.99999 else -0.99999
 
         corners = [self.hitbox.topleft, self.hitbox.topright, self.hitbox.bottomleft, self.hitbox.bottomright]
-        corners = list(set([duple.floor(duple.scale(x, 1/42)) for x in corners]))
+        corners = list(set([duple.floor(duple.scale(x, 1 / 42)) for x in corners]))
         # check to see if the space we are currently on modifies our movement somehow
         check_blocks = [self.level.main[c[0]][c[1]] for c in corners]
         for b in check_blocks:
@@ -215,16 +214,33 @@ class Player(object):
             nb = self.next_bottom
             nx = self.x if self.left_supported else self.next_x
             if math.floor(nb) != math.floor(b):
-                target: Block = self.level.main[math.floor(nx)][math.floor(self.next_bottom)]
-                target2: Block = self.level.main[math.floor(nx) + 1][math.floor(self.next_bottom)]
-                if target.special_collision:
+                target = self.level.main[math.floor(nx)][math.floor(nb)]
+                target2 = self.level.main[math.floor(nx) + 1][math.floor(nb)]
+
+                # this fixes a small movement bug
+                funny_correction = False
+                if math.floor(self.next_x) != math.floor(self.x):
+                    target3 = self.level.main[math.floor(nx)][math.floor(self.bottom)]
+                    if target3.is_right_wall:
+                        funny_correction = True
+
+                if target.special_collision and not funny_correction:
                     target.init_collide_special(self)
                 if target2.special_collision:
                     target2.collide_special(self)
-                # stupid floats
-                if target.is_floor or target2.is_floor and target2.x - self.x + 0.00000005 < self.hitbox.width / 42:
-                    self.bottom = math.ceil(self.bottom)
-                    self.vy = 0
+
+                # i hate the movement code
+                if not funny_correction:
+                    if target.is_floor:
+                        self.bottom = math.ceil(self.bottom)
+                        self.vy = 0
+                    if target2.is_floor and target2.x - self.x - .05 < self.hitbox.width / 42 and not self.level.main[math.floor(nx) + 1][math.floor(self.bottom)].is_left_wall:
+                        self.bottom = math.ceil(self.bottom)
+                        self.vy = 0
+                        if not self.check_support(self.velocity):
+                            self.x += 0.05
+
+
         elif self.vy < 0:
             t = self.top
             nt = self.next_top
@@ -232,11 +248,19 @@ class Player(object):
             if math.floor(nt) != math.floor(t):
                 target: Block = self.level.main[math.floor(nx)][math.floor(self.next_y)]
                 target2: Block = self.level.main[math.floor(nx) + 1][math.floor(self.next_y)]
+
+                funny_correction = False
+                if math.floor(self.next_x) != math.floor(self.x):
+                    target3 = self.level.main[math.floor(nx)][math.floor(self.top)]
+                    if target3.is_right_wall:
+                        funny_correction = True
+
                 if target.special_collision:
                     target.init_collide_special(self)
                 if target2.special_collision:
                     target2.collide_special(self)
-                if target.is_ceiling or target2.is_ceiling and target2.x - self.x + 0.00000005 < self.hitbox.width / 42:
+                if (
+                        target.is_ceiling or target2.is_ceiling and target2.x - self.x + .01 < self.hitbox.width / 42) and not funny_correction:
                     self.top = math.floor(self.top)
                     self.vy = 0
 
@@ -263,8 +287,10 @@ class Player(object):
                     target.init_collide_special(self)
                 if target2.special_collision:
                     target2.collide_special(self)
-                if target.is_right_wall or target2.is_right_wall and target2.y - self.next_y < self.hitbox.height / 42:
+
+                if target.is_left_wall or (target2.is_left_wall and self.next_bottom > target2.y):
                     self.right = math.floor(self.right) + (0 if self.right_supported else 1)
+
                     self.vx = 0
 
         # just constrain motion to be within the level. This shouldn't really matter
@@ -277,26 +303,31 @@ class Player(object):
         # update position
         self.location = self.next_location
 
-        #laser gun
+        # laser gun
         if keys.a and self.laser_cooldown == 0:
             direction = -1 if self.last_dir_is_left else 1
             offset = direction
-            while offset + math.floor(self.x + 28/42) < len(self.level.main) and not self.level.main[math.floor(self.x + 28/42 - (self.last_dir_is_left)) + offset][math.floor(self.y)].opaque:
-                self.level.effects.append(Effect(Animation(graphics.get("player_laser")), duple.add(self.render_location, (offset * 42, 0)), True))
+            while offset + math.floor(self.x + 28 / 42) < len(self.level.main) and not \
+            self.level.main[math.floor(self.x + 28 / 42 - (self.last_dir_is_left)) + offset][math.floor(self.y)].opaque:
+                self.level.effects.append(
+                    Effect(Animation(graphics.get("player_laser")), duple.add(self.render_location, (offset * 42, 0)),
+                           True))
                 offset += direction
             if self.last_dir_is_left:
-                left = (math.floor((self.location[0] - math.floor(self.location[0] + 28/42)) * 42) + 28) % 42
+                left = (math.floor((self.location[0] - math.floor(self.location[0] + 28 / 42)) * 42) + 28) % 42
                 rect = pygame.Rect(42 - left, 0, left, 42)
-                self.level.effects.append(TrimmedEffect(Animation(graphics.get("player_laser")), duple.add(self.render_location, (offset * 42, 0)), rect, True))
+                self.level.effects.append(TrimmedEffect(Animation(graphics.get("player_laser")),
+                                                        duple.add(self.render_location, (offset * 42, 0)), rect, True))
             else:
-                right = -(math.ceil((self.location[0] - math.ceil(self.location[0] + 28/42)) * 42) + 27) % 42
+                right = -(math.ceil((self.location[0] - math.ceil(self.location[0] + 28 / 42)) * 42) + 27) % 42
                 rect = pygame.Rect(0, 0, right, 42)
-                self.level.effects.append(TrimmedEffect(Animation(graphics.get("player_laser")), duple.add(self.render_location, (offset * 42, 0)), rect, True))
+                self.level.effects.append(TrimmedEffect(Animation(graphics.get("player_laser")),
+                                                        duple.add(self.render_location, (offset * 42, 0)), rect, True))
 
-            impact_block = self.level.main[math.floor(self.x + 28/42 - self.last_dir_is_left) + offset][math.floor(self.y)]
+            impact_block = self.level.main[math.floor(self.x + 28 / 42 - self.last_dir_is_left) + offset][
+                math.floor(self.y)]
             if "energy_receptive" in impact_block.tags:
                 impact_block.on_energy_hit(1)
-
 
             self.laser_cooldown = 10
 
@@ -304,7 +335,6 @@ class Player(object):
             self.laser_cooldown -= 1
 
         self.directional_animation_group.set_left(self.last_dir_is_left)
-
 
     def render(self):
         if self.speed <= 0.001:

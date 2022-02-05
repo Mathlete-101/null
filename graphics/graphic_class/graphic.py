@@ -9,5 +9,14 @@ class Graphic:
     def get_with_edge(self):
         return self.get()
 
+    def get_on(self):
+        return self.get()
+
+    def get_off(self):
+        return self.get()
+
+    def get_all(self):
+        return [self.get()]
+
     def __len__(self):
         return 1

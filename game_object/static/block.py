@@ -7,10 +7,21 @@ from tools import duple, transform
 
 
 class Block(GameObject):
+
+    @property
+    def image(self):
+        return self._image
+
+    @image.setter
+    def image(self, image):
+        self._image = image
+        self.render()
+
+
     def __init__(self, position, render_target, image):
-        self.image: pygame.Surface = image
-        if self.image:
-            self.image.set_colorkey((255, 255, 255))
+        self._image: pygame.Surface = image
+        if self._image:
+            self._image.set_colorkey((255, 255, 255))
         self.location = position
         self.render_target = render_target
         self.render_position = duple.scale(position, 21 * 2)

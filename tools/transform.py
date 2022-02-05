@@ -35,3 +35,9 @@ def get_clear_surface(dim):
 
 def blit_rect(surface: pygame.Surface, rect, color):
     surface.fill(color, rect)
+
+
+def cp_section(surface, rect):
+    s = get_clear_surface((21, 21))
+    s.blit(surface.subsurface(rect), (rect[0], rect[1]))
+    return s

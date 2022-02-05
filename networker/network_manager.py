@@ -1,35 +1,36 @@
-from networker.network.enrgy_network import EnergyNetwork
 
 
 class NetworkManager:
-    def __init__(self):
+    def __init__(self, level):
         self.queue = []
         self.registry = {}
+        self.level = level
 
     @property
     def all_networks(self):
         nets = []
         for net in self.registry:
-           nets.append(net)
-        return net
+            nets += self.registry[net]
+        return nets
+
+    def network_update(self, update_network):
+        nets = self.registry[update_network.network_type]
+        for i in range(len(nets)):
+            if nets[i].touches(update_network):
+                update_network.merge(nets.pop(i))
+                self.network_update(update_network)
+                return update_network
+        self.registry[update_network.network_type].append(update_network)
+        return update_network
 
     def request(self, block, network_type):
-        if not self.registry.get(network_type):
-            self.registry[network_type] = []
 
-        update_network = None
-        if network_type == "energy":
-            update_network = EnergyNetwork(block)
+        update_network = network_type(block, self.level)
 
-        if update_network:
-            while True:
-                for network in self.registry[network_type]:
-                    if network.touches(update_network):
-                        pass
+        if update_network.network_type not in self.registry:
+            self.registry[update_network.network_type] = []
 
-                break
-
-
+        return self.network_update(update_network)
 
     def update(self):
         for network in self.all_networks:
