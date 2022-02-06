@@ -33,6 +33,13 @@ def get_clear_surface(dim):
     return surface
 
 
+def get_white_surface(dim):
+    surface = pygame.Surface(dim)
+    surface.fill(pygame.Color(255, 255, 255))
+    # surface.set_colorkey((255, 255, 255))
+    return surface
+
+
 def blit_rect(surface: pygame.Surface, rect, color):
     surface.fill(color, rect)
 

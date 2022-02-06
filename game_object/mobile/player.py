@@ -43,6 +43,8 @@ class Player(object):
         # So I just took this value, passed it through its original method chain, and made the laser totally independent
         # of the hitbox. Hence, this tuple.
         self.laser_image_offset = (-14, -10)
+        self.laser_diff = duple.subtract(self.laser_image_offset, self.image_offset)
+        self.small_laser_diff = duple.scale(self.laser_diff, 1/42)
 
         self.is_supported = False
         self.refresh_support()
@@ -207,7 +209,6 @@ class Player(object):
 
         if not self.is_supported:
             self.vy += 0.02
-            print("accelerating")
 
 
 
@@ -262,7 +263,6 @@ class Player(object):
                 # i hate the movement code
                 if not funny_correction:
                     if target.is_floor:
-                        print("collision")
                         self.bottom = math.ceil(self.bottom)
                         self.vy = 0
                     if target2.is_floor and target2.x - self.x - .01 < self.hitbox.width / 42 and not self.level.main[math.floor(nx) + 1][math.floor(self.bottom)].is_left_wall:

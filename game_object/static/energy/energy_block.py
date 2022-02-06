@@ -20,6 +20,7 @@ class EnergyBlock(Block):
         self.is_on = False
         self.graphic = graphic
         self.tags.append("energy")
+        self.supplying = False
 
     def on(self):
         self.image = self.graphic.get_on()
@@ -39,3 +40,6 @@ class EnergyBlock(Block):
 
     def can_connect(self, location):
         return False
+
+    def initialize(self):
+        pass

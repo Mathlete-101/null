@@ -36,6 +36,8 @@ class EnergyNetwork(Network):
     def initialize(self):
         for obj in self.objects:
             self.the_complicated_part(obj)
+        for obj in self.objects:
+            obj.initialize()
 
     def update(self):
         for obj in set([x[1] for x in self.update_tickers]):
@@ -58,22 +60,31 @@ class EnergyNetwork(Network):
                     success, connection = item.attempt_connection(net, block.location)
                     if success:
                         net.connections.append(connection)
-                        #perform auto orientation on the item (if needed)
-                        if "energy_receptive" in item.tags:
-                            receiver = None
+                        # perform auto orientation on the item (if needed)
+                        if "energy_receptive" in item.tags or "force_field" in item.tags:
+                            graphic = None
                             if "timed" in item.tags:
-                                receiver = graphics.get("energy_receiver_time")
+                                graphic = graphics.get("energy_receiver_time")
                             elif "toggle" in item.tags:
-                                receiver = graphics.get("energy_receiver_toggle")
+                                graphic = graphics.get("energy_receiver_toggle")
+                            elif "force_field" in item.tags:
+                                graphic = graphics.get("energy_force_field")
 
                             if block.location[0] > item.location[0]:
-                                item.graphic = receiver.get_rotation(-90)
+                                item.graphic = graphic.get_rotation(-90)
+                                orientation = (1, 0)
                             elif block.location[0] < item.location[0]:
-                                item.graphic = receiver.get_rotation(90)
+                                item.graphic = graphic.get_rotation(90)
+                                orientation = (-1, 0)
                             elif block.location[1] > item.location[1]:
-                                item.graphic = receiver.get_rotation(180)
+                                item.graphic = graphic.get_rotation(180)
+                                orientation = (0, -1)
                             else:
-                                item.graphic = receiver
+                                item.graphic = graphic
+                                orientation = (0, 1)
+
+                            if "force_field" in item.tags:
+                                item.orientation = orientation
 
                         relevant_stuff.append(item)
                 else:
@@ -143,17 +154,17 @@ class EnergyNetwork(Network):
 
         elif "energy_receptive" in block.tags:
             if len(relevant_stuff) != 0:
-                receiver = None
+                graphic = None
                 if "timed" in block.tags:
-                    receiver = graphics.get("energy_receiver_time")
+                    graphic = graphics.get("energy_receiver_time")
                 elif "toggle" in block.tags:
-                    receiver = graphics.get("energy_receiver_toggle")
+                    graphic = graphics.get("energy_receiver_toggle")
 
                 if relevant_stuff[0].location[0] > block.location[0]:
-                    block.graphic = receiver.get_rotation(-90)
+                    block.graphic = graphic.get_rotation(-90)
                 elif relevant_stuff[0].location[0] < block.location[0]:
-                    block.graphic = receiver.get_rotation(90)
+                    block.graphic = graphic.get_rotation(90)
                 elif relevant_stuff[0].location[1] > block.location[1]:
-                    block.graphic = receiver.get_rotation(180)
+                    block.graphic = graphic.get_rotation(180)
                 else:
-                    block.graphic = receiver
+                    block.graphic = graphic

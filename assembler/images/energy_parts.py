@@ -7,6 +7,7 @@ import tools
 from graphics.graphic_class.animation_graphic import AnimationGraphic
 from graphics.graphic_class.graphic import Graphic
 from graphics.graphic_class.reflection_graphic import ReflectionGraphic
+from graphics.graphic_class.rotation_graphic import RotationGraphic
 from graphics.graphic_class.rotation_reflection_sectional_switch_graphic import RotationReflectionSectionalSwitchGraphic
 from graphics.graphic_class.rotation_switch_graphic import RotationSwitchGraphic
 from tools.transform import get_clear_surface, cp_section
@@ -47,3 +48,7 @@ def assemble():
         cp_section(energy_parts[4][7], (8, 7, 5, 6))
     ])
     graphics.add(transistor_graphic, "energy_transistor")
+
+    graphics.add(RotationSwitchGraphic(energy_parts[1][6], energy_parts[2][6]), "energy_force_field")
+
+    graphics.add(RotationGraphic(energy_parts[0][5]), "force_field")

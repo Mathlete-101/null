@@ -4,19 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42117786-7b2d-4532-bf14-8ab0f6567828" name="Changes" comment="Fixed collisions again. Now have fully featured energy networks, with lots of parts, that can connect with wires but not eachother quite yet.">
-      <change afterPath="$PROJECT_DIR$/resources/images/player/moving.png" afterDir="false" />
+    <list default="true" id="42117786-7b2d-4532-bf14-8ab0f6567828" name="Changes" comment="Added a character, fixed hitboxes, laser, and movement once again">
+      <change afterPath="$PROJECT_DIR$/game_object/static/energy/energy_force_field_block.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/game_object/static/force_field_block.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/graphic_class/rotation_graphic.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assembler/images/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/assembler/images/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assembler/images/energy_parts.py" beforeDir="false" afterPath="$PROJECT_DIR$/assembler/images/energy_parts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assigner/assigner.py" beforeDir="false" afterPath="$PROJECT_DIR$/assigner/assigner.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_object/mobile/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/mobile/player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object/static/block.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/static/block.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/level/level.py" beforeDir="false" afterPath="$PROJECT_DIR$/level/level.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_object/static/energy/energy_block.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/static/energy/energy_block.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/networker/network/energy_network.py" beforeDir="false" afterPath="$PROJECT_DIR$/networker/network/energy_network.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/images/player/static.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/images/player/static.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/levels/1/background.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/1/background.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/images/blocks/energy_parts.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/images/blocks/energy_parts.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/levels/1/main.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/1/main.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/duple.py" beforeDir="false" afterPath="$PROJECT_DIR$/tools/duple.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tools/transform.py" beforeDir="false" afterPath="$PROJECT_DIR$/tools/transform.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -176,7 +175,14 @@
       <option name="project" value="LOCAL" />
       <updated>1644037226612</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added a character, fixed hitboxes, laser, and movement once again">
+      <created>1644132383661</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1644132383661</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -199,7 +205,8 @@
     <MESSAGE value="Finally worked out all the bugs for the primary sequence. Levels of arbitrary size are rendered correctly" />
     <MESSAGE value="Player works. Collisions work. Ladders added. Laser added. Networks in progress." />
     <MESSAGE value="Fixed collisions again. Now have fully featured energy networks, with lots of parts, that can connect with wires but not eachother quite yet." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed collisions again. Now have fully featured energy networks, with lots of parts, that can connect with wires but not eachother quite yet." />
+    <MESSAGE value="Added a character, fixed hitboxes, laser, and movement once again" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added a character, fixed hitboxes, laser, and movement once again" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

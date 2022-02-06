@@ -3,6 +3,7 @@ import math
 import graphics.graphics
 from game_object.static.block import Block
 from game_object.static.energy.energy_delay_block import EnergyDelayBlock
+from game_object.static.energy.energy_force_field_block import EnergyForceFieldBlock
 from game_object.static.energy.energy_timed_receptive_block import EnergyTimedReceptiveBlock
 from game_object.static.energy.energy_toggle_receptive_block import EnergyToggleReceptiveBlock
 from game_object.static.energy.energy_transistor_block import EnergyTransistorBlock
@@ -77,6 +78,9 @@ def assign(level_text: LevelText):
                 graphic = graphics.get("energy_transistor")
                 graphic = graphic.get_reflection(reflection)
                 graphic = graphic.get_rotation(abs(4 - rotation))
-
                 level.set(location, EnergyTransistorBlock(location, level.main_surface, level.network_manager, graphic, reflection, rotation))
+
+            elif chars[1] == "F":
+                level.set(location, EnergyForceFieldBlock(location, level.main_surface, level.network_manager, graphics.get("energy_force_field")))
+
     return level
