@@ -11,18 +11,39 @@ from game_object.static.block import Block
 from engine import keys
 from graphics import graphics
 from tools import duple
+from tools.transform import MicroRect
 
 
 class Player(object):
 
     def __init__(self, level, location=(1, 1)):
         self.location = location
+
+        # animations
         self.static_animation = LoopDirectionalAnimation(graphics.get("player_static"), 6)
+        self.walking_animation = LoopDirectionalAnimation(graphics.get("player_walking"), 2)
+        self.jumping_animation = LoopDirectionalAnimation(graphics.get("player_jumping"), 10)
+
+        # animation group
         self.directional_animation_group: DirectionalAnimationGroup = DirectionalAnimationGroup()
         self.directional_animation_group.add(self.static_animation)
+        self.directional_animation_group.add(self.walking_animation)
+        self.directional_animation_group.add(self.jumping_animation)
+
+
         self.velocity = (0, 0)
         self.level = level
-        self.image_offset = (-14, -22)
+        self.image_offset = (-7, -10)
+
+        # okay, so this needs some explaining
+        # I wrote some code that controls the laser, but it was tuned for a different hitbox size
+        # The hitbox is separated from the image by this image offset thing
+        # And this was the original one.
+        # When I started changing the player, I couldn't get the laser to work right again
+        # So I just took this value, passed it through its original method chain, and made the laser totally independent
+        # of the hitbox. Hence, this tuple.
+        self.laser_image_offset = (-14, -10)
+
         self.is_supported = False
         self.refresh_support()
         self.laser_cooldown = 0
@@ -67,7 +88,7 @@ class Player(object):
 
     @property
     def hitbox(self):
-        return pygame.Rect(self.x * 42, self.y * 42, 14, 20)
+        return pygame.Rect(self.x * 42, round(self.y * 42), 28, 32)
 
     @property
     def speed(self):
@@ -151,35 +172,44 @@ class Player(object):
 
     @property
     def next_hitbox(self):
+        """DON'T USE, THIS IS BROKEN"""
         return pygame.Rect(self.next_x, self.next_y, self.hitbox.width, self.hitbox.height)
 
     @property
     def render_location(self):
-        return duple.add(self.image_offset, duple.scale(self.location, 42))
+        return duple.d_round(duple.add(self.image_offset, duple.scale(self.location, 42)))
+
+    @property
+    def laser_render_location(self):
+        """Used for calculation of laser animations"""
+        return duple.d_round(duple.add(self.laser_image_offset, duple.scale(self.location, 42)))
 
     def refresh_support(self):
         self.is_supported = self.check_support()
 
     def check_support(self, offset=(0, 0)):
         supported = False
-        hitbox = self.hitbox.copy()
+        hitbox = self.hitbox
         hitbox.x += offset[0]
         hitbox.y += offset[1]
         for row in self.surrounding_blocks:
             for block in row:
                 supported = supported or block.check_support(hitbox)
-                if block.check_support(hitbox):
-                    # block.alert()
-                    pass
+                # if block.check_support(hitbox):
+                #     pass
 
         return supported
 
+    # don't look in here. Down this path madness lies
     def update(self):
 
         self.refresh_support()
 
         if not self.is_supported:
             self.vy += 0.02
+            print("accelerating")
+
+
 
         # side to side motion
         if keys.left:
@@ -232,14 +262,14 @@ class Player(object):
                 # i hate the movement code
                 if not funny_correction:
                     if target.is_floor:
+                        print("collision")
                         self.bottom = math.ceil(self.bottom)
                         self.vy = 0
-                    if target2.is_floor and target2.x - self.x - .05 < self.hitbox.width / 42 and not self.level.main[math.floor(nx) + 1][math.floor(self.bottom)].is_left_wall:
+                    if target2.is_floor and target2.x - self.x - .01 < self.hitbox.width / 42 and not self.level.main[math.floor(nx) + 1][math.floor(self.bottom)].is_left_wall:
                         self.bottom = math.ceil(self.bottom)
                         self.vy = 0
                         if not self.check_support(self.velocity):
                             self.x += 0.05
-
 
         elif self.vy < 0:
             t = self.top
@@ -274,9 +304,11 @@ class Player(object):
                     target.init_collide_special(self)
                 if target2.special_collision:
                     target2.collide_special(self)
-                if target.is_left_wall or target2.is_ceiling and target2.y - self.next_y < self.hitbox.height / 42:
+
+                if target.is_right_wall or target2.is_right_wall and target2.y - self.next_y < self.hitbox.height / 42:
                     self.left = math.floor(self.left)
                     self.vx = 0
+
         elif self.vx > 0:
             r = self.right
             nr = self.next_right
@@ -290,7 +322,7 @@ class Player(object):
 
                 if target.is_left_wall or (target2.is_left_wall and self.next_bottom > target2.y):
                     self.right = math.floor(self.right) + (0 if self.right_supported else 1)
-
+                    # print(self.next_bottom, self.next_right, self.vy, self.is_supported)
                     self.vx = 0
 
         # just constrain motion to be within the level. This shouldn't really matter
@@ -305,30 +337,42 @@ class Player(object):
 
         # laser gun
         if keys.a and self.laser_cooldown == 0:
+            # Figure out direction
             direction = -1 if self.last_dir_is_left else 1
             offset = direction
+            # Generate the main set of lasers (don't touch)
             while offset + math.floor(self.x + 28 / 42) < len(self.level.main) and not \
             self.level.main[math.floor(self.x + 28 / 42 - (self.last_dir_is_left)) + offset][math.floor(self.y)].opaque:
                 self.level.effects.append(
-                    Effect(Animation(graphics.get("player_laser")), duple.add(self.render_location, (offset * 42, 0)),
+                    Effect(Animation(graphics.get("player_laser")), duple.add(self.laser_render_location, (offset * 42, 0)),
                            True))
                 offset += direction
+
+            # There is a bit of magic number stuff going on here, but I can't deal with it.
+
+            # Generate the first and last lasers if you are going left
             if self.last_dir_is_left:
                 left = (math.floor((self.location[0] - math.floor(self.location[0] + 28 / 42)) * 42) + 28) % 42
                 rect = pygame.Rect(42 - left, 0, left, 42)
                 self.level.effects.append(TrimmedEffect(Animation(graphics.get("player_laser")),
-                                                        duple.add(self.render_location, (offset * 42, 0)), rect, True))
+                                                        duple.add(self.laser_render_location, (offset * 42, 0)), rect, True))
+                self.level.effects.append(TrimmedEffect(Animation(graphics.get("player_laser")),
+                                                        self.laser_render_location, pygame.Rect(0, 0, 14, 42), True))
+
+            # Generate the first and last lasers if you are going right
             else:
                 right = -(math.ceil((self.location[0] - math.ceil(self.location[0] + 28 / 42)) * 42) + 27) % 42
                 rect = pygame.Rect(0, 0, right, 42)
                 self.level.effects.append(TrimmedEffect(Animation(graphics.get("player_laser")),
-                                                        duple.add(self.render_location, (offset * 42, 0)), rect, True))
+                                                        duple.add(self.laser_render_location, (offset * 42, 0)), rect, True))
 
+            # Trigger whatever block you hit
             impact_block = self.level.main[math.floor(self.x + 28 / 42 - self.last_dir_is_left) + offset][
                 math.floor(self.y)]
             if "energy_receptive" in impact_block.tags:
                 impact_block.on_energy_hit(1)
 
+        # Handle the cooldown on the laser
             self.laser_cooldown = 10
 
         if self.laser_cooldown > 0:
@@ -337,8 +381,15 @@ class Player(object):
         self.directional_animation_group.set_left(self.last_dir_is_left)
 
     def render(self):
-        if self.speed <= 0.001:
+        if self.speed <= 0.0001 and self.is_supported:
             render = self.static_animation.render()
             return render
         else:
-            return self.static_animation.render()
+            if self.is_supported:
+                render = self.walking_animation.render()
+                return render
+            else:
+                return self.jumping_animation.render()
+
+
+        # return self.static_animation.render()

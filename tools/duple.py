@@ -27,3 +27,8 @@ def adjacent(a, b):
 
 def insert(a, b):
     return a[0], b
+
+
+def d_round(a):
+    return round(a[0]), round(a[1])
+

@@ -4,6 +4,7 @@ import pygame
 
 from game_object.game_object import GameObject
 from tools import duple, transform
+from tools.transform import MicroRect, rect_intersect
 
 
 class Block(GameObject):
@@ -48,7 +49,11 @@ class Block(GameObject):
         if self.render_target:
             self.render_target.blit(surface, self.render_position)
 
-    def check_box_intersection(self, hitbox: pygame.Rect):
+    @property
+    def micro_hitbox(self):
+        return MicroRect(self.hitbox.x, self.hitbox.y, self.hitbox.w, self.hitbox.h)
+
+    def check_box_intersection(self, hitbox: pygame.rect):
         return self.hitbox.colliderect(hitbox)
 
         # if position[0] > self.position[0] + 21 or position[1] > self.position[1] + 21:
@@ -68,7 +73,7 @@ class Block(GameObject):
         #         pass
 
     def check_support(self, hitbox):
-        first_check = self.check_box_intersection(hitbox)
+        first_check = self.check_box_intersection(hitbox.move(0, 0))
         second_check = self.check_box_intersection(hitbox.move(0, 1))
         return not first_check and second_check
 

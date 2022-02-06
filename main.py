@@ -2,6 +2,7 @@ import pygame
 
 from assembler import assembler
 from engine import engine
+from tools.transform import MicroRect
 
 if not pygame.font: print('Warning: fonts disabled')
 if not pygame.mixer: print('Warning: sounds disabled')

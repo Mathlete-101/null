@@ -80,9 +80,10 @@ class EnergyNetwork(Network):
                     relevant_stuff.append(item)
 
         # for non wires
+        # for now, I'm just going to not do this.
         if "wire" not in block.tags:
             for item in possibly_relevant_stuff:
-                if "wire" not in item.tags and block.can_connect(block.location):
+                if "wire" not in item.tags and block.can_connect(item.location):
                     success, connection = item.attempt_connection(block, block.location)
                     if success:
                         relevant_stuff.append(item)

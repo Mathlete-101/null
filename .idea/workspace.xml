@@ -4,56 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42117786-7b2d-4532-bf14-8ab0f6567828" name="Changes" comment="Player works. Collisions work. Ladders added. Laser added. Networks in progress.">
-      <change afterPath="$PROJECT_DIR$/animation/loop_switchable_animation.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animation/switchable_animation.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_object/static/energy/energy_block.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_object/static/energy/energy_delay_block.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_object/static/energy/energy_output_block.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_object/static/energy/energy_receptive_block.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_object/static/energy/energy_timed_receptive_block.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_object/static/energy/energy_toggle_receptive_block.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_object/static/energy/energy_transistor_block.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_object/static/energy/energy_virtual_input_block.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_object/static/energy/energy_virtual_output_block.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_object/static/energy/energy_wire_block.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graphics/graphic_class/reflection_rotation_switch_graphic.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graphics/graphic_class/reflection_sectional_switch_graphic.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graphics/graphic_class/rotation_reflection_sectional_switch_graphic.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graphics/graphic_class/rotation_switch_graphic.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graphics/graphic_class/sectional_switch_graphic.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graphics/graphic_class/switch_graphic.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/misc/energy_connection_tracker.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/misc/virtual_energy_connection/virtual_energy_connection.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/misc/virtual_energy_connection/virtual_energy_input.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/misc/virtual_energy_connection/virtual_energy_output.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/networker/network/energy_subnet.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tools/ticker.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/FBLA-Repo-1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/FBLA-Repo-1.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="42117786-7b2d-4532-bf14-8ab0f6567828" name="Changes" comment="Fixed collisions again. Now have fully featured energy networks, with lots of parts, that can connect with wires but not eachother quite yet.">
+      <change afterPath="$PROJECT_DIR$/resources/images/player/moving.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assembler/images/energy_parts.py" beforeDir="false" afterPath="$PROJECT_DIR$/assembler/images/energy_parts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assembler/levels/levels.py" beforeDir="false" afterPath="$PROJECT_DIR$/assembler/levels/levels.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assigner/assigner.py" beforeDir="false" afterPath="$PROJECT_DIR$/assigner/assigner.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/effect/trimmed_effect.py" beforeDir="false" afterPath="$PROJECT_DIR$/effect/trimmed_effect.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/engine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assembler/images/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/assembler/images/player.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_object/mobile/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/mobile/player.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_object/static/block.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/static/block.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object/static/energy_block.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object/static/energy_receptive_block.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphics/graphic_class/animation_graphic.py" beforeDir="false" afterPath="$PROJECT_DIR$/graphics/graphic_class/animation_graphic.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphics/graphic_class/graphic.py" beforeDir="false" afterPath="$PROJECT_DIR$/graphics/graphic_class/graphic.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphics/graphic_class/shuffle_graphic.py" beforeDir="false" afterPath="$PROJECT_DIR$/graphics/graphic_class/shuffle_graphic.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphics/graphics.py" beforeDir="false" afterPath="$PROJECT_DIR$/graphics/graphics.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/level/level.py" beforeDir="false" afterPath="$PROJECT_DIR$/level/level.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/networker/network/enrgy_network.py" beforeDir="false" afterPath="$PROJECT_DIR$/networker/network/energy_network.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/networker/network/network.py" beforeDir="false" afterPath="$PROJECT_DIR$/networker/network/network.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/networker/network_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/networker/network_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/images/blocks/energy_parts.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/images/blocks/energy_parts.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/networker/network/energy_network.py" beforeDir="false" afterPath="$PROJECT_DIR$/networker/network/energy_network.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/images/player/static.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/images/player/static.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/levels/1/background.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/1/background.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/levels/1/main.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/1/main.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tools/duple.py" beforeDir="false" afterPath="$PROJECT_DIR$/tools/duple.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/lists.py" beforeDir="false" afterPath="$PROJECT_DIR$/tools/lists.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tools/transform.py" beforeDir="false" afterPath="$PROJECT_DIR$/tools/transform.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -206,7 +169,14 @@
       <option name="project" value="LOCAL" />
       <updated>1634874485352</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Fixed collisions again. Now have fully featured energy networks, with lots of parts, that can connect with wires but not eachother quite yet.">
+      <created>1644037226612</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1644037226612</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -228,7 +198,8 @@
     <MESSAGE value="The primary architecture has been created, the program is now runnable" />
     <MESSAGE value="Finally worked out all the bugs for the primary sequence. Levels of arbitrary size are rendered correctly" />
     <MESSAGE value="Player works. Collisions work. Ladders added. Laser added. Networks in progress." />
-    <option name="LAST_COMMIT_MESSAGE" value="Player works. Collisions work. Ladders added. Laser added. Networks in progress." />
+    <MESSAGE value="Fixed collisions again. Now have fully featured energy networks, with lots of parts, that can connect with wires but not eachother quite yet." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed collisions again. Now have fully featured energy networks, with lots of parts, that can connect with wires but not eachother quite yet." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

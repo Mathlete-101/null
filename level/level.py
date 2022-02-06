@@ -58,9 +58,9 @@ class Level:
         render.fill((0, 0, 255))
         render.blit(self.background_surface, (0, 0))
         render.blit(self.main_surface, (0, 0))
-        # tools.transform.blit_rect(render, self.player.hitbox, (0, 255, 0))
+        tools.transform.blit_rect(render, self.player.hitbox, (0, 255, 0))
         render.blit(tools.transform.scale_factor(self.player.render(), 2), self.player.render_location)
-        render.blit(self.foreground_surface, (0, 0))
+        # render.blit(self.foreground_surface, (0, 0))
         next_effects = []
         for effect in self.effects:
             effect.render(render)
