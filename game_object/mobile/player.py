@@ -204,6 +204,7 @@ class Player(object):
 
     # don't look in here. Down this path madness lies
     def update(self):
+        print("lol")
 
         self.refresh_support()
 
@@ -334,6 +335,11 @@ class Player(object):
 
         # update position
         self.location = self.next_location
+
+        # doors
+        if keys.a and "door" in self.level.main[math.floor(self.x)][math.floor(self.y)].tags:
+            self.level.main[math.floor(self.x)][math.floor(self.y)].enter()
+            return
 
         # laser gun
         if keys.a and self.laser_cooldown == 0:

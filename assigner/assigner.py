@@ -2,6 +2,7 @@ import math
 
 import graphics.graphics
 from game_object.static.block import Block
+from game_object.static.door_block import DoorBlock
 from game_object.static.energy.energy_delay_block import EnergyDelayBlock
 from game_object.static.energy.energy_force_field_block import EnergyForceFieldBlock
 from game_object.static.energy.energy_timed_receptive_block import EnergyTimedReceptiveBlock
@@ -20,7 +21,7 @@ from level.level_text import LevelText
 # <space> = air
 # B = a standard block/wall/whatever
 
-def assign(level_text: LevelText):
+def assign(level_text: LevelText, level_name):
     level = Level(level_text.dim)
 
     for i in range(0, level_text.dim[0]):
@@ -40,6 +41,7 @@ def assign(level_text: LevelText):
                     "platform_" + ("cross" if (location[0] + location[1]) % 2 else "box")).get_with_edge(edges)))
 
             elif chars[1] == "P":
+                level.set(location, DoorBlock(location, level.main_surface, graphics.get("door_" + level_name).get(), level, -1))
                 level.set_player_location(location)
 
             elif chars[1] == "L":
@@ -82,5 +84,8 @@ def assign(level_text: LevelText):
 
             elif chars[1] == "F":
                 level.set(location, EnergyForceFieldBlock(location, level.main_surface, level.network_manager, graphics.get("energy_force_field")))
+
+            elif chars[1] == "d":
+                level.set(location, DoorBlock(location, level.main_surface, graphics.get("door_exit").get(), level, 0))
 
     return level

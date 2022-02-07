@@ -5,6 +5,9 @@ import numpy
 import assigner
 
 
+# takes the raw file and turns it into a 2d array
+# uses numpy to make sure that x is x and y is y
+# stores it for consumption by a better class
 class TextLayer:
     def __init__(self, text):
         if text:

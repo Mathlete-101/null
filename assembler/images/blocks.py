@@ -1,4 +1,4 @@
-from assembler.images import energy_parts, platforms, ladder, columns
+from assembler.images import energy_parts, platforms, ladder, columns, doors
 
 
 def assemble():
@@ -6,3 +6,4 @@ def assemble():
     platforms.assemble()
     ladder.assemble()
     columns.assemble()
+    doors.assemble()

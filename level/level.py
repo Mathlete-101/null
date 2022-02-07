@@ -1,6 +1,7 @@
 from typing import List
 
 import pygame
+from stopwatch import Stopwatch
 
 import graphics.graphics
 import tools.transform
@@ -36,6 +37,8 @@ class Level:
         self.scale_factor = 2
         self.effects = []
         self.network_manager = NetworkManager(self)
+        self.render_base = pygame.Surface(self.render_dim)
+        self.render_base.fill((0, 0, 255))
 
     def set(self, location: (int, int), block):
         self.main[location[0]][location[1]] = block
@@ -54,18 +57,14 @@ class Level:
         self.player.location = location
 
     def render(self):
-        render = pygame.Surface(self.render_dim)
-        render.fill((0, 0, 255))
-        render.blit(self.background_surface, (0, 0))
-        render.blit(self.main_surface, (0, 0))
-        tools.transform.blit_rect(render, self.player.hitbox, (0, 255, 0))
-        render.blit(tools.transform.scale_factor(self.player.render(), 2), self.player.render_location)
-        # render.blit(self.foreground_surface, (0, 0))
+        self.render_base.blit(self.background_surface, (0, 0))
+        self.render_base.blit(self.main_surface, (0, 0))
+        self.render_base.blit(tools.transform.scale_factor(self.player.render(), 2), self.player.render_location)
         next_effects = []
         for effect in self.effects:
-            effect.render(render)
+            effect.render(self.render_base)
             if not effect.animation.ended:
                 next_effects.append(effect)
         self.effects = next_effects
 
-        return render
+        return self.render_base

@@ -37,7 +37,7 @@ class EnergyForceFieldBlock(EnergyBlock):
             print(self.orientation)
             while "air" in self.network.level.main[position[0]][position[1]].tags:
                 graphic = graphics.get("force_field").get_rotation(0 if self.orientation[0] else 90)
-                graphic.set_alpha(100)
+                # graphic.set_alpha(100)
                 new_block = ForceFieldBlock(position, self.render_target, graphic)
                 self.network.level.main[position[0]][position[1]] = new_block
                 self.force_fields.append(new_block)
