@@ -27,7 +27,7 @@ class Index:
         self.grid = [[Bucket() for i in range(0, dim[1])] for i in range(0, dim[0])]
         for i in range(0, dim[0]):
             for j in range(0, dim[1]):
-                # print(self.grid[i][j], [x[max(j-1,0):min(j+1,)] for x in self.grid[i-1:i+1])
+                # print(self.grid[i][j], [x[max(j-2,0):min(j+2,)] for x in self.grid[i-2:i+2])
                 # self.grid[i][j].set_surrounding_buckets(self.grid)
                 pass
 

@@ -32,6 +32,11 @@ class EnergyBlock(Block):
         self.render()
         self.is_on = False
 
+    def render(self):
+        super().render()
+        if self.network:
+            self.group.draw(self.network.level.world_surface)
+
     def power_update(self):
         self.off()
 
@@ -40,6 +45,3 @@ class EnergyBlock(Block):
 
     def can_connect(self, location):
         return False
-
-    def initialize(self):
-        pass

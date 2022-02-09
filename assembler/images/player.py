@@ -24,5 +24,12 @@ def assemble():
 
     #laser
     laser = tools.transform.split_sheet(pygame.image.load(os.path.join("resources", "images", "player", "laser.png")))
+    images = []
+    for i in range(0, 4):
+        img = tools.transform.get_clear_surface((84, 42))
+        img.blit(laser[0][i], (0, 0))
+        img.blit(laser[0][i], (42, 0))
+        images.append(img)
 
     graphics.add(AnimationGraphic(laser[0][0:4]), "player_laser")
+    graphics.add(AnimationGraphic(images), "player_laser_long")

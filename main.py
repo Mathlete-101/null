@@ -1,8 +1,6 @@
 import pygame
 
 from assembler import assembler
-from engine.engine import engine
-from tools.transform import MicroRect
 
 if not pygame.font: print('Warning: fonts disabled')
 if not pygame.mixer: print('Warning: sounds disabled')
@@ -10,6 +8,7 @@ if not pygame.mixer: print('Warning: sounds disabled')
 
 def main():
     assembler.assemble()
+    from engine.engine import engine
     engine.start()
 
     # pygame.init()
@@ -26,7 +25,7 @@ def main():
     # background.blit(tools.transform.scale_factor(graphics.get("platform_slash_one_edge").get(), 5), (0, 0))
     #
     # # font = pygame.font.Font(None, 36)
-    # # text = font.render("Hello world", 1, (10, 10, 10))
+    # # text = font.render("Hello world", 2, (10, 10, 10))
     # # text_pos = text.get_rect()
     # # text_pos.centerx = background.get_rect().centerx
     # # background.blit(text, text_pos)
@@ -36,7 +35,7 @@ def main():
     # screen.blit(background, (0, 0))
     # pygame.display.flip()
     #
-    # while 1:
+    # while 2:
     #
     #
     #     screen.blit(background, (0, 0))

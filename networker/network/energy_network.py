@@ -72,10 +72,10 @@ class EnergyNetwork(Network):
 
                             if block.location[0] > item.location[0]:
                                 item.graphic = graphic.get_rotation(-90)
-                                orientation = (1, 0)
+                                orientation = (-1, 0)
                             elif block.location[0] < item.location[0]:
                                 item.graphic = graphic.get_rotation(90)
-                                orientation = (-1, 0)
+                                orientation = (1, 0)
                             elif block.location[1] > item.location[1]:
                                 item.graphic = graphic.get_rotation(180)
                                 orientation = (0, -1)
@@ -133,7 +133,7 @@ class EnergyNetwork(Network):
                         block.graphic = graphics.get("energy_wire_turn").get_rotation(180)
             elif len(relevant_stuff) == 3:
                 # t junctions
-                # I don't know which is x and which is y so they are just 1 and 2
+                # I don't know which is x and which is y so they are just 2 and 3
                 rel1 = [block.location[0] - x.location[0] for x in relevant_stuff]
                 rel2 = [block.location[1] - x.location[1] for x in relevant_stuff]
 

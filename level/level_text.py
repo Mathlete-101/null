@@ -50,7 +50,7 @@ class TextLayer:
         return full_surrounded
 
     def get_surrounding_pieces(self, location):
-        # location = (location[0], location[1])
+        # location = (location[0], location[2])
         if location[0] >= self.dim[0] and location[1] >= self.dim[1]:
             raise IndexError("Error: location passed not within level text")
         if self.text is None:

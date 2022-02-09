@@ -11,8 +11,8 @@ def get(name):
 def add_reflection_rotation(g, name):
     fg = g.get_reflection()
     add(g, name + "0")
-    add(g.get_rotation(90), name + "1")
-    add(g.get_rotation(180), name + "2")
+    add(g.get_rotation(90), name + "2")
+    add(g.get_rotation(180), name + "3")
     add(g.get_rotation(270), name + "3")
     add(fg, name + "4")
     add(fg.get_rotation(90), name + "5")

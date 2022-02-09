@@ -4,6 +4,9 @@ from assigner.assigner import assign
 from level.level_text import LevelText, TextLayer
 
 
+def check_level_exists(dir):
+    return os.path.exists(os.path.join("resources", "levels", dir))
+
 def load_level(dir):
     file_path = os.path.join('resources', 'levels', dir)
     grids = {}
@@ -19,5 +22,5 @@ def load_level(dir):
         else:
             grids[sub_path] = [[]]
     level = assign(LevelText(grids["background"], grids["main"], grids["foreground"]), dir)
-    level.network_manager.initialize()
+    level.initialize()
     return level

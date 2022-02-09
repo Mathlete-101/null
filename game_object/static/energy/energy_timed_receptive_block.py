@@ -19,7 +19,7 @@ class EnergyTimedReceptiveBlock(EnergyReceptiveBlock):
         self.supplying = True
         if self.connected:
             self.connected.power_update()
-        self.network.level.effects.append(
+        self.network.level.add_effect(
             Effect(Animation(graphics.get("energy_sphere_decreasing_animation"), 10), self.render_position, True))
 
     def update(self):

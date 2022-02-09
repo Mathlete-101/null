@@ -1,3 +1,4 @@
+import graphics.graphics
 from game_object.static.no_sides_block import NoSidesBlock
 
 

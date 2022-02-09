@@ -31,21 +31,21 @@ def assemble():
     graphics.add(RotationSwitchGraphic(energy_parts[1][4], energy_parts[2][4]), "energy_wire_cross_junction")
 
     graphics.add(RotationReflectionSectionalSwitchGraphic(energy_parts[2][5], energy_parts[1][5], [
-        cp_section(energy_parts[2][5], (7, 17, 5, 4)),
-        cp_section(energy_parts[2][5], (4, 16, 15, 3)),
-        cp_section(energy_parts[2][5], (4, 13, 15, 3)),
-        cp_section(energy_parts[2][5], (4, 10, 15, 3)),
-        cp_section(energy_parts[2][5], (4, 7, 15, 3)),
-        cp_section(energy_parts[2][5], (4, 4, 15, 3)),
-        cp_section(energy_parts[2][5], (4, 0, 15, 4))
+        cp_section(energy_parts[2][5], (14, 34, 10, 8)),
+        cp_section(energy_parts[2][5], (8, 32, 30, 6)),
+        cp_section(energy_parts[2][5], (8, 26, 30, 6)),
+        cp_section(energy_parts[2][5], (8, 20, 30, 6)),
+        cp_section(energy_parts[2][5], (8, 14, 30, 6)),
+        cp_section(energy_parts[2][5], (8, 8, 30, 6)),
+        cp_section(energy_parts[2][5], (8, 0, 30, 8))
     ]), "energy_delay")
 
     transistor_graphic = RotationReflectionSectionalSwitchGraphic(energy_parts[1][7], energy_parts[2][7], [
-        cp_section(energy_parts[2][7], (0, 7, 8, 7)),
-        cp_section(energy_parts[2][7], (8, 7, 5, 6)),
-        cp_section(energy_parts[2][7], (13, 7, 8, 7)),
-        cp_section(energy_parts[4][7], (8, 12, 7, 9)),
-        cp_section(energy_parts[4][7], (8, 7, 5, 6))
+        cp_section(energy_parts[2][7], (0, 14, 16, 14)),
+        cp_section(energy_parts[2][7], (16, 14, 10, 16)),
+        cp_section(energy_parts[2][7], (26, 14, 16, 14)),
+        cp_section(energy_parts[4][7], (16, 24, 14, 18)),
+        cp_section(energy_parts[4][7], (16, 14, 10, 12))
     ])
     graphics.add(transistor_graphic, "energy_transistor")
 

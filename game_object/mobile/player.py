@@ -14,9 +14,10 @@ from tools import duple
 from tools.transform import MicroRect
 
 
-class Player(object):
+class Player(pygame.sprite.Sprite):
 
     def __init__(self, level, location=(1, 1)):
+        super().__init__()
         self.location = location
 
         # animations
@@ -93,6 +94,11 @@ class Player(object):
         return pygame.Rect(self.x * 42, round(self.y * 42), 28, 32)
 
     @property
+    def rect(self):
+        """This determines where to draw and erase the player"""
+        return pygame.Rect(self.render_location[0], self.render_location[1], 0, self.hitbox.h)
+
+    @property
     def speed(self):
         return math.sqrt(math.pow(self.vx, 2) + math.pow(self.vy, 2))
 
@@ -143,6 +149,10 @@ class Player(object):
     @x_center.setter
     def x_center(self, val):
         self.x = val - self.hitbox.width / 84
+
+    @property
+    def y_center(self):
+        return self.y + self.hitbox.height / 84
 
     @property
     def next_location(self):
@@ -204,7 +214,6 @@ class Player(object):
 
     # don't look in here. Down this path madness lies
     def update(self):
-        print("lol")
 
         self.refresh_support()
 
@@ -346,37 +355,48 @@ class Player(object):
             # Figure out direction
             direction = -1 if self.last_dir_is_left else 1
             offset = direction
-            # Generate the main set of lasers (don't touch)
-            while offset + math.floor(self.x + 28 / 42) < len(self.level.main) and not \
-            self.level.main[math.floor(self.x + 28 / 42 - (self.last_dir_is_left)) + offset][math.floor(self.y)].opaque:
-                self.level.effects.append(
-                    Effect(Animation(graphics.get("player_laser")), duple.add(self.laser_render_location, (offset * 42, 0)),
-                           True))
-                offset += direction
+            # Check if they are right next to a block
+            if not self.level.main[math.floor(self.x_center + direction)][math.floor(self.y)].opaque:
+                # Generate the main set of lasers (don't touch)
+                while offset + math.floor(self.x + 28 / 42) < len(self.level.main) and not \
+                self.level.main[math.floor(self.x + 28 / 42 - (self.last_dir_is_left)) + offset][math.floor(self.y)].opaque:
+                    self.level.add_effect(
+                        Effect(Animation(graphics.get("player_laser")), duple.add(self.laser_render_location, (offset * 42, 0)),
+                               True))
+                    offset += direction
 
-            # There is a bit of magic number stuff going on here, but I can't deal with it.
+                # There is a bit of magic number stuff going on here, but I can't deal with it.
 
-            # Generate the first and last lasers if you are going left
-            if self.last_dir_is_left:
-                left = (math.floor((self.location[0] - math.floor(self.location[0] + 28 / 42)) * 42) + 28) % 42
-                rect = pygame.Rect(42 - left, 0, left, 42)
-                self.level.effects.append(TrimmedEffect(Animation(graphics.get("player_laser")),
-                                                        duple.add(self.laser_render_location, (offset * 42, 0)), rect, True))
-                self.level.effects.append(TrimmedEffect(Animation(graphics.get("player_laser")),
-                                                        self.laser_render_location, pygame.Rect(0, 0, 14, 42), True))
+                # Generate the first and last lasers if you are going left
+                if self.last_dir_is_left:
+                    left = (math.floor((self.location[0] - math.floor(self.location[0] + 28 / 42)) * 42) + 28) % 42
+                    rect = pygame.Rect(42 - left, 0, left, 42)
+                    self.level.add_effect(TrimmedEffect(Animation(graphics.get("player_laser")),
+                                                            duple.add(self.laser_render_location, (offset * 42, 0)), rect, True))
+                    self.level.add_effect(TrimmedEffect(Animation(graphics.get("player_laser")),
+                                                            self.laser_render_location, pygame.Rect(0, 0, 14, 42), True))
 
-            # Generate the first and last lasers if you are going right
+                # Generate the first and last lasers if you are going right
+                else:
+                    right = -(math.ceil((self.location[0] - math.ceil(self.location[0] + 28 / 42)) * 42) + 27) % 42
+                    rect = pygame.Rect(0, 0, right, 42)
+                    self.level.add_effect(TrimmedEffect(Animation(graphics.get("player_laser")),
+                                                            duple.add(self.laser_render_location, (offset * 42, 0)), rect, True))
+
+                # Trigger whatever block you hit
+                impact_block = self.level.main[math.floor(self.x + 28 / 42 - self.last_dir_is_left) + offset][
+                    math.floor(self.y)]
+                if "energy_receptive" in impact_block.tags:
+                    impact_block.on_energy_hit(1)
             else:
-                right = -(math.ceil((self.location[0] - math.ceil(self.location[0] + 28 / 42)) * 42) + 27) % 42
-                rect = pygame.Rect(0, 0, right, 42)
-                self.level.effects.append(TrimmedEffect(Animation(graphics.get("player_laser")),
-                                                        duple.add(self.laser_render_location, (offset * 42, 0)), rect, True))
-
-            # Trigger whatever block you hit
-            impact_block = self.level.main[math.floor(self.x + 28 / 42 - self.last_dir_is_left) + offset][
-                math.floor(self.y)]
-            if "energy_receptive" in impact_block.tags:
-                impact_block.on_energy_hit(1)
+                impact_block = self.level.main[math.floor(self.x_center + direction)][math.floor(self.y)]
+                if not self.last_dir_is_left:
+                    self.level.add_effect(TrimmedEffect(Animation(graphics.get("player_laser_long")), duple.add(self.laser_render_location, (42, 0)), pygame.Rect(0, 0, round((impact_block.location[0] * 42 - self.laser_render_location[0] - 42)), 42), True))
+                else:
+                    laser_length = round((self.laser_render_location[0] - impact_block.location[0] * 42) - 29)
+                    self.level.add_effect(TrimmedEffect(Animation(graphics.get("player_laser_long")), duple.add(self.laser_render_location, (-29, 0)), pygame.Rect(42 - laser_length, 0, laser_length, 42), True))
+                if "energy_receptive" in impact_block.tags:
+                    impact_block.on_energy_hit(1)
 
         # Handle the cooldown on the laser
             self.laser_cooldown = 10
@@ -384,9 +404,15 @@ class Player(object):
         if self.laser_cooldown > 0:
             self.laser_cooldown -= 1
 
+        # Collect data sticks
+        block = self.level.main[math.floor(self.x_center)][math.floor(self.y_center)]
+        if "data_stick" in block.tags:
+            block.collect()
+
         self.directional_animation_group.set_left(self.last_dir_is_left)
 
-    def render(self):
+    @property
+    def image(self):
         if self.speed <= 0.0001 and self.is_supported:
             render = self.static_animation.render()
             return render
@@ -396,6 +422,5 @@ class Player(object):
                 return render
             else:
                 return self.jumping_animation.render()
-
 
         # return self.static_animation.render()

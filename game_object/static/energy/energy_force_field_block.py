@@ -15,7 +15,7 @@ class EnergyForceFieldBlock(EnergyBlock):
         self.force_fields = []
 
     def power_update(self):
-        if self.connected.supplying:
+        if self.connected and self.connected.supplying:
             self.on()
         else:
             self.off()
@@ -33,14 +33,14 @@ class EnergyForceFieldBlock(EnergyBlock):
 
     def initialize(self):
         if self.orientation != (0, 0):
-            position = duple.add(self.location, self.orientation)
             print(self.orientation)
+            position = duple.add(self.location, self.orientation)
             while "air" in self.network.level.main[position[0]][position[1]].tags:
                 graphic = graphics.get("force_field").get_rotation(0 if self.orientation[0] else 90)
-                # graphic.set_alpha(100)
-                new_block = ForceFieldBlock(position, self.render_target, graphic)
+                new_block = ForceFieldBlock(position, self.render_target, self.network.level.world_surface, graphic, self.network.level.continuous_block_sprite_group, self.network.level.col_groups[position[0]])
                 self.network.level.main[position[0]][position[1]] = new_block
                 self.force_fields.append(new_block)
                 position = duple.add(position, self.orientation)
-                print("yay")
+
+        self.power_update()
 

@@ -11,4 +11,6 @@ class DoorBlock(NoCollisionBlock):
     def enter(self):
         if self.trigger_code != -1:
             from engine.engine import engine
+            engine.score += (1 + self.trigger_code) * 1000
             engine.next_level()
+            self.trigger_code = -1

@@ -1,7 +1,7 @@
 import pygame;
 
 
-def split_sheet(surface, colorkey=(255, 255, 255)):
+def split_sheet(surface, colorkey=(255, 255, 255), scale=True):
     imgs = []
     i = 0
     j = 0
@@ -15,6 +15,7 @@ def split_sheet(surface, colorkey=(255, 255, 255)):
         j += 22
         for s in row:
             s.set_colorkey(colorkey)
+        row = [scale_factor(img, 2) for img in row]
         imgs.append(row.copy())
         row = []
     return imgs
@@ -45,7 +46,7 @@ def blit_rect(surface: pygame.Surface, rect, color):
 
 
 def cp_section(surface, rect):
-    s = get_clear_surface((21, 21))
+    s = get_clear_surface((42, 42))
     s.blit(surface.subsurface(rect), (rect[0], rect[1]))
     return s
 
