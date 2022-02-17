@@ -4,65 +4,57 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42117786-7b2d-4532-bf14-8ab0f6567828" name="Changes" comment="Added doors and moving between levels. However, I then realized that the renderer has lots of lag, so now I have to fix that.">
-      <change afterPath="$PROJECT_DIR$/assembler/images/null.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/externals/game_over/game_over.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/externals/leaderboard/leader.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/externals/leaderboard/leaderboard.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/externals/leaderboard/leaders.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/externals/title_screen/selector.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/externals/title_screen/selector_item.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/externals/title_screen/title_screen.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_object/static/changing_block.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_object/static/changing_no_collision_block.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_object/static/data_stick.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_object/static/dirty_block.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/level/null_group.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/misc/wrapped_sprite.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/images/blocks/null.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/images/misc/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/3/background.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/3/foreground.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/3/main.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/misc/minecraft_font.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tools/text.py" afterDir="false" />
+    <list default="true" id="42117786-7b2d-4532-bf14-8ab0f6567828" name="Changes" comment="Presentation Version 1">
+      <change afterPath="$PROJECT_DIR$/assembler/images/background.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/game_object/static/energy/energy_wire_no_collision_block.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/images/misc/background.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/levels/4/background.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/levels/4/foreground.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/levels/4/main.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/levels/5/background.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/levels/5/foreground.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/levels/5/main.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/levels/6/background.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/levels/6/foreground.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/levels/6/main.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/levels/7/background.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/levels/7/foreground.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/levels/7/main.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/levels/blank/background.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/levels/blank/foreground.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/levels/blank/main.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assembler/images/blocks.py" beforeDir="false" afterPath="$PROJECT_DIR$/assembler/images/blocks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assembler/images/doors.py" beforeDir="false" afterPath="$PROJECT_DIR$/assembler/images/doors_and_data_sticks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assembler/images/doors_and_data_sticks.py" beforeDir="false" afterPath="$PROJECT_DIR$/assembler/images/doors_and_data_sticks.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assembler/images/energy_parts.py" beforeDir="false" afterPath="$PROJECT_DIR$/assembler/images/energy_parts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assembler/images/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/assembler/images/player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assembler/levels/levels.py" beforeDir="false" afterPath="$PROJECT_DIR$/assembler/levels/levels.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assembler/images/platforms.py" beforeDir="false" afterPath="$PROJECT_DIR$/assembler/images/platforms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assigner/assigner.py" beforeDir="false" afterPath="$PROJECT_DIR$/assigner/assigner.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/effect/effect.py" beforeDir="false" afterPath="$PROJECT_DIR$/effect/effect.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/effect/trimmed_effect.py" beforeDir="false" afterPath="$PROJECT_DIR$/effect/trimmed_effect.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/engine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/keys.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/keys.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/externals/game_over/game_over.py" beforeDir="false" afterPath="$PROJECT_DIR$/externals/game_over/game_over.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/externals/leaderboard/leaderboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/externals/leaderboard/leaderboard.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/externals/leaderboard/leaders.py" beforeDir="false" afterPath="$PROJECT_DIR$/externals/leaderboard/leaders.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/externals/title_screen/title_screen.py" beforeDir="false" afterPath="$PROJECT_DIR$/externals/title_screen/title_screen.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_object/game_object.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/game_object.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object/index.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/index.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_object/mobile/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/mobile/player.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_object/static/block.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/static/block.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_object/static/data_stick.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/static/data_stick.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_object/static/door_block.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/static/door_block.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object/static/energy/energy_block.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/static/energy/energy_block.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object/static/energy/energy_force_field_block.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/static/energy/energy_force_field_block.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object/static/energy/energy_timed_receptive_block.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/static/energy/energy_timed_receptive_block.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object/static/energy/energy_toggle_receptive_block.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/static/energy/energy_toggle_receptive_block.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_object/static/energy/energy_delay_block.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/static/energy/energy_delay_block.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_object/static/force_field_block.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/static/force_field_block.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object/static/no_collision_block.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/static/no_collision_block.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphics/graphic_class/rotation_graphic.py" beforeDir="false" afterPath="$PROJECT_DIR$/graphics/graphic_class/rotation_graphic.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphics/graphics.py" beforeDir="false" afterPath="$PROJECT_DIR$/graphics/graphics.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphics/graphic_class/reflection_graphic.py" beforeDir="false" afterPath="$PROJECT_DIR$/graphics/graphic_class/reflection_graphic.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/level/level.py" beforeDir="false" afterPath="$PROJECT_DIR$/level/level.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/level/level_text.py" beforeDir="false" afterPath="$PROJECT_DIR$/level/level_text.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/networker/network/energy_network.py" beforeDir="false" afterPath="$PROJECT_DIR$/networker/network/energy_network.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/images/blocks/doors.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/images/blocks/doors_and_data_sticks.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/images/blocks/columns.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/images/blocks/columns.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/images/blocks/doors_and_data_sticks.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/images/blocks/doors_and_data_sticks.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/images/blocks/platforms.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/images/blocks/platforms.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/images/hitboxes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/images/misc/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/images/misc/logo.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/images/player/moving.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/images/player/moving.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/levels/1/background.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/1/background.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/levels/1/main.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/1/main.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/levels/2/background.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/2/background.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/levels/2/main.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/2/main.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/3/main.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/3/main.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tools/transform.py" beforeDir="false" afterPath="$PROJECT_DIR$/tools/transform.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -118,20 +110,41 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\resources\levels" />
-      <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\resources\levels\1" />
       <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\resources\images\blocks" />
       <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\resources\images\misc" />
+      <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\resources\levels\1" />
       <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\resources\misc" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\resources\images\misc" />
       <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\externals\game_over" />
       <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\externals\title_screen" />
       <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1" />
       <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\game_object\static\energy" />
-      <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\misc\virtual_energy_connection" />
     </key>
   </component>
   <component name="RunManager" selected="Python.main">
+    <configuration name="game" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="FBLA-Repo-1" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/engine" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="C:\Users\166790\PycharmProjects\FBLA-Repo-1\engine\game.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="FBLA-Repo-1" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -178,9 +191,11 @@
     <list>
       <item itemvalue="Python.main" />
       <item itemvalue="Python.player" />
+      <item itemvalue="Python.game" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.game" />
         <item itemvalue="Python.player" />
       </list>
     </recent_temporary>
@@ -245,7 +260,14 @@
       <option name="project" value="LOCAL" />
       <updated>1644259492115</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Presentation Version 1">
+      <created>1644422468859</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1644422468859</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -271,7 +293,8 @@
     <MESSAGE value="Added a character, fixed hitboxes, laser, and movement once again" />
     <MESSAGE value="Added Force Fields. Graphics need some work, but the functionality is there.&#10;This should be the final game piece nessecary." />
     <MESSAGE value="Added doors and moving between levels. However, I then realized that the renderer has lots of lag, so now I have to fix that." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added doors and moving between levels. However, I then realized that the renderer has lots of lag, so now I have to fix that." />
+    <MESSAGE value="Presentation Version 1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Presentation Version 1" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

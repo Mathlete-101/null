@@ -10,9 +10,10 @@ class DataStick (NoSidesBlock):
         self.second_render_target = second_render_target
         self.tags.append("data_stick")
         self.opaque = False
+        self.is_floor = False
 
     def collect(self):
-        from engine.engine import engine
+        from engine.game import engine
 
         # yay points
         engine.score += self.value
@@ -21,4 +22,8 @@ class DataStick (NoSidesBlock):
         self.group.clear(self.render_target, self.second_render_target)
         engine.current_level.main[self.location[0]][self.location[1]] = Air(self.location)
         self.kill()
+
+    def check_support(self, hitbox):
+        return False
+
 

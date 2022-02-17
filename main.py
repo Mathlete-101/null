@@ -1,14 +1,11 @@
 import pygame
-
-from assembler import assembler
+from engine.game import engine
 
 if not pygame.font: print('Warning: fonts disabled')
 if not pygame.mixer: print('Warning: sounds disabled')
 
 
 def main():
-    assembler.assemble()
-    from engine.engine import engine
     engine.start()
 
     # pygame.init()

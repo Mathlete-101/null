@@ -10,13 +10,13 @@ from networker.network.energy_network import EnergyNetwork
 class EnergyDelayBlock(EnergyBlock):
     def __init__(self, position, render_target, network_mgr, graphic, rotation):
         super().__init__(position, render_target, network_mgr, graphic)
+        self.input_connection = None
+        self.output_connection = None
         self.network = network_mgr.request(self, EnergyNetwork)
         self.storage = [False, False, False, False, False]
         self.tags.append("delay")
         self.rotation = rotation
         self.connection_tracker = EnergyConnectionTracker(True, False, True, False, self.location, rotation=rotation)
-        self.input_connection = None
-        self.output_connection = None
         self.update_ticker = None
         self.set_image()
 
@@ -72,5 +72,9 @@ class EnergyDelayBlock(EnergyBlock):
 
     @supplying.setter
     def supplying(self, val):
-        self.output_connection.supplying = val
+        # We need a try here to handle this one error we get
+        try:
+            self.output_connection.supplying = val
+        except AttributeError:
+            pass
 

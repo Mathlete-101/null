@@ -30,6 +30,22 @@ def assemble():
     graphics.add(RotationSwitchGraphic(energy_parts[1][3], energy_parts[2][3]), "energy_wire_t_junction")
     graphics.add(RotationSwitchGraphic(energy_parts[1][4], energy_parts[2][4]), "energy_wire_cross_junction")
 
+    # Darken them up a bit. This will pull in some other stuff, but it's fine and actually beneficial
+    darker = pygame.Surface((42, 42))
+    darker.fill(pygame.Color(0, 0, 0))
+    darker.set_alpha(100)
+    darker.convert_alpha()
+    darker_wires = [[energy_parts[i][j].copy() for j in range(0, 5)] for i in range(0, 3)]
+    for row in darker_wires:
+        for wire in row:
+            wire.blit(darker, (0, 0))
+
+    # Add graphics for the darker wires
+    graphics.add(RotationSwitchGraphic(darker_wires[1][1], darker_wires[2][1]), "energy_wire_through_dark")
+    graphics.add(RotationSwitchGraphic(darker_wires[1][2], darker_wires[2][2]), "energy_wire_turn_dark")
+    graphics.add(RotationSwitchGraphic(darker_wires[1][3], darker_wires[2][3]), "energy_wire_t_junction_dark")
+    graphics.add(RotationSwitchGraphic(darker_wires[1][4], darker_wires[2][4]), "energy_wire_cross_junction_dark")
+
     graphics.add(RotationReflectionSectionalSwitchGraphic(energy_parts[2][5], energy_parts[1][5], [
         cp_section(energy_parts[2][5], (14, 34, 10, 8)),
         cp_section(energy_parts[2][5], (8, 32, 30, 6)),

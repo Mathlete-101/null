@@ -12,20 +12,20 @@ BB                                                                              
 BB                                                                                                               BB
 BB                                                                                                               BB
 BB                                                                                                               BB
-BB                                                                                               T               BB
-BB                                                                                               W               BB
-BB                                                                                               W               BB
-BB                                                                                               W               BB
-BB                                        L                                                      W               BB
-BB                                       BLBBBBBBBBB                                             W               BB
-BB         LBBBBBB                       BL  3     C                                             W               BB
-BB         LB  1                        BBL  2     C                                             W               BB
-BB         LB   BBBL                   BBBL        C                                             W               BB
-BB         LB     BL                  BBBBL   1    C                          BBBBB              W               BB
-BB         LBBB   BL                 BBBBBL        C             TW               B              W               BB
-BB         LB     BL               BBBBBBBL        C              F             3 B              W               BB
-BB   P     LB222BBBL             BBBBBBBBBL        C                       d      B              W               BB
-BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBFBBBBWWWWWWWWWWWWWWWBBBBBBBBBBBBBBBBB
-BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBWWWWWWBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+BB                                                                                                               BB
+BB                                                                                                               BB
+BB                                                                                                               BB
+BB          BBBBBBBBBBBBBBBBBBBBBBB                                                                              BB
+BB          B             TWW     B                                                                              BB
+BB          B            3  tWW   B                                                                              BB
+BB          BBBL  BBBBBBBBBBWBWBBBBBBBBBBBBBBBBBB                                                                BB
+BB          B1 L            Q Q   C         B WTB                                                                BB
+BB          B  L            Q Q   C         RWt B                                                                BB
+BB          B  L            Q Q   C         B W B                                                                BB
+BB          BBBBBBB        FWBWBBBBBBBBBB   BBFBB                                                                BB
+BB          B       cc        T  2B C C B   C   C                                                                BB
+BB          B   P   cc            B C C B   C   C d                                                              BB
+BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
 BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
 BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB

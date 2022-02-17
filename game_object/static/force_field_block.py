@@ -24,6 +24,11 @@ class ForceFieldBlock:
     def __getattribute__(self, item):
         if item in ["air_block", "force_field_block", "on", "second_render_target", "always_on_group"]:
             return super().__getattribute__(item)
+        elif item == "kill":
+            print("This Happened yay")
+            self.air_block.kill()
+            self.force_field_block.kill()
+            return lambda: None
         elif self.on:
             return self.force_field_block.__getattribute__(item)
         else:
@@ -43,3 +48,7 @@ class ForceFieldBlock:
             self.force_field_block.__setattr__(key, value)
         else:
             self.air_block.__setattr__(key, value)
+
+    def kill(self):
+        self.air_block.kill()
+        self.force_field_block.kill()

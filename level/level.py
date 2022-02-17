@@ -1,10 +1,11 @@
+import random
 from typing import List
 
 import pygame
 from stopwatch import Stopwatch
 
-import graphics.graphics
 import tools.transform
+from graphics import graphics
 from animation.animation import Animation
 from effect.effect import Effect
 from game_object.mobile.player import Player
@@ -24,12 +25,25 @@ def generate_blank_grid(dim):
         grid.append(row)
     return grid
 
+def generate_background_surface(dim):
+    background = pygame.Surface(duple.scale(dim, 42))
+    background_bases = graphics.get("background_base")
+    background_emblems = graphics.get("background_emblem")
+    for i in range(dim[0]):
+        for j in range(dim[1]):
+            render_location = duple.scale((i, j), 42)
+            background.blit(background_bases.get(), render_location)
+            if random.random() < 0.1:
+                background.blit(background_emblems.get(), render_location)
+
+    return background
+
 class Level:
     def __init__(self, dim):
         self.render_dim = duple.scale(dim, 21 * 2)
-        self.background_surface = tools.transform.get_clear_surface(self.render_dim)
-        self.main_surface = tools.transform.get_clear_surface(self.render_dim)
-        self.foreground_surface = tools.transform.get_clear_surface(self.render_dim)
+        # self.background_surface = tools.transform.get_clear_surface(self.render_dim)
+        # self.main_surface = tools.transform.get_clear_surface(self.render_dim)
+        # self.foreground_surface = tools.transform.get_clear_surface(self.render_dim)
         self.background: List[List[Block]] = generate_blank_grid(dim)
         self.main = generate_blank_grid(dim)
         self.foreground = generate_blank_grid(dim)
@@ -43,8 +57,7 @@ class Level:
         self.null_line = 0
 
         # Rendering stuff
-        self.world_surface = pygame.Surface(self.render_dim)
-        self.world_surface.fill((50, 50, 200))
+        self.world_surface = generate_background_surface(self.dim)
         self.render_surface = pygame.Surface(self.render_dim)
         self.block_sprite_group = pygame.sprite.Group()
         self.continuous_block_sprite_group = pygame.sprite.Group()
@@ -71,7 +84,7 @@ class Level:
 
     def update(self):
         if self.player.x < self.null_line - 7:
-            from engine.engine import engine
+            from engine.game import engine
             engine.end_game()
         self.player.update()
         if self.network_manager:
@@ -118,7 +131,6 @@ class Level:
         pass
 
         # This doesn't work yet
-        # TODO fix this
         # get rid of anything that might have a reference to this object, thus breaking all loops and allowing for
         # garbage collection
         # del self.main

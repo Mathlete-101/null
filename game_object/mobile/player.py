@@ -245,7 +245,7 @@ class Player(pygame.sprite.Sprite):
                 b.collide_special(self)
 
         if self.is_supported:
-            if keys.up:
+            if keys.a:
                 self.vy = -0.3
             self.vy = min(self.vy, 0)
 
@@ -346,12 +346,12 @@ class Player(pygame.sprite.Sprite):
         self.location = self.next_location
 
         # doors
-        if keys.a and "door" in self.level.main[math.floor(self.x)][math.floor(self.y)].tags:
+        if keys.b and "door" in self.level.main[math.floor(self.x)][math.floor(self.y)].tags:
             self.level.main[math.floor(self.x)][math.floor(self.y)].enter()
             return
 
         # laser gun
-        if keys.a and self.laser_cooldown == 0:
+        if keys.b and self.laser_cooldown == 0:
             # Figure out direction
             direction = -1 if self.last_dir_is_left else 1
             offset = direction

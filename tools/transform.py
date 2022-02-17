@@ -1,5 +1,7 @@
 import pygame;
 
+import tools.lists
+
 
 def split_sheet(surface, colorkey=(255, 255, 255), scale=True):
     imgs = []
@@ -52,6 +54,7 @@ def cp_section(surface, rect):
 
 
 class MicroRect:
+    """A portion of the pygame.Rect class that supports float values for rectangles"""
     def __init__(self, x, y, w, h):
         self.x = x
         self.y = y
@@ -75,10 +78,22 @@ class MicroRect:
         return self.x + self.w
 
     def move(self, x, y):
+        """Moves this MicroRect, then returns itself"""
         self.x += x
         self.y += y
         return self
 
+    def intersect(self, other):
+        """Calculates if this MicroRect intersects another one."""
+        return rect_intersect(self, other)
+
 
 def rect_intersect(a: MicroRect, b: MicroRect):
+    """Calculates if two MicroRects Intersect"""
     return not (a.right < b.left or a.left > b.right or a.top > b.bottom or a.bottom < b.top)
+
+
+def combinate(surfaces):
+    """Takes in an array of surfaces and returns an array containing all of the possible rotations of all of those
+    surfaces """
+    return tools.lists.flatten2d([[pygame.transform.rotate(s.copy(), 90 * x) for s in surfaces] for x in range(4)])

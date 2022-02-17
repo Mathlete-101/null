@@ -101,18 +101,23 @@ class EnergyNetwork(Network):
 
         # automatic orientation
         if "wire" in block.tags:
+            # figure out if it needs to be a dark wire
+            if "dark" in block.tags:
+                dark = "_dark"
+            else:
+                dark = ""
             if len(relevant_stuff) == 1:
                 if relevant_stuff[0].location[1] == block.location[1]:
-                    block.graphic = graphics.get("energy_wire_through").get_rotation(90)
+                    block.graphic = graphics.get("energy_wire_through" + dark).get_rotation(90)
                     return
             elif len(relevant_stuff) == 2:
 
                 # straights
                 if relevant_stuff[0].location[1] == block.location[1] == relevant_stuff[1].location[1]:
-                    block.graphic = graphics.get("energy_wire_through").get_rotation(90)
+                    block.graphic = graphics.get("energy_wire_through" + dark).get_rotation(90)
                     return
                 elif relevant_stuff[0].location[0] == block.location[0] == relevant_stuff[1].location[0]:
-                    block.graphic = graphics.get("energy_wire_through")
+                    block.graphic = graphics.get("energy_wire_through" + dark)
                     return
 
                 # corners
@@ -123,21 +128,21 @@ class EnergyNetwork(Network):
                 hor = relevant_stuff[1].location[0] > block.location[0]
                 if vert:
                     if hor:
-                        block.graphic = graphics.get("energy_wire_turn")
+                        block.graphic = graphics.get("energy_wire_turn" + dark)
                     else:
-                        block.graphic = graphics.get("energy_wire_turn").get_rotation(-90)
+                        block.graphic = graphics.get("energy_wire_turn" + dark).get_rotation(-90)
                 else:
                     if hor:
-                        block.graphic = graphics.get("energy_wire_turn").get_rotation(90)
+                        block.graphic = graphics.get("energy_wire_turn" + dark).get_rotation(90)
                     else:
-                        block.graphic = graphics.get("energy_wire_turn").get_rotation(180)
+                        block.graphic = graphics.get("energy_wire_turn" + dark).get_rotation(180)
             elif len(relevant_stuff) == 3:
                 # t junctions
                 # I don't know which is x and which is y so they are just 2 and 3
                 rel1 = [block.location[0] - x.location[0] for x in relevant_stuff]
                 rel2 = [block.location[1] - x.location[1] for x in relevant_stuff]
 
-                t_junction = graphics.get("energy_wire_t_junction")
+                t_junction = graphics.get("energy_wire_t_junction" + dark)
 
                 if 1 not in rel1:
                     block.graphic = t_junction.get_rotation(90)
@@ -150,7 +155,7 @@ class EnergyNetwork(Network):
             elif len(relevant_stuff) == 4:
                 # cross junction
                 # this is easy
-                block.graphic = graphics.get("energy_wire_cross_junction")
+                block.graphic = graphics.get("energy_wire_cross_junction" + dark)
 
         elif "energy_receptive" in block.tags:
             if len(relevant_stuff) != 0:

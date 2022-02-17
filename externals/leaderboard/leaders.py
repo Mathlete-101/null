@@ -16,7 +16,7 @@ class Leaders(pygame.sprite.Group):
     def __init__(self):
         super().__init__()
 
-        from engine.engine import engine
+        from engine.game import engine
 
         self.letter_on = 0
 
@@ -77,7 +77,7 @@ class Leaders(pygame.sprite.Group):
                 self.letter_on += 1
                 if self.letter_on < 3:
                     self.set_new_score_name_sprite(self.letter_on, (60, 60, 255))
-                elif self.letter_on > 3:
+                elif self.letter_on == 3:
                     # save the leaderboard
                     leaderboard_dict = {}
                     leaderboard_dict["leaders"] = []
@@ -89,7 +89,8 @@ class Leaders(pygame.sprite.Group):
                             })
                         with open(self.path, "w") as file:
                             json.dump(leaderboard_dict, file)
-
+                else:
+                    # it should restart the game
                     # this doesn't work yet
                     # from engine.engine import engine
                     # engine.state = 0

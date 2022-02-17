@@ -5,8 +5,8 @@ BB                                                                              
 BB                                                                                                               BB
 BB                        BBBBBBBBBBBBBBBBBBBBB                                                                  BB
 BB                         C  L                                                                                  BB
-BB                         C  L                    B    TL                                                       BB
-BB                         C  L                    B    WL                                                       BB
+BB                         C  L                         TL                                                       BB
+BB                         C  L                         WL                                                       BB
 BB                         C  L  BBBBBBBBBBBBBBBBBBBBBBBWL                                                       BB
 BB                     B   C  L                         WL                                                       BB
 BB                    BB   C  L                         WL                                                       BB

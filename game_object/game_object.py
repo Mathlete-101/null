@@ -1,7 +1,9 @@
 import pygame.sprite
 
-
 class GameObject(pygame.sprite.Sprite):
+    """My class for anything in the actual game"""
+
+
     def __init__(self, location: (int, int)):
         super().__init__()
         self.location = location

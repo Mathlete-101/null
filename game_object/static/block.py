@@ -11,7 +11,6 @@ from tools.transform import MicroRect, rect_intersect
 class Block(GameObject):
 
     def kill(self):
-        print(self.location)
         super().kill()
 
     @property

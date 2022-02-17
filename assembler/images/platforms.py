@@ -4,6 +4,7 @@ import pygame
 
 import tools
 from graphics import graphics
+from graphics.graphic_class.edge_graphic import EdgeGraphic
 from graphics.graphic_class.shuffle_edge_graphic import ShuffleEdgeGraphic
 from tools.apply import blit_all_to, blit_to_all
 
@@ -41,3 +42,7 @@ def assemble():
         base = blit_to_all(backgrounds, foregrounds[i])
 
         graphics.add(ShuffleEdgeGraphic(base.copy(), edge, corner, corner), name)
+
+    # crates
+    graphics.add(EdgeGraphic(platforms[0][4], platforms[1][4], platforms[2][4], platforms[3][4]), "large_crate")
+

@@ -6,7 +6,7 @@ from tools.text import render_font_cool as Text
 
 class Leaderboard:
     def __init__(self, size):
-        from engine.engine import engine
+        from engine.game import engine
         self.size = size
         self.background_surface = pygame.Surface(size)
         self.background_surface.fill((60, 60, 80))
