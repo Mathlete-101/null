@@ -7,4 +7,3 @@ class LoopSwitchableAnimation(SwitchableAnimation, LoopAnimation):
 
     def __init__(self, graphic: Graphic, slowness=1):
         super().__init__(graphic, slowness)
-        print("I was created")

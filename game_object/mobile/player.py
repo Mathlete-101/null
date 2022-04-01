@@ -4,6 +4,7 @@ import pygame
 
 from animation.animation import Animation
 from animation.groups.directional_animation_group import DirectionalAnimationGroup
+from animation.loop_animation import LoopAnimation
 from animation.loop_directional_animation import LoopDirectionalAnimation
 from effect.effect import Effect
 from effect.trimmed_effect import TrimmedEffect
@@ -12,6 +13,37 @@ from engine import keys
 from graphics import graphics
 from tools import duple
 from tools.transform import MicroRect
+
+
+class PlayerMovementOverrideCommand:
+    def __init__(self, function, duration):
+        self.function = function
+        self.duration = duration
+        self.time = 0
+
+    def run(self, player):
+        self.time += 1
+        self.function(player)
+        if self.time >= self.duration:
+            self.time = 0
+            return True
+        return False
+
+class PlayerMovementOverride:
+    def __init__(self, commands):
+        self.commands = commands
+        self.current_command = 0
+
+    def run(self, player):
+        if self.commands[self.current_command].run(player):
+            self.current_command += 1
+            if self.current_command >= len(self.commands):
+                self.current_command = 0
+                return True
+        return False
+
+
+
 
 
 class Player(pygame.sprite.Sprite):
@@ -31,10 +63,47 @@ class Player(pygame.sprite.Sprite):
         self.directional_animation_group.add(self.walking_animation)
         self.directional_animation_group.add(self.jumping_animation)
 
-
         self.velocity = (0, 0)
         self.level = level
         self.image_offset = (-7, -10)
+
+        # Variables/constants for the movement belt
+        self.movement_belt = False # or True
+        self.movement_belt_charges = 3
+        self.max_movement_belt_charges = 3
+        self.override_command = None
+        self.double_jump_cooldown = 0
+        self.double_jump_cooldown_max = 10
+        self.double_jump_suppression = 0
+        self.dash_speed = 0.5
+        self.yoyo_location = None
+        self.yoyo_delay = 0
+        self.yoyo_delay_max = 120
+        self.yoyo_suppression = 0
+        self.yoyo_effect = None
+
+        def dash_left(player):
+            player.vx = 0 - player.dash_speed
+            player.vy = 0
+            player.level.add_effect(Effect(Animation(graphics.get("player_dash"), 5), player.render_location))
+        self.dash_left_command = PlayerMovementOverride([PlayerMovementOverrideCommand(dash_left, 10)])
+
+        def dash_right(player):
+            player.vx = player.dash_speed
+            player.vy = 0
+            player.level.add_effect(Effect(Animation(graphics.get("player_dash"), 5), player.render_location))
+        self.dash_right_command = PlayerMovementOverride([PlayerMovementOverrideCommand(dash_right, 10)])
+
+        def yoyo(player: Player):
+            player.vx = 0
+            player.vy = 0
+            player.level.add_effect(Effect(Animation(graphics.get("player_yoyo_teleport"), 3), player.render_location))
+            player.location = player.yoyo_location
+            # player.level.add_effect(Effect(Animation(graphics.get("player_yoyo_teleport"), 3), player.render_location))
+            player.level.add_effect(Effect(Animation(graphics.get("player_yoyo_portal_end"), 3), player.render_location))
+            player.yoyo_effect.kill()
+            player.yoyo_effect = None
+        self.yoyo_command = PlayerMovementOverride([PlayerMovementOverrideCommand(yoyo, 1)])
 
         # okay, so this needs some explaining
         # I wrote some code that controls the laser, but it was tuned for a different hitbox size
@@ -46,6 +115,7 @@ class Player(pygame.sprite.Sprite):
         self.laser_image_offset = (-14, -10)
         self.laser_diff = duple.subtract(self.laser_image_offset, self.image_offset)
         self.small_laser_diff = duple.scale(self.laser_diff, 1/42)
+        self.laser_recharge_time = 20
 
         self.is_supported = False
         self.refresh_support()
@@ -196,8 +266,29 @@ class Player(pygame.sprite.Sprite):
         """Used for calculation of laser animations"""
         return duple.d_round(duple.add(self.laser_image_offset, duple.scale(self.location, 42)))
 
+    @property
+    def is_yoyo_active(self):
+        return self.yoyo_delay > 0
+
+    @property
+    def yoyo_suppressed(self):
+        return self.yoyo_suppression > 0
+
+    @property
+    def double_jump_suppressed(self):
+        return self.double_jump_suppression > 0
+
     def refresh_support(self):
         self.is_supported = self.check_support()
+
+    def set_override_command(self, override_commmand):
+        self.override_command = override_commmand
+
+    def suppress_yoyo(self):
+        self.yoyo_suppression = 10
+
+    def suppress_double_jump(self):
+        self.double_jump_suppression = 10
 
     def check_support(self, offset=(0, 0)):
         supported = False
@@ -217,20 +308,75 @@ class Player(pygame.sprite.Sprite):
 
         self.refresh_support()
 
-        if not self.is_supported:
-            self.vy += 0.02
-
-
-
-        # side to side motion
-        if keys.left:
-            self.vx = -0.15
-            self.last_dir_is_left = True
-        elif keys.right:
-            self.vx = 0.15
-            self.last_dir_is_left = False
+        # Check for override command
+        if self.override_command is not None:
+            if self.override_command.run(self):
+                self.override_command = None
         else:
-            self.vx = 0
+            # Normal movement
+
+            # Gravity
+            if not self.is_supported:
+                self.vy += 0.02
+
+            # Horizontal movement
+            if keys.left:
+                self.vx = -0.15
+                self.last_dir_is_left = True
+            elif keys.right:
+                self.vx = 0.15
+                self.last_dir_is_left = False
+            else:
+                self.vx = 0
+
+            if self.movement_belt and self.movement_belt_charges > 0:
+                # Movement Belt dash
+                if keys.left_double_click:
+                    self.last_dir_is_left = True
+                    self.override_command = self.dash_left_command
+                    self.movement_belt_charges -= 1
+                elif keys.right_double_click:
+                    self.last_dir_is_left = False
+                    self.override_command = self.dash_right_command
+                    self.movement_belt_charges -= 1
+
+                # Movement Belt yoyo trigger
+                if self.movement_belt and keys.down_down and not self.yoyo_suppressed and not self.is_yoyo_active:
+                    self.yoyo_location = self.location
+                    self.yoyo_delay = self.yoyo_delay_max
+                    self.yoyo_effect = Effect(LoopAnimation(graphics.get("player_yoyo_portal"), 2), self.render_location, self.level)
+                    self.level.add_effect(self.yoyo_effect)
+                    self.movement_belt_charges -= 1
+
+            # Jumping
+            if keys.a and self.is_supported:
+                self.vy = -0.3
+                self.double_jump_cooldown = self.double_jump_cooldown_max
+
+            # Double jumping with movement belt
+            elif keys.a_down and self.movement_belt and self.movement_belt_charges > 0 and self.double_jump_cooldown == 0 and not self.double_jump_suppressed:
+                self.vy = -0.3
+                self.movement_belt_charges -= 1
+                self.double_jump_cooldown = self.double_jump_cooldown_max
+                self.level.add_effect(Effect(Animation(graphics.get("player_double_jump"), 2), duple.add(self.render_location, (0, self.hitbox.h)), self.level))
+
+        # Double jump cooldown
+        if self.double_jump_cooldown > 0:
+            self.double_jump_cooldown -= 1
+
+        # Yoyo delay + activation
+        if self.yoyo_delay > 0:
+            self.yoyo_delay -= 1
+            if self.yoyo_delay == 0:
+                self.override_command = self.yoyo_command
+
+        # Yoyo suppression
+        if self.yoyo_suppression > 0:
+            self.yoyo_suppression -= 1
+
+        # Double jump suppression
+        if self.double_jump_suppression > 0:
+            self.double_jump_suppression -= 1
 
         # constrain the y velocity to prevent problems
         self.vy = self.vy if self.vy < 0.99999 else 0.99999
@@ -238,6 +384,7 @@ class Player(pygame.sprite.Sprite):
 
         corners = [self.hitbox.topleft, self.hitbox.topright, self.hitbox.bottomleft, self.hitbox.bottomright]
         corners = list(set([duple.floor(duple.scale(x, 1 / 42)) for x in corners]))
+
         # check to see if the space we are currently on modifies our movement somehow
         check_blocks = [self.level.main[c[0]][c[1]] for c in corners]
         for b in check_blocks:
@@ -399,14 +546,14 @@ class Player(pygame.sprite.Sprite):
                     impact_block.on_energy_hit(1)
 
         # Handle the cooldown on the laser
-            self.laser_cooldown = 10
+            self.laser_cooldown = self.laser_recharge_time
 
         if self.laser_cooldown > 0:
             self.laser_cooldown -= 1
 
-        # Collect data sticks
+        # Collect collectibles
         block = self.level.main[math.floor(self.x_center)][math.floor(self.y_center)]
-        if "data_stick" in block.tags:
+        if "collectible" in block.tags:
             block.collect()
 
         self.directional_animation_group.set_left(self.last_dir_is_left)

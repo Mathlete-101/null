@@ -7,6 +7,9 @@ class NoCollisionBlock(NoSidesBlock):
     def check_support(self, hitbox):
         return False
 
+    @property
+    def opaque(self):
+        return False
+
     def __init__(self, position, render_target, image):
         super().__init__(position, render_target, image)
-        self.opaque = False

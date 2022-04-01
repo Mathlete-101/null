@@ -7,6 +7,8 @@ import tools.transform
 from graphics import graphics
 from graphics.graphic_class.animation_graphic import AnimationGraphic
 from graphics.graphic_class.graphic import Graphic
+from graphics.graphic_class.shuffle_animation_graphic import ShuffleAnimationGraphic
+from graphics.graphic_class.shuffle_graphic import ShuffleGraphic
 
 
 def assemble():
@@ -33,3 +35,17 @@ def assemble():
 
     graphics.add(AnimationGraphic(laser[0][0:4]), "player_laser")
     graphics.add(AnimationGraphic(images), "player_laser_long")
+
+    # movement belt
+    m_belt = tools.transform.split_sheet(pygame.image.load(os.path.join("resources", "images", "player", "movement_belt.png")))
+
+    # double jump animation
+    graphics.add(AnimationGraphic(m_belt[0][0:6]), "player_double_jump")
+
+    # dash animation things
+    graphics.add(ShuffleAnimationGraphic(m_belt[1][0:8]), "player_dash")
+
+    # yoyo animations
+    graphics.add(AnimationGraphic(m_belt[3][0:15]), "player_yoyo_portal")
+    graphics.add(AnimationGraphic(m_belt[4][0:5]), "player_yoyo_teleport")
+    graphics.add(AnimationGraphic(m_belt[5][0:5]), "player_yoyo_portal_end")

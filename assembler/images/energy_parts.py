@@ -10,6 +10,7 @@ from graphics.graphic_class.reflection_graphic import ReflectionGraphic
 from graphics.graphic_class.rotation_graphic import RotationGraphic
 from graphics.graphic_class.rotation_reflection_sectional_switch_graphic import RotationReflectionSectionalSwitchGraphic
 from graphics.graphic_class.rotation_switch_graphic import RotationSwitchGraphic
+from graphics.graphic_class.sectional_switch_graphic import SectionalSwitchGraphic
 from tools.transform import get_clear_surface, cp_section
 
 
@@ -68,3 +69,10 @@ def assemble():
     graphics.add(RotationSwitchGraphic(energy_parts[1][6], energy_parts[2][6]), "energy_force_field")
 
     graphics.add(RotationGraphic(energy_parts[0][5]), "force_field")
+
+    graphics.add(SectionalSwitchGraphic(energy_parts[1][8], energy_parts[2][8], [
+        cp_section(energy_parts[2][8], (0, 8, 42, 34)),
+        cp_section(energy_parts[2][8], (0, 0, 42, 8))
+    ]), "energy_recharge")
+
+    graphics.add(AnimationGraphic(energy_parts[0][8:14]), "energy_ball")

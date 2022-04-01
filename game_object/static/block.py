@@ -22,12 +22,21 @@ class Block(GameObject):
         self._image = image
         self.render()
 
+    @property
+    def opaque(self):
+        """Return whether the laser should be able to pass through the block"""
+        return True
 
     def __init__(self, position, render_target, image):
         super().__init__(position)
         if image:
             self._image = image
-            self._image.set_colorkey((255, 255, 255))
+            try:
+                self._image.set_colorkey((255, 255, 255))
+            except AttributeError:
+                raise Exception("Nathan. Nathan. You forgot to put .get() in an assigner statement again. (probably)")
+
+
         self.render_target = render_target
         self.render_position = duple.scale(position, 21 * 2)
         self.hitbox = pygame.Rect(self.render_position[0], self.render_position[1], 42, 42)
@@ -36,7 +45,6 @@ class Block(GameObject):
         self.is_ceiling = True
         self.is_left_wall = True
         self.is_right_wall = True
-        self.opaque = True
         self.network = None
         self.rect = pygame.Rect(self.location[0] * 42, self.location[1] * 42, 42, 42)
 

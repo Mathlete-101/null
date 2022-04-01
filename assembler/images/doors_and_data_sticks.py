@@ -17,3 +17,5 @@ def assemble():
 
     for i in range(0, 3):
         graphics.add(Graphic(doors_and_data_sticks[2][i]), "data_stick_" + str(i + 1))
+
+    graphics.add(Graphic(doors_and_data_sticks[3][0]), "movement_belt")

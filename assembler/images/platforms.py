@@ -5,6 +5,7 @@ import pygame
 import tools
 from graphics import graphics
 from graphics.graphic_class.edge_graphic import EdgeGraphic
+from graphics.graphic_class.graphic import Graphic
 from graphics.graphic_class.shuffle_edge_graphic import ShuffleEdgeGraphic
 from tools.apply import blit_all_to, blit_to_all
 
@@ -45,4 +46,10 @@ def assemble():
 
     # crates
     graphics.add(EdgeGraphic(platforms[0][4], platforms[1][4], platforms[2][4], platforms[3][4]), "large_crate")
+
+    # blocks laser goes through
+    graphics.add(Graphic(platforms[0][5]), "platform_laser_through")
+
+    # thin platform for aesthetic purposes
+    graphics.add(Graphic(platforms[0][6]), "platform_thin")
 

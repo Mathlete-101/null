@@ -1,0 +1,14 @@
+{
+  "name": "The Vault",
+  "signs": [
+    {
+      "position": {
+        "x": 54,
+        "y": 31
+      },
+      "lines": [
+        "Triple jump to reach the receiver."
+      ]
+    }
+  ]
+}

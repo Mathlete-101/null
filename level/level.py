@@ -140,6 +140,10 @@ class Level:
         # del self.player
 
     def tick_null(self):
+        # do not tick the null if the difficulty is set to -1
+        if self.null_speed > 30:
+            return
+
         self.null_line += 1
         if len(self.active_null_sprite_groups) >= 8:
             group = self.active_null_sprite_groups.pop(0)

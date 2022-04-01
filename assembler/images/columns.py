@@ -11,3 +11,4 @@ def assemble():
     columns = transform.split_sheet(pygame.image.load(os.path.join("resources", "images", "blocks", "columns.png")))
 
     graphics.add(Graphic(columns[0][0]), "column")
+    graphics.add(Graphic(columns[0][1]), "column_base")

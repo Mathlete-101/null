@@ -19,7 +19,10 @@ class Ladder(NoSidesBlock):
         self.hitbox = pygame.Rect((self.render_position[0] + 8, self.render_position[1], 26, 42))
         self.tags.append("ladder")
         self.is_top_ladder = False
-        self.opaque = False
+
+    @property
+    def opaque(self):
+        return False
 
     def check_support(self, hitbox):
         return self.is_top_ladder and super().check_support(hitbox)
@@ -30,6 +33,8 @@ class Ladder(NoSidesBlock):
 
     def collide_special(self, player):
         if self.hitbox.colliderect(player.hitbox):
+            player.suppress_yoyo()
+            player.suppress_double_jump()
             if keys.up:
                 player.vy = -0.1
                 if math.floor(player.next_bottom) != math.floor(player.bottom) and math.floor(player.bottom) == self.y and self.is_top_ladder:

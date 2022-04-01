@@ -2,10 +2,17 @@ import os
 
 from assigner.assigner import assign
 from level.level_text import LevelText, TextLayer
+import json
 
 
 def check_level_exists(dir):
     return os.path.exists(os.path.join("resources", "levels", dir))
+
+def get_json_file(dir):
+    """Returns an object from the json file with the given directory. Json files are named meta.json."""
+    with open(os.path.join("resources", "levels", dir, "meta.json")) as f:
+        return json.load(f)
+
 
 def load_level(dir):
     file_path = os.path.join('resources', 'levels', dir)
@@ -21,6 +28,6 @@ def load_level(dir):
                 grids[sub_path] = grid
         else:
             grids[sub_path] = [[]]
-    level = assign(LevelText(grids["background"], grids["main"], grids["foreground"]), dir)
+    level = assign(LevelText(grids["background"], grids["main"], grids["foreground"]), dir, get_json_file(dir))
     level.initialize()
     return level
