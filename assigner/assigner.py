@@ -7,7 +7,7 @@ from game_object.static.collectible import Collectible
 from game_object.static.door_block import DoorBlock
 from game_object.static.energy.energy_delay_block import EnergyDelayBlock
 from game_object.static.energy.energy_force_field_block import EnergyForceFieldBlock
-from game_object.static.energy.energy_recharge import EnergyRechargeBlock
+from game_object.static.energy.energy_recharge_block import EnergyRechargeBlock
 from game_object.static.energy.energy_timed_receptive_block import EnergyTimedReceptiveBlock
 from game_object.static.energy.energy_toggle_receptive_block import EnergyToggleReceptiveBlock
 from game_object.static.energy.energy_transistor_block import EnergyTransistorBlock
@@ -26,9 +26,7 @@ from level.level_text import LevelText
 # <space> = air
 # B = a standard block/wall/whatever
 from misc.sign import GameSign
-from tools import duple
-
-
+from tools import duple, text
 
 
 def assign(level_text: LevelText, level_name, meta_data: dict):
@@ -36,6 +34,8 @@ def assign(level_text: LevelText, level_name, meta_data: dict):
     if "movement_belt" in meta_data:
         level.player.movement_belt = meta_data["movement_belt"]
 
+    if "floor_level" not in meta_data:
+        meta_data["floor_level"] = 0
 
     # Create signs
     # JSON format:
@@ -69,7 +69,7 @@ def assign(level_text: LevelText, level_name, meta_data: dict):
         elif character in ["E", "e"]:
             level.world_surface.blit(graphics.get("inner_wall" + ("_dark" if character == "e" else "") + "_right").get_reflected(x=False, y=loc[0] % 2), duple.scale(loc, 42))
         elif character in ["Q", "q"]:
-            level.world_surface.blit(graphics.get("inner_wall" + ("_dark" if character == "q" else "") + "_left").get_reflected(x=False, y=loc[0] % 2), duple.add(duple.scale(loc, 42), (21, 0)))
+            level.world_surface.blit(graphics.get("inner_wall" + ("_dark" if character == "q" else "") + "_left").get_reflected(x=False, y=loc[0] % 2), duple.add(duple.scale(loc, 42), (12, 0)))
         elif character in ["A"]:
             level.world_surface.blit(graphics.get("inner_wall_alt_a").get(), duple.scale(loc, 42))
 
@@ -90,7 +90,9 @@ def assign(level_text: LevelText, level_name, meta_data: dict):
                 edges = [[char != 'B' for char in row] for row in surroundings]
 
                 level.set(location, Block(location, level.world_surface, graphics.get(
-                    "platform_" + ("cross" if (location[0] + location[1]) % 2 else "box")).get_with_edge(edges)))
+                    "platform_" + ("cross" if (location[0] + location[1]) % 2 else "box") + ("_alt" if location[1] < meta_data["floor_level"] else "")).get_with_edge(edges)))
+                if location[1] < meta_data["floor_level"]:
+                    apply_background('w', location)
             elif chars[1] == "b":
                 level.set(location, Block(location, level.world_surface, graphics.get("platform_thin").get()))
 
@@ -122,22 +124,36 @@ def assign(level_text: LevelText, level_name, meta_data: dict):
                 level.set(location, obj)
 
             elif chars[1] == "C":
-                graphic = graphics.get("column")
+                graphic_name = "column"
+
+                background_letter = chars[0]
 
                 if level_text.main.get(duple.add(location, (0, 1))) != 'C':
                     if (not chars[0].isdigit() or int(chars[0]) == 0):
-                        graphic = graphics.get("column_base")
+                        graphic_name += "_base"
                     # insert special backgrounds for columns that aren't bases but need a background
                     else:
                         if chars[0].isdigit():
                             background_number = int(chars[0])
                             if background_number == 2:
                                 apply_background('W', location)
+                                background_letter = 'W'
                             elif background_number == 3:
                                 apply_background('Q', location)
+                                background_letter = 'Q'
                             elif background_number == 4:
                                 apply_background('q', location)
-                level.set(location, NoCollisionBlock(location, level.world_surface, graphic.get()))
+                                background_letter = 'q'
+
+                # pick the columm graphic based on the background
+                if background_letter == ' ':
+                    graphic_name += "_blue"
+                elif text.is_upper_case(background_letter):
+                    graphic_name += "_light"
+                else:
+                    graphic_name += "_dark"
+
+                level.set(location, NoCollisionBlock(location, level.world_surface, graphics.get(graphic_name).get()))
 
             elif chars[1] == "R":
                 level.set(location, EnergyTimedReceptiveBlock(location, level.render_surface, level.network_manager, graphics.get("energy_receiver_time")))

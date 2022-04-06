@@ -58,9 +58,23 @@ class EnergyDelayBlock(EnergyBlock):
             self.set_image()
             self.render()
 
+    def get_removal_distance(self):
+        if self.connected:
+            return self.connected.get_removal_distance() + 5
+
+    def remove_energy(self):
+        self.storage = [False, False, False, False, False]
+        self.supplying = False
+        self.set_image()
+        self.render()
+        self.off()
+
     def set_image(self):
         self.image = self.graphic.get_sectional([self.is_on] + self.storage + [self.supplying])
 
+    @property
+    def connected(self):
+        return self.input_connection.connected if self.input_connection else False
 
     @property
     def has_energy(self):

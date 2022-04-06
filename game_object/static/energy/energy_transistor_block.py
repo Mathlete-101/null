@@ -43,6 +43,18 @@ class EnergyTransistorBlock(EnergyBlock):
         self.storage[orientation] = powered
         self.power_update()
 
+    def remove_energy(self):
+        if self.alpha_connected:
+            self.alpha_connected.remove_energy()
+
+    def get_removal_distance(self):
+        if self.alpha_connected:
+            return self.alpha_connected.get_removal_distance() + 1
+
+    @property
+    def alpha_connected(self):
+        return self.alpha_input.connected if self.alpha_input else False
+
     def power_update(self):
         display = [self.storage[1],
                    self.storage[0] != self.storage[1],

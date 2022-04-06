@@ -15,13 +15,14 @@ from level.null_group import NullGroup
 from networker.network_manager import NetworkManager
 from tools import duple
 
+universal_air = Air((0, 0))
 
 def generate_blank_grid(dim):
     grid = []
     for i in range(0, dim[0]):
         row = []
         for j in range(0, dim[1]):
-            row.append(Air((i * 21, j * 21)))
+            row.append(universal_air)
         grid.append(row)
     return grid
 
@@ -57,7 +58,7 @@ class Level:
         self.null_line = 0
 
         # Rendering stuff
-        self.world_surface = generate_background_surface(self.dim)
+        self.world_surface = generate_background_surface(dim)
         self.render_surface = pygame.Surface(self.render_dim)
         self.block_sprite_group = pygame.sprite.Group()
         self.continuous_block_sprite_group = pygame.sprite.Group()

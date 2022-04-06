@@ -40,6 +40,12 @@ class EnergyBlock(Block):
     def power_update(self):
         self.off()
 
+    def remove_energy(self):
+        pass
+
+    def get_removal_distance(self):
+        return 0
+
     def attempt_connection(self, connector, location):
         return False, None
 

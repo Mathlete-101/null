@@ -34,6 +34,7 @@ def assemble():
         images.append(img)
 
     graphics.add(AnimationGraphic(laser[0][0:4]), "player_laser")
+    graphics.add(AnimationGraphic(laser[0][0:4]), "player_laser_impact")
     graphics.add(AnimationGraphic(images), "player_laser_long")
 
     # movement belt

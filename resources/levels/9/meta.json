@@ -1,5 +1,6 @@
 {
   "name": "The Vault",
+  "floor_level": 29,
   "signs": [
     {
       "position": {

@@ -30,7 +30,6 @@ class EnergySubnet(Network):
             obj.power_update()
 
     def power_update(self):
-        print(self.connections)
         for block in self.connections:
             if block.supplying:
                 self.on()
@@ -40,3 +39,14 @@ class EnergySubnet(Network):
         self.off()
         self.supplying = False
         self.power_update_connections()
+
+    def get_minimum_removal_distance_connection(self):
+        """Gets the item in connections with the smallest value when get_removal_distance is called"""
+        return min(self.connections, key=lambda x: x.get_removal_distance())
+
+    def remove_energy(self):
+        self.get_minimum_removal_distance_connection().remove_energy()
+
+    def get_removal_distance(self):
+        return self.get_minimum_removal_distance_connection().get_removal_distance()
+

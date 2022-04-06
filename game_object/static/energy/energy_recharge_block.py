@@ -72,12 +72,18 @@ class EnergyRechargeBlock(EnergyBlock):
                 self.set_image([True, False])
                 self.energy_ball_location = AnimatedCollectible(duple.add(self.location, (0, -1)), self.render_target, self.second_render_target, LoopAnimation(graphics.get("energy_ball"), 2), collectible.get_energy_ball_effect(), ["energy_ball"])
                 self.network.level.continuous_block_sprite_group.add(self.energy_ball_location)
+                self.remove_energy()
 
     def set_image(self, switches=None):
         if switches is not None:
             self.switches = switches
         self.image = self.graphic.get_sectional(self.switches)
         self.render()
+
+
+    def remove_energy(self):
+        if self.connected:
+            self.connected.remove_energy()
 
     @property
     def energy_ball_location(self):

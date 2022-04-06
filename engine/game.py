@@ -96,13 +96,13 @@ class Engine:
                 self.leaderboard.update()
                 self.screen.blit(self.leaderboard.render(), (0, 0))
             else:
-                self.screen.blit(self.current_level.render(),
-                                 (max(- len(self.current_level.main) * 42 + self.screen.get_width(), min(0, 0 - (
-                                             self.current_level.player.render_location[
-                                                 0] - self.screen.get_width() // 2))),
-                                  max(- len(self.current_level.main[0]) * 42 + self.screen.get_height(), min(0, 0 - (
-                                              self.current_level.player.render_location[
-                                                  1] - self.screen.get_height() // 2)))))
+                # self.screen.blit(self.current_level.get_parallax_subsurface(), )
+                coords = (
+                    max(- len(self.current_level.main) * 42 + self.screen.get_width(),
+                        min(0, 0 - (self.current_level.player.render_location[0] - self.screen.get_width() // 2))),
+                    max(- len(self.current_level.main[0]) * 42 + self.screen.get_height(),
+                        min(0, 0 - (self.current_level.player.render_location[1] - self.screen.get_height() // 2))))
+                self.screen.blit(self.current_level.render(), coords)
 
                 # HUD
                 text = format(self.score, "06")

@@ -28,4 +28,13 @@ class EnergyReceptiveBlock(EnergyOutputBlock):
     def can_connect(self, location):
         return self.connected is None
 
+    def remove_energy(self):
+        self.supplying = False
+        self.off()
+        self.power_update()
+        self.connected.power_update()
+
+    def get_removal_distance(self):
+        return 0
+
 

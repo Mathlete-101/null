@@ -25,8 +25,8 @@ def assemble():
     graphics.add(ShuffleGraphic(emblem), "background_emblem")
 
     graphics.add(ReflectionGraphic(all_background[0][4]), "inner_wall")
-    graphics.add(ReflectionGraphic(all_background[0][4].subsurface((21, 0, 21, 42))), "inner_wall_left")
-    graphics.add(ReflectionGraphic(all_background[0][4].subsurface((0, 0, 21, 42))), "inner_wall_right")
+    graphics.add(ReflectionGraphic(all_background[0][4].subsurface((12, 0, 30, 42))), "inner_wall_left")
+    graphics.add(ReflectionGraphic(all_background[0][4].subsurface((0, 0, 30, 42))), "inner_wall_right")
 
     darker = pygame.Surface((42, 42))
     darker.fill(pygame.Color(0, 0, 0))
@@ -36,8 +36,8 @@ def assemble():
     darker_inner_wall.blit(darker, (0, 0))
 
     graphics.add(ReflectionGraphic(darker_inner_wall), "inner_wall_dark")
-    graphics.add(ReflectionGraphic(darker_inner_wall.subsurface((21, 0, 21, 42))), "inner_wall_dark_left")
-    graphics.add(ReflectionGraphic(darker_inner_wall.subsurface((0, 0, 21, 42))), "inner_wall_dark_right")
+    graphics.add(ReflectionGraphic(darker_inner_wall.subsurface((12, 0, 30, 42))), "inner_wall_dark_left")
+    graphics.add(ReflectionGraphic(darker_inner_wall.subsurface((0, 0, 30, 42))), "inner_wall_dark_right")
 
     graphics.add(Graphic(all_background[1][4]), "inner_wall_alt_a")
 

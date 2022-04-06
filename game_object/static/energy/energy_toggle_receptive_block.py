@@ -21,6 +21,10 @@ class EnergyToggleReceptiveBlock(EnergyReceptiveBlock):
         self.energy_ball.on = not self.energy_ball.on
         self.connected.power_update()
 
+    def off(self):
+        super().off()
+        self.energy_ball.on = False
+
     def initialize(self):
         if self.supplying:
             self.energy_ball.on = not self.energy_ball.on

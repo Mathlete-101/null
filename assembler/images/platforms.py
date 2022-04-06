@@ -31,6 +31,7 @@ def assemble():
 
     # blit them all onto the background
     backgrounds = blit_all_to(background, transformed_decorations)
+    # backgrounds = [background]
 
     # rotate the slash thing and and add it to the foregrounds
     foregrounds.append(pygame.transform.rotate(foregrounds[1], 90))
@@ -41,8 +42,11 @@ def assemble():
     for i in range(0, len(foreground_names)):
         name = "platform_" + foreground_names[i]
         base = blit_to_all(backgrounds, foregrounds[i])
+        alt_base = [platforms[2][2].copy()]
+        alt_base[0].blit(foregrounds[i], (0, 0))
 
         graphics.add(ShuffleEdgeGraphic(base.copy(), edge, corner, corner), name)
+        graphics.add(ShuffleEdgeGraphic([platforms[2][3].copy()], edge, corner, corner), name + "_alt")
 
     # crates
     graphics.add(EdgeGraphic(platforms[0][4], platforms[1][4], platforms[2][4], platforms[3][4]), "large_crate")

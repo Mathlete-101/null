@@ -533,6 +533,11 @@ class Player(pygame.sprite.Sprite):
                 # Trigger whatever block you hit
                 impact_block = self.level.main[math.floor(self.x + 28 / 42 - self.last_dir_is_left) + offset][
                     math.floor(self.y)]
+                # Fix a bug with the lasers
+                render_position_before_impact_block = ((math.floor(self.x + 28 / 42 - self.last_dir_is_left) + offset - direction) * 42,
+                    self.laser_render_location[1])
+                self.level.add_effect(Effect(Animation(graphics.get("player_laser_impact")), render_position_before_impact_block, True))
+
                 if "energy_receptive" in impact_block.tags:
                     impact_block.on_energy_hit(1)
             else:

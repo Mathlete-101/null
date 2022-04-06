@@ -23,3 +23,7 @@ def get_monospaced_sprites(text, position, space, zoom=1):
 
 def get_monospaced_sprites_size(text, space, zoom=1):
     return space * (len(text) - 1) + 3 * (minecraft_font.metrics(text[-1])[0][1] + 2) * zoom, minecraft_font.metrics(text[0])[0][3]
+
+
+def is_upper_case(text):
+    return text == text.upper()
