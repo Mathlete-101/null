@@ -1,12 +1,13 @@
 import pygame
 
+from controller.controller import Controller
 from engine import keys
 from externals.title_screen.selector_item import SelectorItem
 from tools import duple
 
 
 class Selector(pygame.sprite.Group):
-    def __init__(self, options, location):
+    def __init__(self, options, location, controller: Controller):
         super().__init__()
         self.options = []
         for i in range(len(options)):
@@ -16,6 +17,7 @@ class Selector(pygame.sprite.Group):
         self.length = len(options)
         self.currently_selected_number = 0
         self.selected_item.selected = True
+        self.controller = controller
 
     def get_item(self, number):
         for option in self.options:
@@ -29,11 +31,11 @@ class Selector(pygame.sprite.Group):
 
     def update(self):
         super().update()
-        if keys.down_down:
+        if self.controller.start_down:
             self.selected_item.selected = False
-            self.currently_selected_number = min(self.currently_selected_number + 1, self.length - 1)
+            self.currently_selected_number = (self.currently_selected_number + 1) % len(self.options)
             self.selected_item.selected = True
-        elif keys.up_down:
+        elif self.controller.start_up:
             self.selected_item.selected = False
-            self.currently_selected_number = max(self.currently_selected_number - 1, 0)
+            self.currently_selected_number = (self.currently_selected_number - 1) % len(self.options)
             self.selected_item.selected = True

@@ -3,6 +3,7 @@ import os.path
 import pygame
 
 import tools.transform
+from controller.controller import Controller
 from engine import keys
 from externals.title_screen.selector import Selector
 from misc.wrapped_sprite import WrappedSprite
@@ -17,17 +18,18 @@ def zoom_in(image):
 
 
 class TitleScreen():
-    def __init__(self, size):
+    def __init__(self, size, controller):
         self.background_surface = pygame.Surface(size)
         self.background_surface.fill((60, 60, 80))
         self.render_surface = pygame.Surface(size)
         self.render_surface.blit(self.background_surface, (0, 0))
-        self.first_options = Selector(["Play", "Instructions", "Quit"], (size[0] / 2, size[1] * 3 / 4))
-        self.second_options = Selector(["Easy", "Medium", "Hard", "Really Hard", "Impossible"], (size[0] / 2, size[1] * 2 / 3))
+        self.first_options = Selector(["Play", "Instructions", "Settings", "Quit"], (size[0] / 2, size[1] * 3 / 4), controller)
+        self.second_options = Selector(["Easy", "Medium", "Hard", "Really Hard", "Impossible"], (size[0] / 2, size[1] * 2 / 3), controller)
         logo = tools.transform.scale_factor(pygame.image.load(os.path.join("resources", "images", "misc", "logo.png")), 12)
         self.logo = pygame.sprite.Group(WrappedSprite(logo, ((size[0] - logo.get_size()[0]) / 2, (size[1] - logo.get_size()[1]) / 4)))
         self.logo.draw(self.render_surface)
         self.state = 0
+        self.controller: Controller = controller
 
         # Generates a helpful 3x3 array for all True
         full_surroundings = [[True for x in range(3)] for x in range(3)]
@@ -78,9 +80,10 @@ class TitleScreen():
 
         # It's Turing Time
         # Basically just a bunch of menu logic
+        # TODO: add more menu logic
         if self.state == 0:
             self.first_options.update()
-            if keys.a_down:
+            if self.controller.start_enter:
                 if self.first_options.currently_selected_number == 0:
                     self.state = 1
                     self.first_options.clear(self.render_surface, self.background_surface)
@@ -88,18 +91,21 @@ class TitleScreen():
                     self.state = 2
                     self.first_options.clear(self.render_surface, self.background_surface)
                     self.logo.clear(self.render_surface, self.background_surface)
+                elif self.first_options.currently_selected_number == 2:
+                    pass
+                    #Add settings here
                 else:
                     # quit the game, if it isn't clear
-                    pygame.event.post(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_q))
+                    pygame.event.post(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_ESCAPE))
 
         elif self.state == 1:
             self.second_options.update()
-            if keys.a_down:
+            if self.controller.start_enter:
                 from engine.game import engine
                 engine.difficulty = self.second_options.currently_selected_number
                 engine.next_level()
         elif self.state == 2:
-            if keys.a_down:
+            if self.controller.start_enter:
                 self.state = 0
                 self.instructions.clear(self.render_surface, self.background_surface)
                 self.logo.draw(self.render_surface)

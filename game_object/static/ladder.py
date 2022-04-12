@@ -35,11 +35,11 @@ class Ladder(NoSidesBlock):
         if self.hitbox.colliderect(player.hitbox):
             player.suppress_yoyo()
             player.suppress_double_jump()
-            if keys.up:
+            if player.controller.ladder_up:
                 player.vy = -0.1
                 if math.floor(player.next_bottom) != math.floor(player.bottom) and math.floor(player.bottom) == self.y and self.is_top_ladder:
                     keys.up = False
-            elif keys.down:
+            elif player.controller.ladder_down:
                 player.vy = 0.1
             else:
                 player.vy = 0

@@ -30,9 +30,15 @@ from tools import duple, text
 
 
 def assign(level_text: LevelText, level_name, meta_data: dict):
-    level = Level(level_text.dim)
+    if "player_count" not in meta_data:
+        meta_data["player_count"] = 1
+
+    level = Level(level_text.dim, meta_data["player_count"])
+    level.level_number = int(level_name)
+
     if "movement_belt" in meta_data:
-        level.player.movement_belt = meta_data["movement_belt"]
+        for player in level.players:
+            player.movement_belt = meta_data["movement_belt"]
 
     if "floor_level" not in meta_data:
         meta_data["floor_level"] = 0
@@ -106,7 +112,8 @@ def assign(level_text: LevelText, level_name, meta_data: dict):
 
             elif chars[1] == "P":
                 level.set(location, DoorBlock(location, level.world_surface, graphics.get("door_" + level_name).get(), level, -1))
-                level.set_player_location(location)
+
+                level.player_setup(location)
 
             elif chars[1] == "L":
                 above_location = (location[0], location[1] - 1)

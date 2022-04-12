@@ -19,9 +19,10 @@ class Leaders(pygame.sprite.Group):
         from engine.game import engine
 
         self.letter_on = 0
+        self.controller = engine.alpha_controller
 
         # Initialize the leaderboard -- gotten from storage
-        self.path = os.path.join(os.path.join("resources", "misc", "leaders" + str(engine.difficulty) + ".json"))
+        self.path = os.path.join(os.path.join("resources", "misc", "leaderboards", engine.game_type, "leaders" + str(engine.difficulty) + ".json"))
         if os.path.exists(self.path):
             with open(self.path, "r") as file:
                 leaders_dict = json.load(file)
@@ -59,7 +60,7 @@ class Leaders(pygame.sprite.Group):
 
 
         # This prevents the time you clicked a to end the game from also skipping the first letter selection
-        keys.a_down = False
+        self.controller.a_down = False
 
 
     def set_new_score_name_sprite(self, index, color=(60, 60, 255)):
@@ -70,7 +71,7 @@ class Leaders(pygame.sprite.Group):
         self.add(self.new_score.name_sprites[index])
 
     def update(self):
-        if keys.a_down:
+        if self.controller.start_enter:
             if self.new_score:
                 if self.letter_on < 3:
                     self.set_new_score_name_sprite(self.letter_on, (254, 255, 255))
@@ -90,22 +91,22 @@ class Leaders(pygame.sprite.Group):
                         with open(self.path, "w") as file:
                             json.dump(leaderboard_dict, file)
                 else:
-                    # it should restart the game
+                    # TODO: restart the game
                     # this doesn't work yet
                     # from engine.engine import engine
                     # engine.state = 0
                     # engine.score = 0
 
                     #instead, I'll just casually
-                    pygame.event.post(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_q))
+                    pygame.event.post(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_ESCAPE))
 
             else:
-                pygame.event.post(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_q))
+                pygame.event.post(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_ESCAPE))
 
         elif self.new_score and self.letter_on < 3:
-            if keys.up_down:
+            if self.controller.start_down:
                 self.new_score.name = self.new_score.name[:self.letter_on] + LETTERS[(LETTERS.find(self.new_score.name[self.letter_on]) + 1) % 26] + self.new_score.name[self.letter_on + 1:]
                 self.set_new_score_name_sprite(self.letter_on)
-            elif keys.down_down:
+            elif self.controller.start_up:
                 self.new_score.name = self.new_score.name[:self.letter_on] + LETTERS[(LETTERS.find(self.new_score.name[self.letter_on]) - 1) % 26] + self.new_score.name[self.letter_on + 1:]
                 self.set_new_score_name_sprite(self.letter_on)

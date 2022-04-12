@@ -18,9 +18,9 @@ class Effect(pygame.sprite.Sprite):
         frame = self.animation.render()
         return frame
 
-    def render(self, r_surface: pygame.Surface, bg: pygame.Surface):
-        self.group.clear(r_surface, bg)
-        self.group.draw(r_surface)
+    @property
+    def ended(self):
+        return self.animation.ended
 
     def __repr__(self):
         return f"<Effect ended?:{self.animation.ended}>"

@@ -6,13 +6,12 @@ from animation.animation import Animation
 from animation.groups.directional_animation_group import DirectionalAnimationGroup
 from animation.loop_animation import LoopAnimation
 from animation.loop_directional_animation import LoopDirectionalAnimation
+from controller.controller import Controller
 from effect.effect import Effect
 from effect.trimmed_effect import TrimmedEffect
 from game_object.static.block import Block
-from engine import keys
 from graphics import graphics
 from tools import duple
-from tools.transform import MicroRect
 
 
 class PlayerMovementOverrideCommand:
@@ -43,19 +42,20 @@ class PlayerMovementOverride:
         return False
 
 
-
-
-
 class Player(pygame.sprite.Sprite):
 
-    def __init__(self, level, location=(1, 1)):
+    def __init__(self, level, player_number, location=(1, 1)):
         super().__init__()
         self.location = location
+        self.player_number = player_number
+
+        # Set the player's controller to a blank controller so that there are sane defaults
+        self.controller: Controller = Controller()
 
         # animations
-        self.static_animation = LoopDirectionalAnimation(graphics.get("player_static"), 6)
-        self.walking_animation = LoopDirectionalAnimation(graphics.get("player_walking"), 2)
-        self.jumping_animation = LoopDirectionalAnimation(graphics.get("player_jumping"), 10)
+        self.static_animation = LoopDirectionalAnimation(graphics.get("player_static_" + str(player_number)), 6)
+        self.walking_animation = LoopDirectionalAnimation(graphics.get("player_walking_" + str(player_number)), 2)
+        self.jumping_animation = LoopDirectionalAnimation(graphics.get("player_jumping_" + str(player_number)), 10)
 
         # animation group
         self.directional_animation_group: DirectionalAnimationGroup = DirectionalAnimationGroup()
@@ -66,6 +66,8 @@ class Player(pygame.sprite.Sprite):
         self.velocity = (0, 0)
         self.level = level
         self.image_offset = (-7, -10)
+
+        self.disabled = False
 
         # Variables/constants for the movement belt
         self.movement_belt = False # or True
@@ -305,6 +307,8 @@ class Player(pygame.sprite.Sprite):
 
     # don't look in here. Down this path madness lies
     def update(self):
+        if self.disabled:
+            return
 
         self.refresh_support()
 
@@ -320,10 +324,10 @@ class Player(pygame.sprite.Sprite):
                 self.vy += 0.02
 
             # Horizontal movement
-            if keys.left:
+            if self.controller.left:
                 self.vx = -0.15
                 self.last_dir_is_left = True
-            elif keys.right:
+            elif self.controller.right:
                 self.vx = 0.15
                 self.last_dir_is_left = False
             else:
@@ -331,17 +335,17 @@ class Player(pygame.sprite.Sprite):
 
             if self.movement_belt and self.movement_belt_charges > 0:
                 # Movement Belt dash
-                if keys.left_double_click:
+                if self.controller.dash_left:
                     self.last_dir_is_left = True
                     self.override_command = self.dash_left_command
                     self.movement_belt_charges -= 1
-                elif keys.right_double_click:
+                elif self.controller.dash_right:
                     self.last_dir_is_left = False
                     self.override_command = self.dash_right_command
                     self.movement_belt_charges -= 1
 
                 # Movement Belt yoyo trigger
-                if self.movement_belt and keys.down_down and not self.yoyo_suppressed and not self.is_yoyo_active:
+                if self.movement_belt and self.controller.yoyo and not self.yoyo_suppressed and not self.is_yoyo_active:
                     self.yoyo_location = self.location
                     self.yoyo_delay = self.yoyo_delay_max
                     self.yoyo_effect = Effect(LoopAnimation(graphics.get("player_yoyo_portal"), 2), self.render_location, self.level)
@@ -349,12 +353,12 @@ class Player(pygame.sprite.Sprite):
                     self.movement_belt_charges -= 1
 
             # Jumping
-            if keys.a and self.is_supported:
+            if self.controller.jump and self.is_supported:
                 self.vy = -0.3
                 self.double_jump_cooldown = self.double_jump_cooldown_max
 
             # Double jumping with movement belt
-            elif keys.a_down and self.movement_belt and self.movement_belt_charges > 0 and self.double_jump_cooldown == 0 and not self.double_jump_suppressed:
+            elif self.controller.jump and self.movement_belt and self.movement_belt_charges > 0 and self.double_jump_cooldown == 0 and not self.double_jump_suppressed:
                 self.vy = -0.3
                 self.movement_belt_charges -= 1
                 self.double_jump_cooldown = self.double_jump_cooldown_max
@@ -392,7 +396,7 @@ class Player(pygame.sprite.Sprite):
                 b.collide_special(self)
 
         if self.is_supported:
-            if keys.a:
+            if self.controller.jump:
                 self.vy = -0.3
             self.vy = min(self.vy, 0)
 
@@ -493,12 +497,12 @@ class Player(pygame.sprite.Sprite):
         self.location = self.next_location
 
         # doors
-        if keys.b and "door" in self.level.main[math.floor(self.x)][math.floor(self.y)].tags:
-            self.level.main[math.floor(self.x)][math.floor(self.y)].enter()
+        if self.controller.enter_door and "door" in self.level.main[math.floor(self.x)][math.floor(self.y)].tags:
+            self.level.main[math.floor(self.x)][math.floor(self.y)].enter(self)
             return
 
         # laser gun
-        if keys.b and self.laser_cooldown == 0:
+        if self.controller.shoot and self.laser_cooldown == 0:
             # Figure out direction
             direction = -1 if self.last_dir_is_left else 1
             offset = direction
@@ -508,7 +512,7 @@ class Player(pygame.sprite.Sprite):
                 while offset + math.floor(self.x + 28 / 42) < len(self.level.main) and not \
                 self.level.main[math.floor(self.x + 28 / 42 - (self.last_dir_is_left)) + offset][math.floor(self.y)].opaque:
                     self.level.add_effect(
-                        Effect(Animation(graphics.get("player_laser")), duple.add(self.laser_render_location, (offset * 42, 0)),
+                        Effect(Animation(graphics.get("player_laser_" + str(self.player_number))), duple.add(self.laser_render_location, (offset * 42, 0)),
                                True))
                     offset += direction
 
@@ -518,16 +522,16 @@ class Player(pygame.sprite.Sprite):
                 if self.last_dir_is_left:
                     left = (math.floor((self.location[0] - math.floor(self.location[0] + 28 / 42)) * 42) + 28) % 42
                     rect = pygame.Rect(42 - left, 0, left, 42)
-                    self.level.add_effect(TrimmedEffect(Animation(graphics.get("player_laser")),
+                    self.level.add_effect(TrimmedEffect(Animation(graphics.get("player_laser_" + str(self.player_number))),
                                                             duple.add(self.laser_render_location, (offset * 42, 0)), rect, True))
-                    self.level.add_effect(TrimmedEffect(Animation(graphics.get("player_laser")),
+                    self.level.add_effect(TrimmedEffect(Animation(graphics.get("player_laser_" + str(self.player_number))),
                                                             self.laser_render_location, pygame.Rect(0, 0, 14, 42), True))
 
                 # Generate the first and last lasers if you are going right
                 else:
                     right = -(math.ceil((self.location[0] - math.ceil(self.location[0] + 28 / 42)) * 42) + 27) % 42
                     rect = pygame.Rect(0, 0, right, 42)
-                    self.level.add_effect(TrimmedEffect(Animation(graphics.get("player_laser")),
+                    self.level.add_effect(TrimmedEffect(Animation(graphics.get("player_laser_" + str(self.player_number))),
                                                             duple.add(self.laser_render_location, (offset * 42, 0)), rect, True))
 
                 # Trigger whatever block you hit
@@ -536,7 +540,7 @@ class Player(pygame.sprite.Sprite):
                 # Fix a bug with the lasers
                 render_position_before_impact_block = ((math.floor(self.x + 28 / 42 - self.last_dir_is_left) + offset - direction) * 42,
                     self.laser_render_location[1])
-                self.level.add_effect(Effect(Animation(graphics.get("player_laser_impact")), render_position_before_impact_block, True))
+                self.level.add_effect(Effect(Animation(graphics.get("player_laser_impact_" + str(self.player_number))), render_position_before_impact_block, True))
 
                 if "energy_receptive" in impact_block.tags:
                     impact_block.on_energy_hit(1)

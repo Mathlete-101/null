@@ -4,34 +4,78 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42117786-7b2d-4532-bf14-8ab0f6567828" name="Changes" comment="Added the movement belt, added meta.json to every level, finished level 8, added level 9, added signs.">
+    <list default="true" id="42117786-7b2d-4532-bf14-8ab0f6567828" name="Changes" comment="Messed with the graphics a bunch, fixed the laser again, and made it so the energy recharge sucks energy from the network">
+      <change afterPath="$PROJECT_DIR$/resources/images/player/1/laser.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/images/player/1/moving.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/images/player/1/static.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/levels/single_player/10/background.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/levels/single_player/10/foreground.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/levels/single_player/10/main.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/levels/single_player/10/meta.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/levels/single_player/6/foreground.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/levels/single_player/7/foreground.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/levels/single_player/8/foreground.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/levels/single_player/9/foreground.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/levels/two_player/1/background.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/levels/two_player/1/foreground.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/levels/two_player/1/main.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/levels/two_player/1/meta.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assembler/images/background.py" beforeDir="false" afterPath="$PROJECT_DIR$/assembler/images/background.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assembler/images/columns.py" beforeDir="false" afterPath="$PROJECT_DIR$/assembler/images/columns.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assembler/images/platforms.py" beforeDir="false" afterPath="$PROJECT_DIR$/assembler/images/platforms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assembler/images/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/assembler/images/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assembler/levels/levels.py" beforeDir="false" afterPath="$PROJECT_DIR$/assembler/levels/levels.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assigner/assigner.py" beforeDir="false" afterPath="$PROJECT_DIR$/assigner/assigner.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/effect/effect.py" beforeDir="false" afterPath="$PROJECT_DIR$/effect/effect.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/engine/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/externals/leaderboard/leaders.py" beforeDir="false" afterPath="$PROJECT_DIR$/externals/leaderboard/leaders.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/externals/title_screen/selector.py" beforeDir="false" afterPath="$PROJECT_DIR$/externals/title_screen/selector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/externals/title_screen/title_screen.py" beforeDir="false" afterPath="$PROJECT_DIR$/externals/title_screen/title_screen.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_object/mobile/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/mobile/player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object/static/energy/energy_block.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/static/energy/energy_block.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object/static/energy/energy_delay_block.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/static/energy/energy_delay_block.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object/static/energy/energy_receptive_block.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/static/energy/energy_receptive_block.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object/static/energy/energy_recharge.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/static/energy/energy_recharge_block.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object/static/energy/energy_toggle_receptive_block.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/static/energy/energy_toggle_receptive_block.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object/static/energy/energy_transistor_block.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/static/energy/energy_transistor_block.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_object/static/air_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_object/static/block_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_object/static/door_block.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/static/door_block.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_object/static/ladder.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/static/ladder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_object/static/ladder_test.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/level/level.py" beforeDir="false" afterPath="$PROJECT_DIR$/level/level.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/networker/network/energy_subnet.py" beforeDir="false" afterPath="$PROJECT_DIR$/networker/network/energy_subnet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/images/blocks/columns.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/images/blocks/columns.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/images/blocks/ladder.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/images/blocks/ladder.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/images/blocks/platforms.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/images/blocks/platforms.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/images/misc/background.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/images/misc/background.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/levels/1/main.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/1/main.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/levels/1/meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/1/meta.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/levels/2/meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/2/meta.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/levels/8/main.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/8/main.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/levels/8/meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/8/meta.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/levels/9/meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/9/meta.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/text.py" beforeDir="false" afterPath="$PROJECT_DIR$/tools/text.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/images/player/laser.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/images/player/0/laser.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/images/player/moving.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/images/player/0/moving.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/images/player/static.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/images/player/0/static.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/1/background.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/1/background.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/1/foreground.txt" beforeDir="false" afterPath="$PROJECT_DIR$/controller/controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/1/main.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/1/main.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/1/meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/1/meta.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/2/background.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/2/background.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/2/foreground.txt" beforeDir="false" afterPath="$PROJECT_DIR$/controller/keyboard_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/2/main.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/2/main.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/2/meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/2/meta.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/3/background.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/3/background.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/3/foreground.txt" beforeDir="false" afterPath="$PROJECT_DIR$/controller/merged_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/3/main.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/3/main.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/3/meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/3/meta.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/4/background.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/4/background.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/4/foreground.txt" beforeDir="false" afterPath="$PROJECT_DIR$/controller/nes_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/4/main.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/4/main.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/4/meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/4/meta.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/5/background.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/5/background.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/5/foreground.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/1/foreground.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/5/main.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/5/main.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/5/meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/5/meta.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/6/background.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/6/background.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/6/foreground.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/2/foreground.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/6/main.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/6/main.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/6/meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/6/meta.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/7/background.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/7/background.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/7/foreground.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/3/foreground.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/7/main.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/7/main.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/7/meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/7/meta.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/8/background.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/8/background.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/8/foreground.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/4/foreground.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/8/main.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/8/main.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/8/meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/8/meta.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/9/background.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/9/background.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/9/foreground.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/5/foreground.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/9/main.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/9/main.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/levels/9/meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/9/meta.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +116,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/images/player/1" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -85,18 +129,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\resources\images\player\1" />
+      <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\resources\levels\two_player" />
+      <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\resources" />
       <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\resources\images\player" />
       <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\resources\levels" />
-      <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\resources\images\blocks" />
-      <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\resources\images\misc" />
-      <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\resources\levels\1" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\resources\images\misc" />
-      <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\externals\game_over" />
-      <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\externals\title_screen" />
-      <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1" />
-      <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\game_object\static\energy" />
+      <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\resources\images\player\0" />
+      <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\resources\images\player\1" />
+      <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\resources\misc\leaderboards" />
+      <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\resources\misc\single_player" />
+      <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\resources\levels\single_player" />
     </key>
   </component>
   <component name="RunManager" selected="Python.main">
@@ -297,7 +341,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648838765421</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Messed with the graphics a bunch, fixed the laser again, and made it so the energy recharge sucks energy from the network">
+      <created>1649266591131</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1649266591131</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -326,7 +377,8 @@
     <MESSAGE value="Presentation Version 1" />
     <MESSAGE value="Added Random Stuff, and also have levels through seven and the controller is implemented." />
     <MESSAGE value="Added the movement belt, added meta.json to every level, finished level 8, added level 9, added signs." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added the movement belt, added meta.json to every level, finished level 8, added level 9, added signs." />
+    <MESSAGE value="Messed with the graphics a bunch, fixed the laser again, and made it so the energy recharge sucks energy from the network" />
+    <option name="LAST_COMMIT_MESSAGE" value="Messed with the graphics a bunch, fixed the laser again, and made it so the energy recharge sucks energy from the network" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

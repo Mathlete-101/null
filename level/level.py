@@ -40,7 +40,7 @@ def generate_background_surface(dim):
     return background
 
 class Level:
-    def __init__(self, dim):
+    def __init__(self, dim, number_players):
         self.render_dim = duple.scale(dim, 21 * 2)
         # self.background_surface = tools.transform.get_clear_surface(self.render_dim)
         # self.main_surface = tools.transform.get_clear_surface(self.render_dim)
@@ -49,13 +49,18 @@ class Level:
         self.main = generate_blank_grid(dim)
         self.foreground = generate_blank_grid(dim)
         self.dim = dim
-        self.player = Player(self)
+        self.players = []
+        for i in range(number_players):
+            self.players.append(Player(self, i))
         self.scale_factor = 2
-        self.effects = []
         self.network_manager = NetworkManager(self)
         self.null_speed = 30
         self.null_timer = 0
         self.null_line = 0
+        self.completed_players = 0
+        self.level_number = 0
+
+        self.player_placement_number = 0
 
         # Rendering stuff
         self.world_surface = generate_background_surface(dim)
@@ -63,7 +68,7 @@ class Level:
         self.block_sprite_group = pygame.sprite.Group()
         self.continuous_block_sprite_group = pygame.sprite.Group()
         self.effect_sprite_group = pygame.sprite.Group()
-        self.player_sprite_group = pygame.sprite.Group(self.player)
+        self.player_sprite_group = pygame.sprite.Group(self.players)
         self.active_null_sprite_groups = [NullGroup(0, self.dim[0])]
         self.active_null_sprite_groups[0].update()
 
@@ -83,11 +88,23 @@ class Level:
     def set_foreground(self, location: (int, int), block):
         self.foreground[location] = block
 
-    def update(self):
-        if self.player.x < self.null_line - 7:
+    def complete_level(self, player):
+        self.completed_players += 1
+        if self.completed_players == len(self.players):
             from engine.game import engine
-            engine.end_game()
-        self.player.update()
+            engine.score += self.level_number * 1000
+            engine.next_level()
+        for p in self.players:
+            if p == player:
+                p.disabled = True
+                p.kill()
+
+    def update(self):
+        for player in self.players:
+            if player.x < self.null_line - 7:
+                from engine.game import engine
+                engine.end_game()
+            player.update()
         if self.network_manager:
             self.network_manager.update()
         self.null_timer += 1
@@ -95,14 +112,13 @@ class Level:
             self.tick_null()
             self.null_timer = 0
 
-
-    def set_player_location(self, location):
-        self.player.location = location
+    def player_setup(self, location):
+        self.players[self.player_placement_number].location = location
+        self.player_placement_number += 1
 
     def add_effect(self, effect):
         if effect.render_location[0] <= 42 * (self.null_line - 6):
             return
-        self.effects.append(effect)
         self.effect_sprite_group.add(effect)
 
     def render(self):
@@ -112,20 +128,13 @@ class Level:
         self.continuous_block_sprite_group.draw(self.render_surface)
         self.player_sprite_group.draw(self.render_surface)
         self.effect_sprite_group.draw(self.render_surface)
+        for effect in self.effect_sprite_group.sprites():
+            effect: Effect = effect
+            if effect.ended:
+                self.effect_sprite_group.remove(effect)
         for group in self.active_null_sprite_groups:
             group.draw(self.render_surface)
         return self.render_surface
-        # self.render_base.blit(self.background_surface, (0, 0))
-        # self.render_base.blit(self.main_surface, (0, 0))
-        # self.render_base.blit(tools.transform.scale_factor(self.player.render(), 3), self.player.render_location)
-        # next_effects = []
-        # for effect in self.effects:
-        #     effect.render(self.render_base)
-        #     if not effect.animation.ended:
-        #         next_effects.append(effect)
-        # self.effects = next_effects
-        #
-        # return self.render_base
 
     def prepare_for_destruction(self):
 
@@ -156,7 +165,9 @@ class Level:
                 sprite.kill()
 
             render_line = (self.null_line - 6) * 42
-            for effect in self.effects:
+            for effect in self.effect_sprite_group.sprites():
+                # this line makes the IDE like the next line
+                effect: Effect = effect
                 if effect.render_location[0] <= render_line:
                     effect.kill()
 

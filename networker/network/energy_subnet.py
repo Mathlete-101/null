@@ -42,11 +42,13 @@ class EnergySubnet(Network):
 
     def get_minimum_removal_distance_connection(self):
         """Gets the item in connections with the smallest value when get_removal_distance is called"""
-        return min(self.connections, key=lambda x: x.get_removal_distance())
+        item = min(filter(lambda x: x.supplying, self.connections), key=lambda x: x.get_removal_distance())
+        return item
 
     def remove_energy(self):
         self.get_minimum_removal_distance_connection().remove_energy()
 
     def get_removal_distance(self):
-        return self.get_minimum_removal_distance_connection().get_removal_distance()
+        return self.get_minimum_removal_distance_connection().get_removal_distance() + 1
+
 
