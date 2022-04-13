@@ -4,6 +4,7 @@ from controller.controller import Controller
 from engine import keys
 from externals.title_screen.selector_item import SelectorItem
 from tools import duple
+from sound import sounds
 
 
 class Selector(pygame.sprite.Group):
@@ -35,7 +36,11 @@ class Selector(pygame.sprite.Group):
             self.selected_item.selected = False
             self.currently_selected_number = (self.currently_selected_number + 1) % len(self.options)
             self.selected_item.selected = True
+            sounds.play_sound("updown")
         elif self.controller.start_up:
             self.selected_item.selected = False
             self.currently_selected_number = (self.currently_selected_number - 1) % len(self.options)
             self.selected_item.selected = True
+            sounds.play_sound("updown")
+        elif self.controller.start_enter:
+            sounds.play_sound("select")

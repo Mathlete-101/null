@@ -29,8 +29,10 @@ class NESController(Controller):
         self.down_dpad_down = False
         self.left_dpad = False
         self.left_dpad_down = False
+        self.left_dpad_double_click = False
         self.right_dpad = False
         self.right_dpad_down = False
+        self.right_dpad_double_click = False
         self.select_button = False
         self.select_button_down = False
         self.start_button = False
@@ -40,6 +42,7 @@ class NESController(Controller):
 
         self.double_click_counter = 0
         self.last_direction_left_or_right = ''
+        self.double_click_threshold = 10
 
     def update(self):
         # update double click counter
@@ -55,6 +58,9 @@ class NESController(Controller):
         self.right_dpad_down = False
         self.select_button_down = False
         self.start_button_down = False
+
+        self.left_dpad_double_click = False
+        self.right_dpad_double_click = False
 
         # update buttons
         # a button is 1
@@ -92,14 +98,18 @@ class NESController(Controller):
                     if event.value < -self.dpad_threshold:
                         if not self.left_dpad:
                             self.left_dpad_down = True
+                            if self.last_direction_left_or_right == 'left' and self.double_click_counter > 0:
+                                self.left_dpad_double_click = True
                             self.last_direction_left_or_right = 'left'
-                            self.double_click_counter = 10
+                            self.double_click_counter = self.double_click_threshold
                         self.left_dpad = True
                     elif event.value > self.dpad_threshold:
                         if not self.right_dpad:
                             self.right_dpad_down = True
+                            if self.last_direction_left_or_right == 'right' and self.double_click_counter > 0:
+                                self.right_dpad_double_click = True
                             self.last_direction_left_or_right = 'right'
-                            self.double_click_counter = 10
+                            self.double_click_counter = self.double_click_threshold
                         self.right_dpad = True
                     else:
                         self.left_dpad = False
@@ -153,11 +163,11 @@ class NESController(Controller):
 
     @property
     def dash_left(self):
-        return self.left_dpad_down and self.last_direction_left_or_right == 'left' and self.double_click_counter > 0
+        return self.left_dpad_double_click
 
     @property
     def dash_right(self):
-        return self.right_dpad_down and self.last_direction_left_or_right == 'right' and self.double_click_counter > 0
+        return self.right_dpad_double_click
 
     @property
     def yoyo(self):

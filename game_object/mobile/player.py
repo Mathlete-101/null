@@ -11,6 +11,7 @@ from effect.effect import Effect
 from effect.trimmed_effect import TrimmedEffect
 from game_object.static.block import Block
 from graphics import graphics
+from sound import sounds
 from tools import duple
 
 
@@ -356,6 +357,7 @@ class Player(pygame.sprite.Sprite):
             if self.controller.jump and self.is_supported:
                 self.vy = -0.3
                 self.double_jump_cooldown = self.double_jump_cooldown_max
+                sounds.play_sound("jump")
 
             # Double jumping with movement belt
             elif self.controller.jump and self.movement_belt and self.movement_belt_charges > 0 and self.double_jump_cooldown == 0 and not self.double_jump_suppressed:
@@ -363,6 +365,7 @@ class Player(pygame.sprite.Sprite):
                 self.movement_belt_charges -= 1
                 self.double_jump_cooldown = self.double_jump_cooldown_max
                 self.level.add_effect(Effect(Animation(graphics.get("player_double_jump"), 2), duple.add(self.render_location, (0, self.hitbox.h)), self.level))
+                sounds.play_sound("jump")
 
         # Double jump cooldown
         if self.double_jump_cooldown > 0:
@@ -503,6 +506,9 @@ class Player(pygame.sprite.Sprite):
 
         # laser gun
         if self.controller.shoot and self.laser_cooldown == 0:
+            # play the sound
+            sounds.play_sound("laser_shoot")
+
             # Figure out direction
             direction = -1 if self.last_dir_is_left else 1
             offset = direction
@@ -547,10 +553,10 @@ class Player(pygame.sprite.Sprite):
             else:
                 impact_block = self.level.main[math.floor(self.x_center + direction)][math.floor(self.y)]
                 if not self.last_dir_is_left:
-                    self.level.add_effect(TrimmedEffect(Animation(graphics.get("player_laser_long")), duple.add(self.laser_render_location, (42, 0)), pygame.Rect(0, 0, round((impact_block.location[0] * 42 - self.laser_render_location[0] - 42)), 42), True))
+                    self.level.add_effect(TrimmedEffect(Animation(graphics.get("player_laser_long_" + str(self.player_number))), duple.add(self.laser_render_location, (42, 0)), pygame.Rect(0, 0, round((impact_block.location[0] * 42 - self.laser_render_location[0] - 42)), 42), True))
                 else:
                     laser_length = round((self.laser_render_location[0] - impact_block.location[0] * 42) - 29)
-                    self.level.add_effect(TrimmedEffect(Animation(graphics.get("player_laser_long")), duple.add(self.laser_render_location, (-29, 0)), pygame.Rect(42 - laser_length, 0, laser_length, 42), True))
+                    self.level.add_effect(TrimmedEffect(Animation(graphics.get("player_laser_long_" + str(self.player_number))), duple.add(self.laser_render_location, (-29, 0)), pygame.Rect(42 - laser_length, 0, laser_length, 42), True))
                 if "energy_receptive" in impact_block.tags:
                     impact_block.on_energy_hit(1)
 
@@ -563,7 +569,8 @@ class Player(pygame.sprite.Sprite):
         # Collect collectibles
         block = self.level.main[math.floor(self.x_center)][math.floor(self.y_center)]
         if "collectible" in block.tags:
-            block.collect()
+            block.collect(self)
+            sounds.play_sound("pickup")
 
         self.directional_animation_group.set_left(self.last_dir_is_left)
 

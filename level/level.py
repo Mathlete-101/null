@@ -13,6 +13,7 @@ from game_object.static.air import Air
 from game_object.static.block import Block
 from level.null_group import NullGroup
 from networker.network_manager import NetworkManager
+from sound import sounds
 from tools import duple
 
 universal_air = Air((0, 0))
@@ -102,6 +103,7 @@ class Level:
     def update(self):
         for player in self.players:
             if player.x < self.null_line - 7:
+                sounds.play_sound("die")
                 from engine.game import engine
                 engine.end_game()
             player.update()

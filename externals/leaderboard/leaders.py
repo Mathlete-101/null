@@ -62,7 +62,6 @@ class Leaders(pygame.sprite.Group):
         # This prevents the time you clicked a to end the game from also skipping the first letter selection
         self.controller.a_down = False
 
-
     def set_new_score_name_sprite(self, index, color=(60, 60, 255)):
         self.remove(self.new_score.name_sprites[index])
         self.new_score.name_sprites[index] = WrappedSprite(Text(self.new_score.name[index], zoom=3, color1=color),
@@ -71,6 +70,11 @@ class Leaders(pygame.sprite.Group):
         self.add(self.new_score.name_sprites[index])
 
     def update(self):
+        def restart():
+            # restart the game
+            from engine.game import engine
+            engine.restart()
+
         if self.controller.start_enter:
             if self.new_score:
                 if self.letter_on < 3:
@@ -91,18 +95,9 @@ class Leaders(pygame.sprite.Group):
                         with open(self.path, "w") as file:
                             json.dump(leaderboard_dict, file)
                 else:
-                    # TODO: restart the game
-                    # this doesn't work yet
-                    # from engine.engine import engine
-                    # engine.state = 0
-                    # engine.score = 0
-
-                    #instead, I'll just casually
-                    pygame.event.post(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_ESCAPE))
-
+                    restart()
             else:
-                pygame.event.post(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_ESCAPE))
-
+                restart()
         elif self.new_score and self.letter_on < 3:
             if self.controller.start_down:
                 self.new_score.name = self.new_score.name[:self.letter_on] + LETTERS[(LETTERS.find(self.new_score.name[self.letter_on]) + 1) % 26] + self.new_score.name[self.letter_on + 1:]

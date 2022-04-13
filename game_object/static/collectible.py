@@ -17,11 +17,11 @@ class Collectible (NoSidesBlock):
     def opaque(self):
         return False
 
-    def collect(self):
+    def collect(self, player):
         from engine.game import engine
 
         # yay effect
-        self.effect()
+        self.effect(player)
 
         # seppuku
         self.group.clear(self.render_target, self.second_render_target)
@@ -34,7 +34,7 @@ class Collectible (NoSidesBlock):
 
 
 def get_data_stick_effect(value):
-    def func():
+    def func(player):
         from engine.game import engine
         engine.score += value
     return func
@@ -42,13 +42,11 @@ def get_data_stick_effect(value):
 
 # This function returns a function for consistency
 def get_movement_belt_effect():
-    def func():
-        from engine.game import engine
-        engine.current_level.player.movement_belt = True
+    def func(player):
+        player.movement_belt = True
     return func
 
 def get_energy_ball_effect():
-    def func():
-        from engine.game import engine
-        engine.current_level.player.movement_belt_charges = 3
+    def func(player):
+        player.movement_belt_charges = 3
     return func

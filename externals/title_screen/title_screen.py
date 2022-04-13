@@ -8,6 +8,7 @@ from engine import keys
 from externals.title_screen.selector import Selector
 from misc.wrapped_sprite import WrappedSprite
 from graphics import graphics
+from sound import sounds
 from tools import duple
 from tools.text import render_font_cool as Text
 import tools.duple

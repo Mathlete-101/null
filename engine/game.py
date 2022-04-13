@@ -1,7 +1,6 @@
 import os.path
 
 import pygame
-from stopwatch import Stopwatch
 
 from assembler import assembler
 import tools.text
@@ -9,11 +8,11 @@ from assembler.levels.levels import load_level, check_level_exists
 from controller.keyboard_controller import KeyboardController
 from controller.merged_controller import MergedController
 from controller.nes_controller import NESController
-from engine import keys
 from engine.controller_override import ControllerOverride
 from externals.game_over.game_over import GameOver
 from externals.leaderboard.leaderboard import Leaderboard
 from externals.title_screen.title_screen import TitleScreen
+from sound import sounds
 from tools.text import render_font_cool
 
 
@@ -28,15 +27,22 @@ class Engine:
         self.bar_length = 120
         self.joysticks = []
         self.keyboard_controller = KeyboardController()
+        self.controller_block_time = 0
 
         # TODO: Automatically detect joysticks and add a controller selection system
         self.game_controllers = {}
 
+        # Start pygame
         pygame.init()
+        pygame.mixer.init()
+
 
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 
+        # Load all of the assets
         assembler.assemble()
+
+        sounds.get("test").play()
 
         # initialize joysticks
         pygame.joystick.init()
@@ -46,6 +52,7 @@ class Engine:
         # initialize the font
         # this has to be here because pygame.init() is called above
         tools.text.minecraft_font = pygame.font.Font(os.path.join("resources", "misc", "minecraft_font.ttf"), 16)
+
 
         # Make the loading screen
         self.loading_screen = pygame.Surface(self.screen.get_size())
@@ -61,7 +68,7 @@ class Engine:
         # Game type
         # Either "single_player" or "two_player"
         # TODO: Add a way to select the game type
-        self.game_type = "two_player"
+        self.game_type = "single_player"
 
         # Bypass startup screens to get where I want to be
         # For debugging
@@ -90,8 +97,8 @@ class Engine:
 
         # The part of the hud with the movement bar
         if player.movement_belt:
-            self.screen.fill((255, 255, 255), pygame.rect.Rect(x - 2, y - 2, self.bar_length + 4, 14))
-            self.screen.fill((142, 6, 6), pygame.rect.Rect(x, y, (
+            self.screen.fill((255, 255, 255), pygame.rect.Rect(x - 2, self.screen.get_height() - 38, self.bar_length + 4, 14))
+            self.screen.fill((142, 6, 6), pygame.rect.Rect(x, self.screen.get_height() - 40, (
                     self.bar_length / player.max_movement_belt_charges) * player.movement_belt_charges, 10))
             for i in range(player.max_movement_belt_charges - 1):
                 self.screen.fill((255, 255, 255),
@@ -119,6 +126,9 @@ class Engine:
             game_over.play_animation(self.screen)
             self.go_to_leaderboard()
 
+    def block_controllers(self, time):
+        self.controller_block_time = time
+
     def end_game(self):
         game_over = GameOver(self.screen.get_size(), "Game Over")
         game_over.play_animation(self.screen)
@@ -127,6 +137,10 @@ class Engine:
     def go_to_leaderboard(self):
         self.leaderboard = Leaderboard(self.screen.get_size())
         self.current_level_number = -1
+
+    def restart(self):
+        self.current_level_number = 0
+        self.state = 0
 
     def initialize_controllers(self):
         self.pygame_joystick_objects = [pygame.joystick.Joystick(x) for x in range(pygame.joystick.get_count())]
@@ -176,28 +190,33 @@ class Engine:
                 self.screen.blit(render_font_cool(text), (10, 10))
 
                 self.display_player_bars(self.current_players[0], 10)
-                self.display_player_bars(self.current_players[1], self.screen.get_width() - 10 - self.bar_length)
+                if self.game_type == "two_player":
+                    self.display_player_bars(self.current_players[1], self.screen.get_width() - 10 - self.bar_length)
 
 
 
             clock.tick(fps)
 
             # Update Controllers
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    return
-                elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-                    return
-                else:
-                    for controller in self.joysticks:
-                        if controller.uses_event(event):
-                            controller.add_event(event)
-                    if self.keyboard_controller.uses_event(event):
-                        self.keyboard_controller.add_event(event)
+            if self.controller_block_time == 0:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        return
+                    elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                        return
+                    else:
+                        for controller in self.joysticks:
+                            if controller.uses_event(event):
+                                controller.add_event(event)
+                        if self.keyboard_controller.uses_event(event):
+                            self.keyboard_controller.add_event(event)
 
-            for controller in self.joysticks:
-                controller.update()
-            self.keyboard_controller.update()
+                for controller in self.joysticks:
+                    controller.update()
+                self.keyboard_controller.update()
+            else:
+                self.controller_block_time -= 1
+                pygame.event.get()
 
             if self.current_level_number > 0:
                 self.current_level.update()
