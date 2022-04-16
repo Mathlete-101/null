@@ -1,6 +1,7 @@
 import math
 
 import graphics.graphics
+from engine.settings import settings
 from game_object.static import collectible
 from game_object.static.block import Block
 from game_object.static.collectible import Collectible
@@ -62,9 +63,18 @@ def assign(level_text: LevelText, level_name, meta_data: dict):
     # Constructor is Sign(lines)
     # blit sign.surface to the level at its position scaled by a factor of 42
     if "signs" in meta_data:
-        for sign in meta_data["signs"]:
-            position = (sign["position"]["x"] - 1, sign["position"]["y"] - 1)
-            level.world_surface.blit(GameSign(sign["lines"]).surface, duple.scale(position, 42))
+        if settings.get("assistive_signs"):
+            for sign in meta_data["signs"]:
+                position = (sign["position"]["x"] - 1, sign["position"]["y"] - 1)
+                level.world_surface.blit(GameSign(sign["lines"]).surface, duple.scale(position, 42))
+        else:
+            for sign in meta_data["signs"]:
+                position = (sign["position"]["x"] - 1, sign["position"]["y"] - 1)
+                sign_obj = GameSign(sign["lines"])
+                for location in [duple.add(position, (x, 0)) for x in range(sign_obj.width)]:
+                    level_text.main.text[location[0]][location[1]] = "B"
+
+
 
 
 

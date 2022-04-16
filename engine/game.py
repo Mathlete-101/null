@@ -130,7 +130,9 @@ class Engine:
             for i in range(len(self.current_level.players)):
                 self.current_level.players[i].controller = self.game_controllers[i]
 
-            sounds.play_music("dont_fall_behind_" + str(self.current_level.null_speed))
+            if self.current_level.null_speed <= 30:
+                sounds.play_music("dont_fall_behind_" + str(self.current_level.null_speed))
+
         else:
             game_over = GameOver(self.screen.get_size(), "Game Complete")
             game_over.play_animation(self.screen)
