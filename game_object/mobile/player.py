@@ -51,7 +51,7 @@ class Player(pygame.sprite.Sprite):
         self.player_number = player_number
 
         # Set the player's controller to a blank controller so that there are sane defaults
-        self.controller: Controller = Controller()
+        self.controller: Controller = Controller("blank")
 
         # animations
         self.static_animation = LoopDirectionalAnimation(graphics.get("player_static_" + str(player_number)), 6)

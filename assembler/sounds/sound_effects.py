@@ -8,8 +8,8 @@ from sound import sounds
 
 
 def assemble():
-    # Load all sounds from the folder resources/sounds/wav
-    for name in os.listdir(os.path.join("resources", "sounds", "wav")):
-        dir = os.path.join("resources", "sounds", "wav", name)
+    # Load all sounds from the folder resources/sounds/sfx
+    for name in os.listdir(os.path.join("resources", "sounds", "sfx")):
+        dir = os.path.join("resources", "sounds", "sfx", name)
         sound_name = name.split(".")[0]
-        sounds.add(pygame.mixer.Sound(dir), sound_name)
+        sounds.add_sound(pygame.mixer.Sound(dir), sound_name)

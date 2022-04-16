@@ -3,7 +3,6 @@ import os
 
 import pygame.sprite
 
-from engine import keys
 from externals.leaderboard.leader import Leader
 from misc.wrapped_sprite import WrappedSprite
 from tools.text import render_font_cool as Text
@@ -99,9 +98,9 @@ class Leaders(pygame.sprite.Group):
             else:
                 restart()
         elif self.new_score and self.letter_on < 3:
-            if self.controller.start_down:
+            if self.controller.start_up:
                 self.new_score.name = self.new_score.name[:self.letter_on] + LETTERS[(LETTERS.find(self.new_score.name[self.letter_on]) + 1) % 26] + self.new_score.name[self.letter_on + 1:]
                 self.set_new_score_name_sprite(self.letter_on)
-            elif self.controller.start_up:
+            elif self.controller.start_down:
                 self.new_score.name = self.new_score.name[:self.letter_on] + LETTERS[(LETTERS.find(self.new_score.name[self.letter_on]) - 1) % 26] + self.new_score.name[self.letter_on + 1:]
                 self.set_new_score_name_sprite(self.letter_on)

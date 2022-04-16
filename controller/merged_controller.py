@@ -5,8 +5,23 @@ class MergedController(Controller):
     """A controller that merges the results of multiple controllers."""
 
     def __init__(self, controllers):
-        super().__init__()
+        super().__init__("merged")
         self.controllers = controllers
+
+    @property
+    def controller_type(self):
+        if len(self.controllers) == 1:
+            return self.controllers[0].controller_type
+        else:
+            return self._controller_type
+
+    @controller_type.setter
+    def controller_type(self, value):
+        self._controller_type = value
+
+    @property
+    def types(self):
+        return [c.types for c in self.controllers]
 
     @property
     def enter_door(self):

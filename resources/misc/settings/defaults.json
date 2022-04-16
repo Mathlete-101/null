@@ -1,0 +1,14 @@
+{
+  "sound": {
+    "volume": {
+      "master": 1,
+      "music": 1,
+      "sfx": 1
+    }
+  },
+  "controllers": {
+    "player_1": "nes_1",
+    "player_2": "nes_2"
+  },
+  "assistive_signs": true
+}

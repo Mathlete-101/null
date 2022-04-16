@@ -15,8 +15,8 @@ class NESController(Controller):
     right: go to the right
     double click right: dash to the right
     """
-    def __init__(self, joystick_id):
-        Controller.__init__(self)
+    def __init__(self, joystick_id, controller_type="nes"):
+        Controller.__init__(self, controller_type)
         self.joystick_id = joystick_id
 
         self.a_button = False

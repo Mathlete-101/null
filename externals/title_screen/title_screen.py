@@ -4,12 +4,10 @@ import pygame
 
 import tools.transform
 from controller.controller import Controller
-from engine import keys
 from externals.title_screen.selector import Selector
+from externals.title_screen.settings.settings import Settings
 from misc.wrapped_sprite import WrappedSprite
 from graphics import graphics
-from sound import sounds
-from tools import duple
 from tools.text import render_font_cool as Text
 import tools.duple
 
@@ -18,17 +16,18 @@ def zoom_in(image):
     return tools.transform.scale_factor(image, 3)
 
 
-class TitleScreen():
+class TitleScreen:
     def __init__(self, size, controller):
         self.background_surface = pygame.Surface(size)
         self.background_surface.fill((60, 60, 80))
         self.render_surface = pygame.Surface(size)
         self.render_surface.blit(self.background_surface, (0, 0))
-        self.first_options = Selector(["Play", "Instructions", "Settings", "Quit"], (size[0] / 2, size[1] * 3 / 4), controller)
+        self.first_options = Selector(["1 Player", "2 Player", "Instructions", "Settings", "Quit"], (size[0] / 2, size[1] * 2 / 3), controller)
         self.second_options = Selector(["Easy", "Medium", "Hard", "Really Hard", "Impossible"], (size[0] / 2, size[1] * 2 / 3), controller)
         logo = tools.transform.scale_factor(pygame.image.load(os.path.join("resources", "images", "misc", "logo.png")), 12)
         self.logo = pygame.sprite.Group(WrappedSprite(logo, ((size[0] - logo.get_size()[0]) / 2, (size[1] - logo.get_size()[1]) / 4)))
         self.logo.draw(self.render_surface)
+        self.settings = Settings(size, controller)
         self.state = 0
         self.controller: Controller = controller
 
@@ -75,6 +74,9 @@ class TitleScreen():
         elif self.state == 2:
             self.instructions.clear(self.render_surface, self.background_surface)
             self.instructions.draw(self.render_surface)
+        elif self.state == 3:
+            self.settings.clear(self.render_surface, self.background_surface)
+            self.settings.draw(self.render_surface)
         return self.render_surface
 
     def update(self):
@@ -88,16 +90,24 @@ class TitleScreen():
                 if self.first_options.currently_selected_number == 0:
                     self.state = 1
                     self.first_options.clear(self.render_surface, self.background_surface)
+                    from engine.game import engine
+                    engine.game_type = "single_player"
                 elif self.first_options.currently_selected_number == 1:
+                    self.state = 1
+                    self.first_options.clear(self.render_surface, self.background_surface)
+                    from engine.game import engine
+                    engine.game_type = "two_player"
+                elif self.first_options.currently_selected_number == 2:
                     self.state = 2
                     self.first_options.clear(self.render_surface, self.background_surface)
                     self.logo.clear(self.render_surface, self.background_surface)
-                elif self.first_options.currently_selected_number == 2:
-                    pass
-                    #Add settings here
+                elif self.first_options.currently_selected_number == 3:
+                    self.state = 3
+                    self.first_options.clear(self.render_surface, self.background_surface)
+                    self.logo.clear(self.render_surface, self.background_surface)
                 else:
                     # quit the game, if it isn't clear
-                    pygame.event.post(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_ESCAPE))
+                    pygame.event.post(pygame.event.Event(pygame.QUIT))
 
         elif self.state == 1:
             self.second_options.update()
@@ -110,3 +120,9 @@ class TitleScreen():
                 self.state = 0
                 self.instructions.clear(self.render_surface, self.background_surface)
                 self.logo.draw(self.render_surface)
+        elif self.state == 3:
+            if self.settings.update():
+                self.state = 0
+                self.settings.clear(self.render_surface, self.background_surface)
+                self.logo.draw(self.render_surface)
+

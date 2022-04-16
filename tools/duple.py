@@ -32,3 +32,14 @@ def insert(a, b):
 def d_round(a):
     return round(a[0]), round(a[1])
 
+
+def inner_multiply(a, b):
+    return a[0] * b[0], a[1] * b[1]
+
+
+class ScreenPosition:
+    def __init__(self, dim):
+        self.dim = dim
+
+    def __call__(self, pos):
+        return inner_multiply(pos, self.dim)

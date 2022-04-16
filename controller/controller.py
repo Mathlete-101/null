@@ -1,6 +1,7 @@
 class Controller:
-    def __init__(self):
+    def __init__(self, controller_type):
         self.events = []
+        self.controller_type = controller_type
 
     def add_event(self, event):
         self.events.append(event)

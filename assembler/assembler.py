@@ -6,3 +6,4 @@ def assemble():
     blocks.assemble()
     player.assemble()
     sounds.assemble()
+

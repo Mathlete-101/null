@@ -4,31 +4,55 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42117786-7b2d-4532-bf14-8ab0f6567828" name="Changes" comment="Basic 2 player functionality working. Also, fixed a memory leak related to the laser.">
-      <change afterPath="$PROJECT_DIR$/assembler/sounds/music.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assembler/sounds/sound_effects.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assembler/sounds/sounds.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/sounds/midi/dont_fall_behind_test.mid" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/sounds/wav/die.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/sounds/wav/door.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/sounds/wav/jump.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/sounds/wav/laser_shoot.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/sounds/wav/pickup.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/sounds/wav/select.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/sounds/wav/updown.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sound/music.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sound/sounds.py" afterDir="false" />
+    <list default="true" id="42117786-7b2d-4532-bf14-8ab0f6567828" name="Changes" comment="Basic sounds functionality working">
+      <change afterPath="$PROJECT_DIR$/assembler/images/icons.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/engine/settings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/externals/title_screen/settings/button.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/externals/title_screen/settings/controller_settings_panel.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/externals/title_screen/settings/exit_settings_panel.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/externals/title_screen/settings/gameplay_settings_panel.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/externals/title_screen/settings/settings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/externals/title_screen/settings/settings_item.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/externals/title_screen/settings/settings_panel.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/externals/title_screen/settings/slider.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/externals/title_screen/settings/switch.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/externals/title_screen/settings/volume_settings_panel.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/misc/settings/defaults.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sounds/music/dont_fall_behind_10.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sounds/music/dont_fall_behind_15.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sounds/music/dont_fall_behind_20.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sounds/music/dont_fall_behind_25.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sounds/music/dont_fall_behind_30.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sounds/music/dont_fall_behind_test.mid" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assembler/assembler.py" beforeDir="false" afterPath="$PROJECT_DIR$/assembler/assembler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assembler/images/blocks.py" beforeDir="false" afterPath="$PROJECT_DIR$/assembler/images/blocks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assembler/sounds/music.py" beforeDir="false" afterPath="$PROJECT_DIR$/assembler/sounds/music.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assembler/sounds/sound_effects.py" beforeDir="false" afterPath="$PROJECT_DIR$/assembler/sounds/sound_effects.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controller/controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/keyboard_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controller/keyboard_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/merged_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controller/merged_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/nes_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controller/nes_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/engine/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/keys.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/level_manager.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/externals/leaderboard/leaders.py" beforeDir="false" afterPath="$PROJECT_DIR$/externals/leaderboard/leaders.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/externals/title_screen/selector.py" beforeDir="false" afterPath="$PROJECT_DIR$/externals/title_screen/selector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/externals/title_screen/selector_item.py" beforeDir="false" afterPath="$PROJECT_DIR$/externals/title_screen/selector_item.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/externals/title_screen/title_screen.py" beforeDir="false" afterPath="$PROJECT_DIR$/externals/title_screen/title_screen.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_object/mobile/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/mobile/player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object/static/collectible.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/static/collectible.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object/static/door_block.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/static/door_block.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_object/static/ladder.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/static/ladder.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/level/level.py" beforeDir="false" afterPath="$PROJECT_DIR$/level/level.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sounds/midi/dont_fall_behind_test.mid" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sounds/wav/die.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sounds/wav/door.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sounds/wav/jump.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sounds/wav/laser_shoot.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sounds/wav/pickup.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sounds/wav/select.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sounds/wav/updown.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sound/sounds.py" beforeDir="false" afterPath="$PROJECT_DIR$/sound/sounds.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tools/duple.py" beforeDir="false" afterPath="$PROJECT_DIR$/tools/duple.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,11 +113,11 @@
       <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\resources\levels" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\externals\title_screen\settings" />
       <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\resources\images\player\0" />
       <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\resources\images\player\1" />
       <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\resources\misc\leaderboards" />
       <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\resources\misc\single_player" />
-      <recent name="C:\Users\166790\PycharmProjects\FBLA-Repo-1\resources\levels\single_player" />
     </key>
   </component>
   <component name="RunManager" selected="Python.main">
@@ -308,7 +332,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649771355159</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Basic sounds functionality working">
+      <created>1649855967102</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1649855967102</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -339,7 +370,8 @@
     <MESSAGE value="Added the movement belt, added meta.json to every level, finished level 8, added level 9, added signs." />
     <MESSAGE value="Messed with the graphics a bunch, fixed the laser again, and made it so the energy recharge sucks energy from the network" />
     <MESSAGE value="Basic 2 player functionality working. Also, fixed a memory leak related to the laser." />
-    <option name="LAST_COMMIT_MESSAGE" value="Basic 2 player functionality working. Also, fixed a memory leak related to the laser." />
+    <MESSAGE value="Basic sounds functionality working" />
+    <option name="LAST_COMMIT_MESSAGE" value="Basic sounds functionality working" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

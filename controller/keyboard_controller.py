@@ -3,10 +3,42 @@ import pygame
 from controller.controller import Controller
 
 
+STANDARD_LAYOUT = {
+    "a": pygame.K_a,
+    "s": pygame.K_s,
+    "up": pygame.K_UP,
+    "down": pygame.K_DOWN,
+    "left": pygame.K_LEFT,
+    "right": pygame.K_RIGHT
+}
+
+LEFT_SIDE_LAYOUT = {
+    "a": pygame.K_BACKQUOTE,
+    "s": pygame.K_1,
+    "up": pygame.K_w,
+    "down": pygame.K_s,
+    "left": pygame.K_a,
+    "right": pygame.K_d
+}
+
+RIGHT_SIDE_LAYOUT = {
+    "a": pygame.K_COMMA,
+    "s": pygame.K_PERIOD,
+    "up": pygame.K_UP,
+    "down": pygame.K_DOWN,
+    "left": pygame.K_LEFT,
+    "right": pygame.K_RIGHT
+}
+
+
 class KeyboardController(Controller):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, keyboard_controller_layout=None, controller_type="keyboard"):
+        super().__init__(controller_type)
+        if keyboard_controller_layout is None:
+            keyboard_controller_layout = STANDARD_LAYOUT
+        self.keyboard_controller_layout = keyboard_controller_layout
+
         self.a = False
         self.a_down = False
         self.s = False
@@ -36,39 +68,39 @@ class KeyboardController(Controller):
 
         for event in self.events:
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_a:
+                if event.key == self.keyboard_controller_layout["a"]:
                     self.a = True
                     self.a_down = True
-                elif event.key == pygame.K_s:
+                elif event.key == self.keyboard_controller_layout["s"]:
                     self.s = True
                     self.s_down = True
-                elif event.key == pygame.K_UP:
+                elif event.key == self.keyboard_controller_layout["up"]:
                     self.up_arrow = True
                     self.up_arrow_down = True
-                elif event.key == pygame.K_DOWN:
+                elif event.key == self.keyboard_controller_layout["down"]:
                     self.down_arrow = True
                     self.down_arrow_down = True
-                elif event.key == pygame.K_LEFT:
+                elif event.key == self.keyboard_controller_layout["left"]:
                     self.left_arrow = True
                     self.left_arrow_down = True
                     self.last_arrow_left_or_right = 'left'
-                elif event.key == pygame.K_RIGHT:
+                elif event.key == self.keyboard_controller_layout["right"]:
                     self.right_arrow = True
                     self.right_arrow_down = True
                     self.last_arrow_left_or_right = 'right'
             elif event.type == pygame.KEYUP:
-                if event.key == pygame.K_a:
+                if event.key == self.keyboard_controller_layout["a"]:
                     self.a = False
-                elif event.key == pygame.K_s:
+                elif event.key == self.keyboard_controller_layout["s"]:
                     self.s = False
-                elif event.key == pygame.K_UP:
+                elif event.key == self.keyboard_controller_layout["up"]:
                     self.up_arrow = False
-                elif event.key == pygame.K_DOWN:
+                elif event.key == self.keyboard_controller_layout["down"]:
                     self.down_arrow = False
-                elif event.key == pygame.K_LEFT:
+                elif event.key == self.keyboard_controller_layout["left"]:
                     self.left_arrow = False
                     self.double_tap_counter = 10
-                elif event.key == pygame.K_RIGHT:
+                elif event.key == self.keyboard_controller_layout["right"]:
                     self.right_arrow = False
                     self.double_tap_counter = 10
 

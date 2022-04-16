@@ -2,7 +2,6 @@ import math
 
 import pygame
 
-from engine import keys
 from game_object.static.no_sides_block import NoSidesBlock
 from graphics import graphics
 
@@ -37,8 +36,8 @@ class Ladder(NoSidesBlock):
             player.suppress_double_jump()
             if player.controller.ladder_up:
                 player.vy = -0.1
-                if math.floor(player.next_bottom) != math.floor(player.bottom) and math.floor(player.bottom) == self.y and self.is_top_ladder:
-                    keys.up = False
+                # This might be needed. If there are bugs with the ladder, try player.controller.ladder_up = False or maybe player.controller.ladder_down = False or maybe even player.controller.jump = False
+                # if math.floor(player.next_bottom) != math.floor(player.bottom) and math.floor(player.bottom) == self.y and self.is_top_ladder:
             elif player.controller.ladder_down:
                 player.vy = 0.1
             else:

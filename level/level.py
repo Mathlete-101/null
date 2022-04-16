@@ -145,6 +145,7 @@ class Level:
         # This doesn't work yet
         # get rid of anything that might have a reference to this object, thus breaking all loops and allowing for
         # garbage collection
+        # actually I think weakref can make this unnecessary
         # del self.main
         # del self.background
         # del self.foreground
