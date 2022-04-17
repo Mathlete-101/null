@@ -5,6 +5,7 @@ import pygame
 from stopwatch import Stopwatch
 
 import tools.transform
+from game_object.mobile.level_builder_player import LevelBuilderPlayer
 from graphics import graphics
 from animation.animation import Animation
 from effect.effect import Effect
@@ -41,21 +42,27 @@ def generate_background_surface(dim):
     return background
 
 class Level:
-    def __init__(self, dim, number_players):
+    def __init__(self, dim, number_players, level_type, level_text, meta_data, level_name):
         self.render_dim = duple.scale(dim, 21 * 2)
-        # self.background_surface = tools.transform.get_clear_surface(self.render_dim)
-        # self.main_surface = tools.transform.get_clear_surface(self.render_dim)
-        # self.foreground_surface = tools.transform.get_clear_surface(self.render_dim)
+        self.level_text = level_text
+        self.level_type = level_type
+        self.level_name = level_name
+        self.meta_data = meta_data
         self.background: List[List[Block]] = generate_blank_grid(dim)
         self.main = generate_blank_grid(dim)
         self.foreground = generate_blank_grid(dim)
         self.dim = dim
         self.players = []
-        for i in range(number_players):
-            self.players.append(Player(self, i))
+        if self.level_type == "level_builder":
+            self.players = [LevelBuilderPlayer(self, level_text, meta_data, level_name)]
+        else:
+            for i in range(number_players):
+                self.players.append(Player(self, i))
         self.scale_factor = 2
         self.network_manager = NetworkManager(self)
         self.null_speed = 30
+        if self.level_type == "level_builder":
+            self.null_speed = 31
         self.null_timer = 0
         self.null_line = 0
         self.completed_players = 0
@@ -64,7 +71,7 @@ class Level:
         self.player_placement_number = 0
 
         # Rendering stuff
-        self.world_surface = generate_background_surface(dim)
+        self.world_surface = generate_background_surface(self.dim)
         self.render_surface = pygame.Surface(self.render_dim)
         self.block_sprite_group = pygame.sprite.Group()
         self.continuous_block_sprite_group = pygame.sprite.Group()
@@ -77,6 +84,9 @@ class Level:
 
     def initialize(self):
         self.network_manager.initialize()
+        self.draw_level()
+
+    def draw_level(self):
         self.block_sprite_group.draw(self.world_surface)
         self.render_surface.blit(self.world_surface, (0, 0))
 
@@ -115,8 +125,9 @@ class Level:
             self.null_timer = 0
 
     def player_setup(self, location):
-        self.players[self.player_placement_number].location = location
-        self.player_placement_number += 1
+        if self.player_placement_number < len(self.players):
+            self.players[self.player_placement_number].location = location
+            self.player_placement_number += 1
 
     def add_effect(self, effect):
         if effect.render_location[0] <= 42 * (self.null_line - 6):

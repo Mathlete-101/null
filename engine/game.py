@@ -5,6 +5,7 @@ import pygame
 from assembler import assembler
 import tools.text
 from assembler.levels.levels import load_level, check_level_exists
+from controller.full_keyboard_controller import FullKeyboardController
 from controller.keyboard_controller import KeyboardController
 from controller.merged_controller import MergedController
 from controller.nes_controller import NESController
@@ -34,6 +35,7 @@ class Engine:
             0: MergedController([csp.find_controller_type_by_id(settings.get("controllers.player_1"))["generate_function"]()]),
             1: MergedController([csp.find_controller_type_by_id(settings.get("controllers.player_2"))["generate_function"]()])
         }
+        self.full_keyboard_controller = FullKeyboardController()
 
         # Start pygame
         pygame.init()
@@ -70,14 +72,17 @@ class Engine:
         self.leaderboard = None
 
         # Game type
-        # Either "single_player" or "two_player"
-        self.game_type = "single_player"
+        # Either "single_player" or "two_player" or "level_builder"
+        self.game_type = "two_player"
+
+        if self.game_type == "level_builder":
+            self.level_builder_player_location = None
 
         # Bypass startup screens to get where I want to be
         # For debugging
         # Set this to the number of the level minus 1
-        # self.current_level_number = 9
-        # self.difficulty = -1
+        # self.current_level_number = 5
+        # self.difficulty = 0
         # self.next_level()
 
     def initialize_loading_surface(self):
@@ -90,7 +95,7 @@ class Engine:
 
     @property
     def joysticks(self):
-        return [self.primary_controller, self.game_controllers[0], self.game_controllers[1]]
+        return [self.primary_controller, self.game_controllers[0], self.game_controllers[1], self.full_keyboard_controller]
 
     def display_loading(self):
         self.screen.blit(self.loading_screen, (0, 0))
@@ -126,12 +131,15 @@ class Engine:
 
             # Generate and prepare the level
             self.current_level = load_level(self.game_type, str(self.current_level_number))
-            self.current_level.null_speed = 30 - (5 * self.difficulty)
-            for i in range(len(self.current_level.players)):
-                self.current_level.players[i].controller = self.game_controllers[i]
+            if self.game_type != "level_builder":
+                self.current_level.null_speed = 30 - (5 * self.difficulty)
+                for i in range(len(self.current_level.players)):
+                    self.current_level.players[i].controller = self.game_controllers[i]
 
-            if self.current_level.null_speed <= 30:
-                sounds.play_music("dont_fall_behind_" + str(self.current_level.null_speed))
+                if self.current_level.null_speed <= 30:
+                    sounds.play_music("dont_fall_behind_" + str(self.current_level.null_speed))
+            else:
+                self.current_level.players[0].controller = self.full_keyboard_controller
 
         else:
             game_over = GameOver(self.screen.get_size(), "Game Complete")
@@ -192,9 +200,13 @@ class Engine:
                 text = format(self.score, "06")
                 self.screen.blit(render_font_cool(text), (10, 10))
 
-                self.display_player_bars(self.current_players[0], 10)
-                if self.game_type == "two_player":
-                    self.display_player_bars(self.current_players[1], self.screen.get_width() - 10 - self.bar_length)
+                if self.game_type != "level_builder":
+                    self.display_player_bars(self.current_players[0], 10)
+                    if self.game_type == "two_player":
+                        try:
+                            self.display_player_bars(self.current_players[1], self.screen.get_width() - 10 - self.bar_length)
+                        except IndexError:
+                            raise Exception("you oaf. You forgot to set meta.json of 2 player level " + self.current_level.level_name + " to have player_count: 2")
 
 
 

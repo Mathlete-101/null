@@ -51,3 +51,10 @@ def assemble():
         graphics.add(AnimationGraphic(m_belt[3][0:15]), "player_yoyo_portal")
         graphics.add(AnimationGraphic(m_belt[4][0:5]), "player_yoyo_teleport")
         graphics.add(AnimationGraphic(m_belt[5][0:5]), "player_yoyo_portal_end")
+
+        # level builder player
+        level_builder_player = tools.transform.split_sheet(pygame.image.load(os.path.join("resources", "images", "player", "level_builder_player.png")))
+
+        graphics.add(Graphic(level_builder_player[0][0]), "level_builder_player")
+        graphics.add(Graphic(level_builder_player[0][1]), "level_builder_player_background")
+

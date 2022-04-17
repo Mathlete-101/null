@@ -26,6 +26,7 @@ class TextLayer:
             self.text = grid.tolist()
         else:
             self.text = None
+            self.dim = (0, 0)
 
     def get_level(self):
         return self.text
@@ -50,7 +51,6 @@ class TextLayer:
         return full_surrounded
 
     def get_surrounding_pieces(self, location):
-        # location = (location[0], location[2])
         if location[0] >= self.dim[0] and location[1] >= self.dim[1]:
             raise IndexError("Error: location passed not within level text")
         if self.text is None:
@@ -71,3 +71,19 @@ class LevelText:
 
     def assign(self):
         assigner.assigner.assign(self)
+
+    def __getitem__(self, sub_path):
+        if sub_path == "background":
+            return self.background
+        elif sub_path == "main":
+            return self.main
+        elif sub_path == "foreground":
+            return self.foreground
+        else:
+            raise KeyError(f"Error: {sub_path} not found")
+
+    def get_raw(self, sub_path):
+        # transpose the target array so that x is y and y is x
+        # this is to save the array
+        return numpy.transpose(numpy.array(self[sub_path].text)).tolist()
+
