@@ -1,4 +1,5 @@
 import os.path
+import time
 
 import pygame
 
@@ -84,9 +85,9 @@ class Engine:
         # Bypass startup screens to get where I want to be
         # For debugging
         # Set this to the number of the level minus 1
-        self.current_level_number = 10
-        self.difficulty = 4
-        self.next_level()
+        # self.current_level_number = 10
+        # self.difficulty = 4
+        # self.next_level()
 
     def initialize_loading_surface(self):
         self.loading_screen.fill((60, 60, 80))
@@ -160,6 +161,7 @@ class Engine:
             if self.game_type.split("/")[0] == "demo":
                 self.go_to_recording_complete()
             else:
+                time.sleep(0.2)
                 game_over = GameOver(self.screen.get_size(), "Game Complete")
                 sounds.play_sound("a_shot_of_victory")
                 sounds.play_music("prelude_drawl")
@@ -170,6 +172,7 @@ class Engine:
         self.controller_block_time = time
 
     def end_game(self):
+        time.sleep(0.2)
         game_over = GameOver(self.screen.get_size(), "Game Over")
         sounds.play_sound("fork_in_a_blender")
         sounds.play_music("prelude_drawl")

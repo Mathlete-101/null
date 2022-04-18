@@ -39,7 +39,7 @@ def is_upper_case(text):
 
 
 def get_spaced_sprites_size(text, space):
-    length = sum([t[1] for t in minecraft_font.metrics(text)]) * 3
+    length = sum([minecraft_font.size(c)[0] for c in text]) * 3
     # Make sure to get the height of a capital letter with nothing beneath it
     height = minecraft_font.metrics('O')[0][3] * 3
     return length + (space * (len(text) - 1)), height

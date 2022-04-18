@@ -21,6 +21,10 @@ class GameOver(pygame.sprite.Group):
             pygame.display.flip()
         clock.tick(1)
         clock.tick(1)
+        clock.tick(1)
+        clock.tick(1)
+        clock.tick(1)
+        clock.tick(1)
 
         # Reset the events so that keypresses don't work
         pygame.event.clear(pygame.KEYDOWN)
