@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42117786-7b2d-4532-bf14-8ab0f6567828" name="Changes" comment="Fixed numerous bugs and made minor tweaks. Also, added demo mode, which allows for recordings. I created a 3:00 recording for the presentation. This should be pretty close to presentation version 2.">
+    <list default="true" id="42117786-7b2d-4532-bf14-8ab0f6567828" name="Changes" comment="Removed todos.">
+      <change afterPath="$PROJECT_DIR$/resources/sounds/sfx/a_shot_of_victory.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sounds/sfx/fork_in_a_blender.wav" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/engine/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/externals/title_screen/title_screen.py" beforeDir="false" afterPath="$PROJECT_DIR$/externals/title_screen/title_screen.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -329,7 +330,14 @@
       <option name="project" value="LOCAL" />
       <updated>1650252353640</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Removed todos.">
+      <created>1650252408969</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1650252408969</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -366,7 +374,8 @@
     <MESSAGE value="Basic level builder functionality now available by settings game_type to &quot;level_builder&quot; and skipping the startup. All 6 2-player levels now complete." />
     <MESSAGE value="Added unversioned files to git" />
     <MESSAGE value="Fixed numerous bugs and made minor tweaks. Also, added demo mode, which allows for recordings. I created a 3:00 recording for the presentation. This should be pretty close to presentation version 2." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed numerous bugs and made minor tweaks. Also, added demo mode, which allows for recordings. I created a 3:00 recording for the presentation. This should be pretty close to presentation version 2." />
+    <MESSAGE value="Removed todos." />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed todos." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

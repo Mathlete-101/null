@@ -45,6 +45,7 @@ class Engine:
 
 
 
+
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 
         # Load all the assets
@@ -61,6 +62,8 @@ class Engine:
 
         # make sure the volumes are set correctly
         sounds.update_volume()
+
+        sounds.play_music("prelude_drawl")
 
         # Make the loading screen
         self.loading_screen = pygame.Surface(self.screen.get_size())
@@ -81,9 +84,9 @@ class Engine:
         # Bypass startup screens to get where I want to be
         # For debugging
         # Set this to the number of the level minus 1
-        # self.current_level_number = 10
-        # self.difficulty = 4
-        # self.next_level()
+        self.current_level_number = 10
+        self.difficulty = 4
+        self.next_level()
 
     def initialize_loading_surface(self):
         self.loading_screen.fill((60, 60, 80))
@@ -158,6 +161,8 @@ class Engine:
                 self.go_to_recording_complete()
             else:
                 game_over = GameOver(self.screen.get_size(), "Game Complete")
+                sounds.play_sound("a_shot_of_victory")
+                sounds.play_music("prelude_drawl")
                 game_over.play_animation(self.screen)
                 self.go_to_leaderboard()
 
@@ -166,6 +171,8 @@ class Engine:
 
     def end_game(self):
         game_over = GameOver(self.screen.get_size(), "Game Over")
+        sounds.play_sound("fork_in_a_blender")
+        sounds.play_music("prelude_drawl")
         game_over.play_animation(self.screen)
         self.go_to_leaderboard()
 
