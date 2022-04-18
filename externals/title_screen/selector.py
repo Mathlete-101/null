@@ -61,7 +61,7 @@ class Selector(pygame.sprite.Group):
             self.selected_item.selected = True
             sounds.play_sound("updown")
             return 2
-        elif self.controller.start_enter:
+        elif self.controller.start_enter or self.controller.start_back:
             sounds.play_sound("select")
             return 3
         return 0

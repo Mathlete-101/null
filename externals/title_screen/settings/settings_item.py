@@ -21,3 +21,9 @@ class SettingsItem(pygame.sprite.Group):
 
     def on_click(self):
         pass
+
+    def on_left(self):
+        pass
+
+    def on_right(self):
+        pass

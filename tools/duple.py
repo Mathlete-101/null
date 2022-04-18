@@ -1,4 +1,5 @@
 import math
+from functools import reduce
 
 
 def add(a, b):
@@ -35,6 +36,12 @@ def d_round(a):
 
 def inner_multiply(a, b):
     return a[0] * b[0], a[1] * b[1]
+
+
+def d_sum(list_):
+    if len(list_) == 0:
+        return 0, 0
+    return reduce(lambda x, y: add(x, y), list_)
 
 
 class ScreenPosition:

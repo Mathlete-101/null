@@ -39,5 +39,18 @@ class VolumeSettingsPanel(SettingsPanel):
         if result == "back":
             return True
         else:
-            settings.set(["sound", "volume", self.selected_item_name], self.selected_item.val / 10)
-            sounds.update_volume()
+            self.set_selected_volume()
+
+    def on_item_left(self, result):
+        if result != "back":
+            self.set_selected_volume()
+
+    def on_item_right(self, result):
+        if result != "back":
+            self.set_selected_volume()
+
+    def set_selected_volume(self):
+        settings.set(["sound", "volume", self.selected_item_name], self.selected_item.val / 10)
+        sounds.update_volume()
+
+

@@ -1,4 +1,5 @@
 {
   "name": "blank",
-  "player_count": 2
+  "player_count": 2,
+  "floor_level": 27
 }

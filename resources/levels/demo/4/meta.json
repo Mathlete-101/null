@@ -1,0 +1,43 @@
+{
+  "name": "Training Camp",
+  "floor": 27,
+  "movement_belt": true,
+  "signs": [
+    {
+      "lines": [
+        "Double click to dash."
+      ],
+      "position": {
+        "x": 4,
+        "y": 29
+      }
+    },
+    {
+      "lines": [
+        "Triple jump to get over this."
+      ],
+      "position": {
+        "x": 23,
+        "y": 29
+      }
+    },
+    {
+      "lines": [
+        "Shoot the toggle and grab the ball to recharge."
+      ],
+      "position": {
+        "x": 37,
+        "y": 29
+      }
+    },
+    {
+      "lines": [
+        "Press down to activate the yoyo."
+      ],
+      "position": {
+        "x": 49,
+        "y": 30
+      }
+    }
+  ]
+}

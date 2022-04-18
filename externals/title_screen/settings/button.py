@@ -37,3 +37,9 @@ class Button(SettingsItem):
     def on_click(self):
         sounds.play_sound("select")
         return self.result
+
+    def on_left(self):
+        return self.result
+
+    def on_right(self):
+        return self.result

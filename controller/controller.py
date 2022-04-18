@@ -12,6 +12,22 @@ class Controller:
     def update(self):
         pass
 
+    def save(self, file_path):
+        pass
+
+    def load(self, file_path):
+        pass
+
+    def reset_recording(self):
+        pass
+
+    def clear(self):
+        self.events = []
+        self.update()
+
+    def clear_movement_belt(self):
+        pass
+
     @property
     def shoot(self):
         return False
@@ -66,6 +82,14 @@ class Controller:
 
     @property
     def start_back(self):
+        return False
+
+    @property
+    def start_left(self):
+        return False
+
+    @property
+    def start_right(self):
         return False
 
     @property

@@ -4,7 +4,7 @@ import pygame
 
 from assembler import assembler
 import tools.text
-from assembler.levels.levels import load_level, check_level_exists
+from assembler.levels.levels import load_level, check_level_exists, get_level_dir, get_controller_save_path
 from controller.full_keyboard_controller import FullKeyboardController
 from controller.keyboard_controller import KeyboardController
 from controller.merged_controller import MergedController
@@ -14,6 +14,7 @@ from engine.controller_override import ControllerOverride
 from engine.settings import settings
 from externals.game_over.game_over import GameOver
 from externals.leaderboard.leaderboard import Leaderboard
+from externals.recording_complete.recording_complete import RecordingComplete
 from externals.title_screen.title_screen import TitleScreen
 from sound import sounds
 from tools.text import render_font_cool
@@ -24,6 +25,7 @@ class Engine:
     def __init__(self):
         self.current_level_number = 0
         self.current_level = None
+        self.level_builder_player_location = None
         self.score = 0
         self.difficulty = 1
         self.assistive_signs = True
@@ -68,21 +70,19 @@ class Engine:
         # Make the title screen
         self.title_screen = TitleScreen(self.screen.get_size(), self.alpha_controller)
 
-        # Placeholder for leaderboard
+        # Placeholder for leaderboard, etc
         self.leaderboard = None
+        self.recording_complete = None
 
         # Game type
-        # Either "single_player" or "two_player" or "level_builder"
-        self.game_type = "two_player"
-
-        if self.game_type == "level_builder":
-            self.level_builder_player_location = None
+        # Either "single_player" or "two_player" or "level_builder" or "demo/record" or "demo/replay"
+        self.game_type = "single_player"
 
         # Bypass startup screens to get where I want to be
         # For debugging
         # Set this to the number of the level minus 1
-        # self.current_level_number = 5
-        # self.difficulty = 0
+        # self.current_level_number = 10
+        # self.difficulty = 4
         # self.next_level()
 
     def initialize_loading_surface(self):
@@ -100,16 +100,16 @@ class Engine:
     def display_loading(self):
         self.screen.blit(self.loading_screen, (0, 0))
 
-    def display_player_bars(self, player, x):
+    def display_player_bars(self, player, x, laser_color):
 
         # The part of the hud with the laser bar
         self.screen.fill((255, 255, 255), pygame.rect.Rect(x - 2, self.screen.get_height() - 22, self.bar_length + 4, 14))
-        self.screen.fill((0, 162, 232), pygame.rect.Rect(x, self.screen.get_height() - 20, self.bar_length - (
+        self.screen.fill(laser_color, pygame.rect.Rect(x, self.screen.get_height() - 20, self.bar_length - (
                 self.bar_length / player.laser_recharge_time) * player.laser_cooldown, 10))
 
         # The part of the hud with the movement bar
         if player.movement_belt:
-            self.screen.fill((255, 255, 255), pygame.rect.Rect(x - 2, self.screen.get_height() - 38, self.bar_length + 4, 14))
+            self.screen.fill((255, 255, 255), pygame.rect.Rect(x - 2, self.screen.get_height() - 42, self.bar_length + 4, 14))
             self.screen.fill((142, 6, 6), pygame.rect.Rect(x, self.screen.get_height() - 40, (
                     self.bar_length / player.max_movement_belt_charges) * player.movement_belt_charges, 10))
             for i in range(player.max_movement_belt_charges - 1):
@@ -121,6 +121,12 @@ class Engine:
                                                   self.screen.get_height() - 32, 4, 2))
 
     def next_level(self):
+        def check_save_controls():
+            # Save the player controller recordings if nessecary
+            if self.game_type == "demo/record" and self.current_level_number > 1:
+                for i in range(len(self.current_level.players)):
+                    self.game_controllers[i].save(
+                        get_controller_save_path(self.game_type, str(self.current_level_number - 1), i))
         self.display_loading()
         pygame.display.flip()
         self.current_level_number += 1
@@ -128,13 +134,18 @@ class Engine:
             sounds.stop_music()
             if self.current_level:
                 self.current_level.prepare_for_destruction()
-
+            check_save_controls()
             # Generate and prepare the level
             self.current_level = load_level(self.game_type, str(self.current_level_number))
             if self.game_type != "level_builder":
                 self.current_level.null_speed = 30 - (5 * self.difficulty)
                 for i in range(len(self.current_level.players)):
+                    self.game_controllers[i].clear_movement_belt()
                     self.current_level.players[i].controller = self.game_controllers[i]
+                    if self.game_type == "demo/record":
+                        self.game_controllers[i].reset_recording()
+                    if self.game_type == "demo/replay":
+                        self.game_controllers[i].load(get_controller_save_path(self.game_type, str(self.current_level_number), i))
 
                 if self.current_level.null_speed <= 30:
                     sounds.play_music("dont_fall_behind_" + str(self.current_level.null_speed))
@@ -142,9 +153,13 @@ class Engine:
                 self.current_level.players[0].controller = self.full_keyboard_controller
 
         else:
-            game_over = GameOver(self.screen.get_size(), "Game Complete")
-            game_over.play_animation(self.screen)
-            self.go_to_leaderboard()
+            check_save_controls()
+            if self.game_type.split("/")[0] == "demo":
+                self.go_to_recording_complete()
+            else:
+                game_over = GameOver(self.screen.get_size(), "Game Complete")
+                game_over.play_animation(self.screen)
+                self.go_to_leaderboard()
 
     def block_controllers(self, time):
         self.controller_block_time = time
@@ -158,10 +173,15 @@ class Engine:
         self.leaderboard = Leaderboard(self.screen.get_size())
         self.current_level_number = -1
 
+    def go_to_recording_complete(self):
+        self.recording_complete = RecordingComplete(self.screen.get_size(), self.primary_controller)
+        self.current_level_number = -2
+
     def restart(self):
         self.current_level_number = 0
-        self.state = 0
+        self.title_screen.reset()
         self.score = 0
+        self.primary_controller.clear()
 
     @property
     def alpha_controller(self):
@@ -187,6 +207,9 @@ class Engine:
             elif self.current_level_number == -1:
                 self.leaderboard.update()
                 self.screen.blit(self.leaderboard.render(), (0, 0))
+            elif self.current_level_number == -2:
+                self.recording_complete.update()
+                self.screen.blit(self.recording_complete.render(), (0, 0))
             else:
                 # self.screen.blit(self.current_level.get_parallax_subsurface(), )
                 coords = (
@@ -201,14 +224,11 @@ class Engine:
                 self.screen.blit(render_font_cool(text), (10, 10))
 
                 if self.game_type != "level_builder":
-                    self.display_player_bars(self.current_players[0], 10)
-                    if self.game_type == "two_player":
-                        try:
-                            self.display_player_bars(self.current_players[1], self.screen.get_width() - 10 - self.bar_length)
-                        except IndexError:
-                            raise Exception("you oaf. You forgot to set meta.json of 2 player level " + self.current_level.level_name + " to have player_count: 2")
-
-
+                    self.display_player_bars(self.current_players[0], 10, (0, 162, 232))
+                    if len(self.current_level.players) == 2:
+                        self.display_player_bars(self.current_players[1], self.screen.get_width() - 10 - self.bar_length, (232, 162, 0))
+                    elif self.game_type == "two_player":
+                        raise Exception("you oaf. You forgot to set player_count = 2 in meta.json for level", self.current_level.level_name)
 
             clock.tick(fps)
 

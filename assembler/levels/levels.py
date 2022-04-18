@@ -6,11 +6,16 @@ import json
 
 
 def get_level_dir(level_type, level_dir):
+    level_type = level_type.split("/")[0]
     return os.path.join("resources", "levels", level_type, level_dir)
 
 
 def check_level_exists(level_type, level_dir):
     return os.path.exists(get_level_dir(level_type, level_dir))
+
+
+def get_controller_save_path(level_type, level_dir, index):
+    return os.path.join(get_level_dir(level_type, level_dir), "controller_" + str(index) + "_recording.json")
 
 
 def get_json_file(level_type, level_dir):

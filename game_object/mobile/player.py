@@ -125,6 +125,8 @@ class Player(pygame.sprite.Sprite):
         self.laser_cooldown = 0
         self.last_dir_is_left = False
 
+        self.suppress_double_jump()
+
     @property
     def x(self):
         return self.location[0]
@@ -360,7 +362,7 @@ class Player(pygame.sprite.Sprite):
                 sounds.play_sound("jump")
 
             # Double jumping with movement belt
-            elif self.controller.jump and self.movement_belt and self.movement_belt_charges > 0 and self.double_jump_cooldown == 0 and not self.double_jump_suppressed:
+            elif self.controller.double_jump and self.movement_belt and self.movement_belt_charges > 0 and self.double_jump_cooldown == 0 and not self.double_jump_suppressed:
                 self.vy = -0.3
                 self.movement_belt_charges -= 1
                 self.double_jump_cooldown = self.double_jump_cooldown_max

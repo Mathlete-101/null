@@ -22,6 +22,12 @@ class SettingsPanel(pygame.sprite.Group):
             return True
         return False
 
+    def on_item_left(self, result):
+        pass
+
+    def on_item_right(self, result):
+        pass
+
     def select_unselect(self, select, unselect):
         self.items[select].selected = True
         self.items[unselect].selected = False
@@ -70,6 +76,10 @@ class SettingsPanel(pygame.sprite.Group):
             sounds.play_sound("updown")
         elif self.controller.start_enter:
             return self.on_item_click(self.selected_item.on_click())
+        elif self.controller.start_left:
+            self.on_item_left(self.selected_item.on_left())
+        elif self.controller.start_right:
+            self.on_item_right(self.selected_item.on_right())
         return False
 
     @property

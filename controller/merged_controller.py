@@ -84,6 +84,11 @@ class MergedController(Controller):
                 return True
         return False
 
+    def clear(self):
+        """Clears the merged controller."""
+        for controller in self.controllers:
+            controller.clear()
+
     @property
     def jump(self):
         """Returns whether the player is trying to jump."""
@@ -155,5 +160,27 @@ class MergedController(Controller):
             if controller.start_back:
                 return True
         return False
+
+    @property
+    def start_left(self):
+        """Returns whether the player is trying to start the game."""
+        for controller in self.controllers:
+            if controller.start_left:
+                return True
+        return False
+
+    @property
+    def start_right(self):
+        """Returns whether the player is trying to start the game."""
+        for controller in self.controllers:
+            if controller.start_right:
+                return True
+        return False
+
+    def clear_movement_belt(self):
+        """Clears the movement belt."""
+        for controller in self.controllers:
+            controller.clear_movement_belt()
+
 
 

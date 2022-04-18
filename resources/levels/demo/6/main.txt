@@ -1,0 +1,31 @@
+BB                                                                                                               BB 
+BB                                                                                                               BB 
+BB                                                                                                               BB 
+BB                                                                                                               BB 
+BB                                                                                                               BB 
+BB                   BBBBBBB                                                                                     BB 
+BB                   B  2  RWWWWWWW                                                                              BB 
+BB                   B     B      W                                                                              BB 
+BB                   B    2B      W                                                                              BB 
+BB                   B2    B      W                                                                              BB 
+BB                   B     FWW    W                                                                              BB 
+BB             BBBBBBB     BBWBBBBW                                                                              BB 
+BB             B  CWWF       WC  BW                                                                              BB 
+BB             B  CQ         QC  BW                                                                              BB 
+BB             B LBWBBBBBBBBBWBL BW                                                                              BB 
+BB             B LBWR  C1C  RWBL BW                                                                              BB 
+BB             B LB B LBBBL B BL BW                                                                              BB 
+BBBBBBBBBBBBBBBB LB B LB BL B BL BWBB                                                                            BB 
+BBC    1C  3B  C LBwB LB BL B BL CQ C                                                                            BB 
+BBC     C  TW  C LBwB LB BL B BL CQ C   2                                                                        BB 
+BBC     C   Q  CBBBwB LB BL B BL CQ C                                                                            BB 
+BBC  P  C   Q BBBBBwB LB BL B BL CQ C                                                                            BB 
+BBBBBBBBBBFBFBBBBBBBB LB BL BBBBBBWBB                                                                            BB 
+BBC1    C Q    C  C C LB BL C C  CQ C                                                                            BB 
+BBC     C Q    C  C BBBB BL C C1 CQ C                                                                            BB 
+BBC     CTW    C  BBBBBB BL C C  CQ C                                                                            BB 
+BBC  P  C B    CBBBBBBBB BL C C  CQ C  d                                                                         BB 
+BBBBBBBBBBBBBBBBBBBBBBBBBBBBBFBBBBWBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB 
+BBBBBBBBBBBBBBBBBBBBBBBBBBBBBWWWWWtWTBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB 
+BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB 
+BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB 

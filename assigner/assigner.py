@@ -54,6 +54,10 @@ def assign_individual(location, level, level_text, meta_data, level_name):
     chars = (level_text.background.get(location),
              level_text.main.get(location),
              level_text.foreground.get(location))
+
+    # Direct backgrounds
+    apply_background(chars[0], location, level)
+
     # Main Pieces
     if chars[1] == "B":
         surroundings = level_text.main.get_surrounding_pieces(location)
@@ -204,8 +208,6 @@ def assign_individual(location, level, level_text, meta_data, level_name):
         level.block_sprite_group.add(level.main[location[0]][location[1]])
     level.col_groups[location[0]].add(level.main[location[0]][location[1]])
 
-    # Direct backgrounds
-    apply_background(chars[0], location, level)
 
 
 def assign(level_text: LevelText, level_name, meta_data: dict, level_type):

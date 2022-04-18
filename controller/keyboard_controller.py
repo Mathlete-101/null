@@ -168,3 +168,34 @@ class KeyboardController(Controller):
     @property
     def start_back(self):
         return self.s_down
+
+    @property
+    def start_left(self):
+        return self.left_arrow_down
+
+    @property
+    def start_right(self):
+        return self.right_arrow_down
+
+    def clear(self):
+        self.a = False
+        self.s = False
+        self.up_arrow = False
+        self.down_arrow = False
+        self.left_arrow = False
+        self.right_arrow = False
+        self.double_tap_counter = 0
+        self.last_arrow_left_or_right = None
+        self.up_arrow_down = False
+        self.down_arrow_down = False
+        self.left_arrow_down = False
+        self.right_arrow_down = False
+        self.s_down = False
+        self.a_down = False
+
+    def clear_movement_belt(self):
+        self.double_tap_counter = 0
+        self.last_arrow_left_or_right = None
+        self.down_arrow_down = False
+        self.a_down = False
+

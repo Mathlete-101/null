@@ -192,3 +192,45 @@ class NESController(Controller):
     @property
     def start_back(self):
         return self.b_button_down
+
+    @property
+    def start_left(self):
+        return self.left_dpad_down
+
+    @property
+    def start_right(self):
+        return self.right_dpad_down
+
+
+    def clear(self):
+        self.a_button = False
+        self.a_button_down = False
+        self.b_button = False
+        self.b_button_down = False
+        self.up_dpad = False
+        self.up_dpad_down = False
+        self.down_dpad = False
+        self.down_dpad_down = False
+        self.left_dpad = False
+        self.left_dpad_down = False
+        self.right_dpad = False
+        self.right_dpad_down = False
+        self.left_dpad_double_click = False
+        self.right_dpad_double_click = False
+        self.double_click_counter = 0
+        self.last_direction_left_or_right = ''
+        self.select_button = False
+        self.select_button_down = False
+        self.start_button = False
+        self.start_button_down = False
+
+    def clear_movement_belt(self):
+        self.up_dpad_down = False
+        self.down_dpad_down = False
+        self.double_click_counter = 0
+        self.last_direction_left_or_right = ''
+
+
+
+
+

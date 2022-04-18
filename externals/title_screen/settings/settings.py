@@ -6,6 +6,7 @@ from externals.title_screen.settings.exit_settings_panel import ExitSettingsPane
 from externals.title_screen.settings.gameplay_settings_panel import GameplaySettingsPanel
 from externals.title_screen.settings.settings_panel import SettingsPanel
 from externals.title_screen.settings.volume_settings_panel import VolumeSettingsPanel
+from sound import sounds
 from tools import duple
 
 class Settings(pygame.sprite.Group):
@@ -44,9 +45,12 @@ class Settings(pygame.sprite.Group):
                     self.current_panel.active = True
                     self.setting_selector.active = False
                     self.state = 1
+            elif self.controller.start_back:
+                return True
         elif self.state == 1:
-            if self.current_panel.update():
+            if self.current_panel.update() or self.controller.start_back:
                 self.current_panel.active = False
                 self.setting_selector.active = True
                 self.state = 0
+                sounds.play_sound("select")
         return False

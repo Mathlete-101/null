@@ -56,6 +56,12 @@ class Slider(SettingsItem):
     def on_click(self):
         self.slider_up()
 
+    def on_left(self):
+        self.slider_down()
+
+    def on_right(self):
+        self.slider_up()
+
     def slider_up(self):
         sounds.play_sound("test_tone")
         if self.val < self.units:
