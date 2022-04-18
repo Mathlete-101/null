@@ -236,7 +236,6 @@ class Engine:
             if self.controller_block_time == 0:
                 for event in pygame.event.get():
                     if event.type == pygame.JOYDEVICEADDED or pygame.JOYDEVICEREMOVED:
-                        # todo: re add joysticks
                         pass
 
                     if event.type == pygame.QUIT:

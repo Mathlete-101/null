@@ -4,73 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42117786-7b2d-4532-bf14-8ab0f6567828" name="Changes" comment="Added unversioned files to git">
-      <change afterPath="$PROJECT_DIR$/controller/nes_playback_controller.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controller/nes_recorder_controller.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/externals/recording_complete/recording_complete.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/demo/1/background.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/demo/1/foreground.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/demo/1/main.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/demo/1/meta.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/demo/2/background.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/demo/2/foreground.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/demo/2/main.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/demo/2/meta.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/demo/3/background.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/demo/3/foreground.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/demo/3/main.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/demo/3/meta.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/demo/4/background.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/demo/4/foreground.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/demo/4/main.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/demo/4/meta.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/demo/5/background.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/demo/5/foreground.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/demo/5/main.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/demo/5/meta.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/demo/6/background.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/demo/6/foreground.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/demo/6/main.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/demo/6/meta.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/single_player/11/background.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/single_player/11/foreground.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/single_player/11/main.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/levels/single_player/11/meta.json" afterDir="false" />
+    <list default="true" id="42117786-7b2d-4532-bf14-8ab0f6567828" name="Changes" comment="Fixed numerous bugs and made minor tweaks. Also, added demo mode, which allows for recordings. I created a 3:00 recording for the presentation. This should be pretty close to presentation version 2.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assembler/levels/levels.py" beforeDir="false" afterPath="$PROJECT_DIR$/assembler/levels/levels.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assigner/assigner.py" beforeDir="false" afterPath="$PROJECT_DIR$/assigner/assigner.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controller/controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/keyboard_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controller/keyboard_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/merged_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controller/merged_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/nes_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controller/nes_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/engine/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/externals/game_over/game_over.py" beforeDir="false" afterPath="$PROJECT_DIR$/externals/game_over/game_over.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/externals/title_screen/selector.py" beforeDir="false" afterPath="$PROJECT_DIR$/externals/title_screen/selector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/externals/title_screen/settings/button.py" beforeDir="false" afterPath="$PROJECT_DIR$/externals/title_screen/settings/button.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/externals/title_screen/settings/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/externals/title_screen/settings/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/externals/title_screen/settings/settings_item.py" beforeDir="false" afterPath="$PROJECT_DIR$/externals/title_screen/settings/settings_item.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/externals/title_screen/settings/settings_panel.py" beforeDir="false" afterPath="$PROJECT_DIR$/externals/title_screen/settings/settings_panel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/externals/title_screen/settings/slider.py" beforeDir="false" afterPath="$PROJECT_DIR$/externals/title_screen/settings/slider.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/externals/title_screen/settings/volume_settings_panel.py" beforeDir="false" afterPath="$PROJECT_DIR$/externals/title_screen/settings/volume_settings_panel.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/externals/title_screen/title_screen.py" beforeDir="false" afterPath="$PROJECT_DIR$/externals/title_screen/title_screen.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object/mobile/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object/mobile/player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/images/player/1/laser.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/images/player/1/laser.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/images/player/1/moving.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/images/player/1/moving.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/images/player/1/static.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/images/player/1/static.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/levels/single_player/3/meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/3/meta.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/levels/single_player/4/meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/4/meta.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/levels/single_player/5/meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/5/meta.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/levels/single_player/6/meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/6/meta.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/levels/single_player/7/meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/single_player/7/meta.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/levels/two_player/1/meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/two_player/1/meta.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/levels/two_player/2/meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/two_player/2/meta.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/levels/two_player/3/meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/two_player/3/meta.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/levels/two_player/4/meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/two_player/4/meta.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/levels/two_player/5/meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/two_player/5/meta.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/levels/two_player/6/meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/levels/two_player/6/meta.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/duple.py" beforeDir="false" afterPath="$PROJECT_DIR$/tools/duple.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/text.py" beforeDir="false" afterPath="$PROJECT_DIR$/tools/text.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -385,7 +322,14 @@
       <option name="project" value="LOCAL" />
       <updated>1650171862561</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Fixed numerous bugs and made minor tweaks. Also, added demo mode, which allows for recordings. I created a 3:00 recording for the presentation. This should be pretty close to presentation version 2.">
+      <created>1650252353640</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1650252353640</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -421,7 +365,8 @@
     <MESSAGE value="Toggle assistive signs is now functional" />
     <MESSAGE value="Basic level builder functionality now available by settings game_type to &quot;level_builder&quot; and skipping the startup. All 6 2-player levels now complete." />
     <MESSAGE value="Added unversioned files to git" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added unversioned files to git" />
+    <MESSAGE value="Fixed numerous bugs and made minor tweaks. Also, added demo mode, which allows for recordings. I created a 3:00 recording for the presentation. This should be pretty close to presentation version 2." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed numerous bugs and made minor tweaks. Also, added demo mode, which allows for recordings. I created a 3:00 recording for the presentation. This should be pretty close to presentation version 2." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

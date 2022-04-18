@@ -94,7 +94,6 @@ class TitleScreen:
 
         # It's Turing Time
         # Basically just a bunch of menu logic
-        # TODO: add more menu logic
         if self.state == 0:
             self.first_options.update()
             if self.controller.start_enter:
