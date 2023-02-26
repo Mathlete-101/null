@@ -91,6 +91,9 @@ class Leaders(pygame.sprite.Group):
                                 "name": leader.name,
                                 "score": leader.score
                             })
+
+                        if not os.path.exists(os.path.dirname(self.path)):
+                            os.makedirs(os.path.dirname(self.path))
                         with open(self.path, "w") as file:
                             json.dump(leaderboard_dict, file)
                 else:

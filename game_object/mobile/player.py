@@ -43,6 +43,10 @@ class PlayerMovementOverride:
         return False
 
 
+def movement_override(function, duration):
+    return PlayerMovementOverride([PlayerMovementOverrideCommand(function, duration)])
+
+
 class Player(pygame.sprite.Sprite):
 
     def __init__(self, level, player_number, location=(1, 1)):
@@ -89,13 +93,13 @@ class Player(pygame.sprite.Sprite):
             player.vx = 0 - player.dash_speed
             player.vy = 0
             player.level.add_effect(Effect(Animation(graphics.get("player_dash"), 5), player.render_location))
-        self.dash_left_command = PlayerMovementOverride([PlayerMovementOverrideCommand(dash_left, 10)])
+        self.dash_left_command = movement_override(dash_left, 10)
 
         def dash_right(player):
             player.vx = player.dash_speed
             player.vy = 0
             player.level.add_effect(Effect(Animation(graphics.get("player_dash"), 5), player.render_location))
-        self.dash_right_command = PlayerMovementOverride([PlayerMovementOverrideCommand(dash_right, 10)])
+        self.dash_right_command = movement_override(dash_right, 10)
 
         def yoyo(player: Player):
             player.vx = 0
@@ -106,7 +110,7 @@ class Player(pygame.sprite.Sprite):
             player.level.add_effect(Effect(Animation(graphics.get("player_yoyo_portal_end"), 3), player.render_location))
             player.yoyo_effect.kill()
             player.yoyo_effect = None
-        self.yoyo_command = PlayerMovementOverride([PlayerMovementOverrideCommand(yoyo, 1)])
+        self.yoyo_command = movement_override(yoyo, 1)
 
         # okay, so this needs some explaining
         # I wrote some code that controls the laser, but it was tuned for a different hitbox size

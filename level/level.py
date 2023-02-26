@@ -2,7 +2,6 @@ import random
 from typing import List
 
 import pygame
-from stopwatch import Stopwatch
 
 import tools.transform
 from game_object.mobile.level_builder_player import LevelBuilderPlayer
